@@ -2,21 +2,38 @@
 session_start();
 require_once "autoload.php";
 
-$erreur="";
-$lesContacts = new AdministrateursDAO(MaBD::getInstance());
+/*$lesContacts = new AdministrateursDAO(MaBD::getInstance());
 $param['login'] = isset($_POST['login'])?trim($_POST['login']):"";
 $param['password'] = isset($_POST['password'])?trim($_POST['password']):"";
 $param['message'] = "";
 
-if (isset($_POST['username']) && isset($_POST['password'])) {
-    if (($theAdmin = $lesContacts->check($_POST['username'], $_POST['password'])) != null) {
-        $_SESSION['username'] = $theAdmin;
+if (isset($_POST['login']) && isset($_POST['password'])) {
+    if (($theAdmin = $lesContacts->check($_POST['login'], $_POST['password'])) != null) {
+        $_SESSION['login'] = $theAdmin;
+        header("Location: home_ca.php");
+        exit(0);
+    } else {
+        $erreur = "login ou mdp incorrect";
+    }
+}*/
+
+$erreur="";
+
+$lesEmployes = new employeDAO(MaBD::getSchema());
+$param['login'] = isset($_POST['login'])?trim($_POST['login']):"";
+$param['password'] = isset($_POST['password'])?trim($_POST['password']):"";
+$param['message'] = "";
+
+if (isset($_POST['login']) && isset($_POST['password'])) {
+    if (($theUser = $lesEmployes->check($_POST['password'],$_POST['login'])) != null) {
+        $_SESSION['login'] = $theUser;
         header("Location: home_ca.php");
         exit(0);
     } else {
         $erreur = "login ou mdp incorrect";
     }
 }
+
 ?>
 <!DOCTYPE html>
 
@@ -45,7 +62,7 @@ if(!empty($erreur)){
             <section>
                 <section class="credentials">
                     <label>ID d'employé</label>
-                    <input type="text" name="username" placeholder="DufourT">
+                    <input type="text" name="login" placeholder="DufourT">
                 </section>
 
                 <section class="credentials">

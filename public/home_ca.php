@@ -1,6 +1,18 @@
 <?php
 session_start();
 require_once"autoload.php";
+
+if (!isset($_SESSION['login'])) {
+    // On renvoie vers la page d'accueil
+    header("Location: login.php");
+    exit(0);
+}
+
+if(isset($_POST['deconnexion'])){
+    session_destroy();
+    header("Location: login.php");
+    exit(0);
+}
 ?>
 <!DOCTYPE html>
 
@@ -25,7 +37,10 @@ require_once"autoload.php";
         <p>Pièces</p>
     </section>
     <section class="nav-right">
-        <img src="img/logout.png" alt="Déconnexion" class="logout">
+        <form method="post">
+            <input type="submit" name="deconnexion" value="" class="logout">
+<!--            <img src="img/logout.png" alt="deconnexion" class="logout">-->
+        </form>
     </section>
 </nav>
 
@@ -137,8 +152,7 @@ require_once"autoload.php";
     <button class="back">✖</button>
 </section>
 
-
-<script src="../../AutoCars/public/js/script.js"></script>
+<script src="js/script.js"></script>
 </body>
 
 </html>

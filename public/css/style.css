@@ -172,7 +172,8 @@ nav p:hover:after {
 }
 
 .logout{
-	width: 25px;
+	background:url(../img/logout.png) no-repeat;
+	cursor: pointer;
 }
 
 .btn-menu > img {
