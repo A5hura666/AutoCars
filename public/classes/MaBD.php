@@ -10,8 +10,8 @@ class MaBD {
    // Obenir le singleton
    static function getInstance(): PDO {
       if (self::$pdo == null) {
-         $dsn = "mysql:host=ethan;dbname=graillet;charset=utf8";
-         self::$pdo = new PDO($dsn, "graillet", "graillet");
+         $dsn = "mysql:host=bourguet;dbname=bourguet;charset=utf8";
+         self::$pdo = new PDO($dsn, "bourguet", "bourguet");
       }
       return self::$pdo;
    }
