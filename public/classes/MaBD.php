@@ -15,9 +15,4 @@ class MaBD {
       }
       return self::$pdo;
    }
-
-   static function getSchema(){
-       self::getInstance();
-       return self::$pdo->getSchema("SAE_role");
-   }
 }

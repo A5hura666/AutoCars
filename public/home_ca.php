@@ -1,6 +1,6 @@
 <?php
 session_start();
-require_once"autoload.php";
+require_once "autoload.php";
 
 if (!isset($_SESSION['login'])) {
     // On renvoie vers la page d'accueil
@@ -8,7 +8,7 @@ if (!isset($_SESSION['login'])) {
     exit(0);
 }
 
-if(isset($_POST['deconnexion'])){
+if(isset($_POST['logout'])){
     session_destroy();
     header("Location: login.php");
     exit(0);
@@ -38,7 +38,7 @@ if(isset($_POST['deconnexion'])){
     </section>
     <section class="nav-right">
         <form method="post">
-            <input type="submit" name="deconnexion" value="" class="logout">
+            <input type="submit" name="logout" value="" class="logout">
 <!--            <img src="img/logout.png" alt="deconnexion" class="logout">-->
         </form>
     </section>
