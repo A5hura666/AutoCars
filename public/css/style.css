@@ -34,21 +34,40 @@ body {
 	overflow: hidden;
 	-webkit-backdrop-filter: blur(var(--blur-norm));
 	backdrop-filter: blur(var(--blur-norm));
+	
 }
 
-body,
-main > section {
+body {
 	display: flex;
 	justify-content: center;
 	align-items: center;
 	flex-direction: column;
+	
+}
+
+main{
+	height: 86vh;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	border-top-left-radius: var(--border-norm);
+	border-top-right-radius: var(--border-norm);
+	width: 98%;
+	-webkit-backdrop-filter: blur(var(--blur-norm));
+	backdrop-filter: var(--blur-norm);
+
+}
+
+
+body{
+	justify-content: flex-end;
 }
 
 .login {
 	display: flex;
 	width: 850px;
 	height: 500px;
-	/*background-color: ;*/
+	background-color: ;
 	border-radius: var(--border-norm);
 }
 #login,
@@ -64,7 +83,7 @@ form {
 	display: flex;
 	justify-content: space-around;
 	flex-direction: column;
-	/*width: 5;*/
+	width: 5;
 	height: 100%;
 	align-items: center;
 }
@@ -84,15 +103,24 @@ form {
 	border-bottom-left-radius: var(--border-norm);
 }
 input {
-	background-color: #4a4a4a;
+	background-color: #5b5b5b7a;
 	border: none;
 	border-radius: var(--border-norm);
 	color: white;
 	padding: 10px 20px;
-	/*width: 1;*/
+	width: 1;
+	margin: 5px 0;
 }
 label {
 	color: white;
+}
+
+h2{
+	font-size: 200%;
+}
+
+h3{
+	font-size: 140%;
 }
 
 article{
@@ -117,7 +145,10 @@ nav {
 	box-shadow: 0px 8px 16px hsl(0deg 0% 0% / 14%);
 	padding: 0px 20px;
 }
-nav p, nav img {
+nav a{
+	text-decoration: none;
+}
+nav a, nav img {
 	filter: invert(1);
 }
 nav > section {
@@ -133,7 +164,7 @@ nav img {
 	width: 50px;
 	/* height: 20px; */
 }
-nav p:hover:after {
+nav a:hover:after {
 	background-color: #141414;
 	height: 2px;
 	width: 100px;
@@ -145,7 +176,7 @@ nav p:hover:after {
 }
 
 
-.nav-left p {
+.nav-left a {
 	width: 200px;
 	text-align: center;
 }
@@ -172,8 +203,7 @@ nav p:hover:after {
 }
 
 .logout{
-	background:url(../img/logout.png) no-repeat;
-	cursor: pointer;
+	width: 25px;
 }
 
 .btn-menu > img {
@@ -193,6 +223,7 @@ nav p:hover:after {
 	align-items: center;
 	flex-direction: column;
 	justify-content: center;
+	top: 25%;
 }
 
 .menu a {
@@ -219,3 +250,97 @@ nav p:hover:after {
 	display: none;
 }
 
+
+
+
+
+/*---------------------------------------------------
+					Create User
+---------------------------------------------------*/
+.interface{
+	background-color: #0000009d;	
+	flex-direction: column;
+	justify-content: space-evenly;
+	padding-bottom: 50px;
+}
+
+
+.interface form>section{
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+}
+
+.interface form .btn{
+	flex-direction: row;
+}
+
+.interface form>section>div{
+	margin: 20px;
+	padding: 40px 60px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	background-color: #00000097;
+	border-radius: var(--border-norm);
+}
+
+.interface form input[type="text"]{
+	width: 350px;
+}
+
+.interface form .btn{
+	margin-top: 50px;
+}
+
+
+
+
+
+
+
+/*--------------------------------------------------
+					Create RDV
+--------------------------------------------------*/
+
+.client,.vehicle{
+	align-items: center;
+}
+
+.client>section:first-child,.vehicle>section:first-child{
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+}
+
+.clientdetails, .vehicledetails{
+	margin-top: 50px;
+}
+
+.usersearchbar, .vehiclesearchbar{
+	width: 400px !important;
+	border-radius: 100px;
+}
+
+.cp{
+	width: 60px !important;
+}
+
+.ville{
+	width: 200px !important;
+}
+
+.clientdetails>div,.vehicledetails>div{
+	align-items: center;
+	display: flex;
+	justify-content: space-between;
+}
+
+.clientdetails>div label,.vehicledetails>div label{
+	margin: 0 10px;
+}
+
+
+.vehicledetails input[type="text"]{
+	width: 250px !important;
+}
