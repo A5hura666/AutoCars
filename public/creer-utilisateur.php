@@ -7,10 +7,15 @@
 
     $theUsers = new UsersDAO(MaBD::getInstance());
 
+
     if (isset($_POST['createUser'])){
-        $newUser = new Users($theUsers->getNewIdForUser(),$_POST['nom'],$_POST['prenom'],$_POST['role'],$_POST['login'],$_POST['password']);
+        $newUser = new Users(DAO::UNKNOWN_ID,$_POST['nom'],$_POST['prenom'],$_POST['role'],$_POST['login'],password_hash($_POST['password'],PASSWORD_ARGON2ID));
+        $message=$_POST['nom']." ".$_POST['prenom']." ".$_POST['role'] ." a bien été ajouté.";
         $theUsers->save($newUser);
+    }else{
+        $erreur="une erreur c'est produite lors de l'insertion de l'utilisateur";
     }
+
 
     if(isset($_POST['deconnexion'])){
         session_destroy();
@@ -49,7 +54,7 @@
     <h2>Création d'utilisateur</h2>
     <section>
         <form class="createuser" method="post">
-            <!--<input hidden type='text' name='id' value='<?php //$this->idUser ?>'/>-->
+
             <section>
                 <div class="personalData">
                     <h3>Informations personnelles</h3>
@@ -89,9 +94,10 @@
     </section>
 </main>
 
-
 <?php
-    var_dump($_POST);
+if (!empty($message)){
+    echo $message;
+}
 ?>
 
 <script src="js/script.js"></script>

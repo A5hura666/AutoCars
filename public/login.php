@@ -21,7 +21,6 @@ $param['password'] = isset($_POST['password'])?trim($_POST['password']):"";
 $param['message'] = "";
 $erreur="";
 
-
 //Les Users Connexion
 if (isset($_POST['login']) && isset($_POST['password'])) {
     if (($theUser = $theUsers->check($_POST['login'],$_POST['password'])) != null) {
