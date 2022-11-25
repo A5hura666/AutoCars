@@ -2,31 +2,50 @@
 
 class Users
 {
-    public int $idUser;
-    public string $LastName;
-    public string $FirstName;
-    public string $Login;
-    public string $Password;
+    private int $idUser;
+    private string $LastName;
+    private string $FirstName;
+    private string $Role;
+    private string $Login;
+    private string $Password;
 
+    const ADMINISTRATEUR="Administrateur";
+    const CHEF_ATELIER="Chef d'atelier";
+    const OPERATEUR="Opérateur";
 
     /**
      * @param int $idUser
      * @param string $LastName
      * @param string $FirstName
+     * @param string $Role
      * @param string $Login
      * @param string $Password
      */
-    public function __construct(int $idUser, string $LastName, string $FirstName, string $Login, string $Password)
+    public function __construct(int $idUser, string $LastName, string $FirstName, string $Role, string $Login, string $Password)
     {
         $this->idUser = $idUser;
         $this->LastName = $LastName;
         $this->FirstName = $FirstName;
+        $this->Role = $Role;
         $this->Login = $Login;
         $this->Password = $Password;
-
     }
 
+    /**
+     * @return string
+     */
+    public function getRole(): string
+    {
+        return $this->Role;
+    }
 
+    /**
+     * @param string $Role
+     */
+    public function setRole(string $Role): void
+    {
+        $this->Role = $Role;
+    }
 
     /**
      * @return int
@@ -106,22 +125,6 @@ class Users
     public function setPassword(string $Password): void
     {
         $this->Password = $Password;
-    }
-
-    /**
-     * @return string[]
-     */
-    public function getRole(): array|string
-    {
-        return $this->Role;
-    }
-
-    /**
-     * @param string[] $Role
-     */
-    public function setRole(array|string $Role): void
-    {
-        $this->Role = $Role;
     }
 
 }

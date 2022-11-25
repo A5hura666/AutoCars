@@ -14,7 +14,6 @@ if (isset($_POST['login']) && isset($_POST['password'])) {
         $erreur = "login ou mdp incorrect";
     }
 }*/
-
 $theUsers = new UsersDAO(MaBD::getInstance());
 
 $param['login'] = isset($_POST['login'])?trim($_POST['login']):"";
@@ -22,16 +21,18 @@ $param['password'] = isset($_POST['password'])?trim($_POST['password']):"";
 $param['message'] = "";
 $erreur="";
 
+
 //Les Users Connexion
 if (isset($_POST['login']) && isset($_POST['password'])) {
     if (($theUser = $theUsers->check($_POST['login'],$_POST['password'])) != null) {
         $_SESSION['login'] = $theUser;
         header("Location: home_ca.php");
-        return;
+        exit(0);
     } else {
         $erreur = "Login or password wrong !";
     }
 }
+
 ?>
 <!DOCTYPE html>
 

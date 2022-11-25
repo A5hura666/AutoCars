@@ -9,16 +9,17 @@ class UsersDAO extends DAO
         $stmt = $this->pdo->prepare("SELECT * FROM UserRole WHERE idUser = ?");
         $stmt->execute([$id]);
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
-        return new Users($row['idUser'], $row['$LastName'], $row['FirstName'], $row['Login'], $row['Password']);
+        return new Users($row['idUser'], $row['$LastName'], $row['FirstName'],$row['Role'] ,$row['Login'], $row['Password']);
     }
 
     // Récupération de tous les objets dans une table
     public function getAll(): array
     {
-        $res = array();
+        /** @var Users[] $res */
+        $res = [];
         $stmt = $this->pdo->query("SELECT * FROM UserRole");
         foreach ($stmt->fetchAll(PDO::FETCH_ASSOC) as $row)
-            $res[] = new Users($row['idUser'], $row['LastName'], $row['FirstName'], $row['Login'], $row['Password']);
+            $res[] = new Users($row['idUser'], $row['LastName'], $row['FirstName'],$row['Role'], $row['Login'], $row['Password']);
         return $res;
     }
 
@@ -27,15 +28,15 @@ class UsersDAO extends DAO
     //     $obj->id != UNKNOWN_ID ==> UPDATE
 
     public function save(object $obj): int {
-        if ($obj->IdEmployé == DAO::UNKNOWN_ID) {
-            $stmt =  $this->pdo->prepare("INSERT INTO UserRole (LastName, FirstName)"
-                . " VALUES (?,?)");
-            $res = $stmt->execute([$obj->Nom, $obj->Prénom]);
+        if ($obj->idUser == DAO::UNKNOWN_ID) {
+            $stmt =  $this->pdo->prepare("INSERT INTO UserRole (LastName, FirstName, Role, Login, Password)"
+                . " VALUES (?,?,?,?,?)");
+            $res = $stmt->execute([$obj->LastName, $obj->FirstName, $obj->Role, $obj->Login, $obj->Password]);
             $obj->id = $this->pdo->lastInsertId();
         } else {
-            $stmt = $this->pdo->prepare("UPDATE UserRole set Nom=:Nom, Prénom=:Prénom"
-                . " WHERE IdEmployé=:IdEmployé");
-            $res = $stmt->execute(['IdEmployé' => $obj->IdEmployé, 'Nom' => $obj->Nom, 'Prénom' => $obj->Prénom]);
+            $stmt = $this->pdo->prepare("UPDATE UserRole set LastName=:LastName, FirstName=:FirstName, Role=:Role, Login=:Login, Password=:Password"
+                . " WHERE idUser=:idUser");
+            $res = $stmt->execute(['idUser' => $obj->idUser, 'LastName' => $obj->LastName, 'FirstName' => $obj->FirstName, 'Role' => $obj->Role, 'Login' => $obj->Login, 'Password' => $obj->Password]);
         }
         return $res;
     }
@@ -48,10 +49,15 @@ class UsersDAO extends DAO
 
     public function check($login,$pwd): ?Users{
         foreach ($this->getAll() as $users){
-            if ($users->Login == $login && $users->Password == $pwd ){
+            if ($users->getLogin() == $login && $users->getPassword() == $pwd){
                 return $users;
             }
         }
         return null;
+    }
+
+    public function getNewIdForUser(): int{
+        $stmt = $this->pdo->prepare("SELECT idUser from UserRole");
+        return $stmt->execute();
     }
 }
