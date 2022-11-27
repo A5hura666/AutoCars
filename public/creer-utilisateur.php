@@ -1,27 +1,32 @@
 <?php
-    session_start();
-    require "autoload.php";
+session_start();
+require "autoload.php";
 
-    $message="";
-    $erreur="";
+if (!isset($_SESSION['login'])) {
+    // On renvoie vers la page d'accueil
+    header("Location: login.php");
+    exit(0);
+}
 
-    $theUsers = new UsersDAO(MaBD::getInstance());
+$message = "";
+$erreur = "";
+
+$theUsers = new UsersDAO(MaBD::getInstance());
+
+if (isset($_POST['createUser'])) {
+    $newUser = new Users(DAO::UNKNOWN_ID, $_POST['nom'], $_POST['prenom'], $_POST['role'], $_POST['login'], password_hash($_POST['password'], PASSWORD_ARGON2ID));
+    $message = $_POST['nom'] . " " . $_POST['prenom'] . " " . $_POST['role'] . " a bien été ajouté.";
+    $theUsers->save($newUser);
+} else {
+    $erreur = "une erreur c'est produite lors de l'insertion de l'utilisateur";
+}
 
 
-    if (isset($_POST['createUser'])){
-        $newUser = new Users(DAO::UNKNOWN_ID,$_POST['nom'],$_POST['prenom'],$_POST['role'],$_POST['login'],password_hash($_POST['password'],PASSWORD_ARGON2ID));
-        $message=$_POST['nom']." ".$_POST['prenom']." ".$_POST['role'] ." a bien été ajouté.";
-        $theUsers->save($newUser);
-    }else{
-        $erreur="une erreur c'est produite lors de l'insertion de l'utilisateur";
-    }
-
-
-    if(isset($_POST['deconnexion'])){
-        session_destroy();
-        header("Location: Connexion.php");
-        exit(0);
-    }
+if (isset($_POST['deconnexion'])) {
+    session_destroy();
+    header("Location: Connexion.php");
+    exit(0);
+}
 
 ?>
 <!DOCTYPE html>
@@ -95,7 +100,7 @@
 </main>
 
 <?php
-if (!empty($message)){
+if (!empty($message)) {
     echo $message;
 }
 ?>
