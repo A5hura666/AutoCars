@@ -40,6 +40,8 @@
 	-webkit-user-select: none;
 	user-select: none;
 	transition-duration: .1s;
+	-webkit-user-drag: none;
+	
 }
 
 html,
@@ -86,7 +88,7 @@ main {
 
 
 body {
-	justify-content: center;
+	justify-content: flex-end;
 }
 
 ul{
@@ -118,7 +120,9 @@ ul{
 		justify-content: center;
 	}
 
-
+.loginpage{
+	justify-content: center;
+}
 
 form {
 	display: flex;
@@ -345,6 +349,6 @@ aside>div,
 	border-radius: var(--border-norm);
 }
 
-.interface form input[type="text"] {
+.interface form input[type="text"], .interface form input[type="email"] {
 	width: 300px;
 }
