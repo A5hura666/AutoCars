@@ -2,6 +2,12 @@
 session_start();
 require "autoload.php";
 
+if (!isset($_SESSION['login'])) {
+    // On renvoie vers la page d'accueil
+    header("Location: login.php");
+    exit(0);
+}
+
 $TheClient = new ClientsDAO(MaBD::getInstance());
 
 ?>
@@ -36,49 +42,49 @@ $TheClient = new ClientsDAO(MaBD::getInstance());
 <main class="interface">
     <h2>Création de client</h2>
     <section>
-        <form class="createuser">
+        <form class="createuser" method="post">
             <section>
                 <div class="personalData">
                     <h3>Informations personnelles</h3>
                     <label for="fname">Prénom</label>
-                    <input type="text" class="fname" placeholder="François" required>
+                    <input type="text" class="fname" name="prenom" placeholder="François" required>
                     <label for="fname">Nom</label>
-                    <input type="text" class="lname" placeholder="Duchemin" required>
+                    <input type="text" class="lname" name="nom" placeholder="Duchemin" required>
                     <br>
                     <label for="fname">Adresse</label>
-                    <input type="text" class="address" placeholder="1234 rue de la Paix" required>
+                    <input type="text" class="address" name="adresse" placeholder="1234 rue de la Paix" required>
                     <label for="fname">Ville</label>
-                    <input type="text" class="city" placeholder="Montréal" required>
+                    <input type="text" class="city" name="city" placeholder="Montréal" required>
                     <label for="fname">Code postal</label>
-                    <input type="text" class="postalCode" placeholder="H2T 2M4" required>
+                    <input type="text" class="postalCode" name="cp" placeholder="H2T 2M4" required>
 
                 </div>
                 <div class="vehicledetails">
                     <h3>Véhicule</h3>
 
                     <label for="marque">Marque</label>
-                    <input type="text" class="marque" placeholder="Ford" required>
+                    <input type="text" class="marque" name="marque" placeholder="Ford" required>
                     <label for="modele">Modèle</label>
-                    <input type="text" class="modele" placeholder="Mustang" required>
+                    <input type="text" class="modele" name="modele" placeholder="Mustang" required>
                     <label for="annee">Année</label>
-                    <input type="text" class="annee" placeholder="2018" required>
+                    <input type="text" class="annee" name="annee" placeholder="2018" required>
                     <label for="immatriculation">Immatriculation</label>
-                    <input type="text" class="immatriculation" placeholder="ABC1234" required>
+                    <input type="text" class="immatriculation" name="immat" placeholder="ABC1234" required>
                     <label for="serie">N° de série</label>
-                    <input type="text" class="serie" placeholder="2UH287490YHU1IH" required>
+                    <input type="text" class="serie" name="serie" placeholder="2UH287490YHU1IH" required>
                 </div>
                 <div class="contact">
                     <h3>Contact</h3>
                     <label for="email">Adresse e-mail</label>
-                    <input type="email" class="email" placeholder="jean.dujardin@mail.com" id="email" required>
+                    <input type="email" class="email" name="email" placeholder="jean.dujardin@mail.com" id="email" required>
                     <label for="phone">Numéro de téléphone</label>
-                    <input type="tel" class="phone" placeholder="06 12 34 56 78" id="phone" required>
+                    <input type="tel" class="phone" name="tel" placeholder="06 12 34 56 78" id="phone" required>
 
                 </div>
             </section>
             <div class="btn">
                 <input type="reset" value="Réinitialiser">
-                <input type="submit" value="Créer l'utilisateur">
+                <input type="submit" name="validation_create_client" value="Créer l'utilisateur">
             </div>
         </form>
     </section>
