@@ -16,7 +16,7 @@ $theUsers = new UsersDAO(MaBD::getInstance());
 if (isset($_POST['createUser'])) {
     $newUser = new Users(DAO::UNKNOWN_ID, $_POST['nom'], $_POST['prenom'], $_POST['role'], $_POST['login'], password_hash($_POST['password'], PASSWORD_ARGON2ID));
     $message = $_POST['nom'] . " " . $_POST['prenom'] . " " . $_POST['role'] . " a bien été ajouté.";
-    $theUsers->save($newUser);
+    $theUsers->insert($newUser);
 } else {
     $erreur = "une erreur c'est produite lors de l'insertion de l'utilisateur";
 }

@@ -31,7 +31,6 @@ if (isset($_POST['login']) && isset($_POST['password'])) {
         $erreur = "Login or password wrong !";
     }
 }
-
 ?>
 <!DOCTYPE html>
 
