@@ -6,6 +6,7 @@
     <meta charset="utf-8">
     <title>Log In</title>
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/creer-rdv.css">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta lang="utf-8" content="text/html; charset=utf-8">
 </head>
@@ -14,7 +15,7 @@
     <nav>
         <section class="nav-left">
             <img src="img/logo.png" alt="logo">
-            <a href="#">Accueil</a>
+            <a href="home-ca.html">Accueil</a>
             <a href="#">Clients & Véhicules</a>
             <a href="#">Rendez-vous</a>
             <a href="#">Factures</a>
@@ -109,12 +110,39 @@
                             </div>
                         </section>
                     </div>
-                    <div class="credentials">
-                        <h3>Identifiants</h3>
-                        <label for="username">Nom d'utilisateur</label>
-                        <input type="text" class="username" placeholder="fduchemin" required>
-                        <label for="password">Mot de passe</label>
-                        <input type="text" class="password" placeholder="**************" required>
+                    
+
+                    <div class="operation">
+                        <section>
+                            <h3>Liste d'opérations</h3>
+                            <input type="text" class="operationsearchbar" placeholder="Ajoutez une opération" list="operationlist"
+                                required>
+                            <datalist id="operationlist">
+                                <option value="Devis"></option>
+                                <option value="Oscultation du véhicule"></option>
+                                <option value="Changement des pneux"></option>
+                                <option value="Réparation pare brise"></option>
+                            </datalist>
+                        </section>
+
+
+                        <section class="operationlist">
+                            <ul>
+                                <li><span>Devis</span><a href="#">X</a></li>
+                                <li><span>Changement pneux</span><a href="#">X</a></li>
+                                <li><span>Ménage voiture</span><a href="#">X</a></li>
+                                <li><span>Contrôle technique</span><a href="#">X</a></li>
+                                <li><span>Peinture</span><a href="#">X</a></li>
+                                <li><span>Réparation pare brise</span><a href="#">X</a></li>
+                                <li><span>Mise à jour système de bord</span><a href="#">X</a></li>
+                                <li><span>Changement des freins</span><a href="#">X</a></li>
+                                <li><span>Remplacement rétroviseurs</span><a href="#">X</a></li>
+                            </ul>
+                        </section>
+                        <div>
+                            <p>Temps estimé : <span>5h30</span></p>
+                            <p>Prix estimé : <span>500</span>€</p>
+                        </div>
                     </div>
                 </section>
                 <div class="btn">
