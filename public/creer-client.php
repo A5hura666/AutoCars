@@ -2,6 +2,7 @@
 session_start();
 require "autoload.php";
 
+
 if (!isset($_SESSION['login'])) {
     // On renvoie vers la page d'accueil
     header("Location: login.php");
@@ -39,6 +40,9 @@ $TheClient = new ClientsDAO(MaBD::getInstance());
     </section>
 </nav>
 
+<?php
+var_dump($TheClient->getAll());
+?>
 <main class="interface">
     <h2>Création de client</h2>
     <section>
@@ -54,7 +58,7 @@ $TheClient = new ClientsDAO(MaBD::getInstance());
                     <label for="fname">Adresse</label>
                     <input type="text" class="address" name="adresse" placeholder="1234 rue de la Paix" required>
                     <label for="fname">Ville</label>
-                    <input type="text" class="city" name="city" placeholder="Montréal" required>
+                    <input type="text" class="city" name="ville" placeholder="Montréal" required>
                     <label for="fname">Code postal</label>
                     <input type="text" class="postalCode" name="cp" placeholder="H2T 2M4" required>
 

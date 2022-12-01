@@ -1,5 +1,8 @@
 <?php
 
+
+use Cassandra\Date;
+
 class Client
 {
     private int $CodeClient;
@@ -10,7 +13,6 @@ class Client
     private string $City;
     private string $Telephone;
     private string $Mail;
-    //private Data $DateCreation;
 
     /**
      * @param int $CodeClient
@@ -161,6 +163,7 @@ class Client
     {
         $this->Mail = $Mail;
     }
+
 
 
 

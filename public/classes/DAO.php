@@ -21,6 +21,10 @@ abstract class DAO {
     //     $obj->id != UNKNOWN_ID ==> UPDATE
     abstract public function save(object $obj): int;
 
+    abstract public function insert(object $obj): int;
+
+    abstract public function update(object $obj): int;
+
     // Effacement de l'objet $obj (DELETE)
     abstract public function delete(object $obj): int;
 }
