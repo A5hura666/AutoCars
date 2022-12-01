@@ -1,10 +1,25 @@
+<?php
+session_start();
+require "autoload.php";
+
+
+if (!isset($_SESSION['login'])) {
+    // On renvoie vers la page d'accueil
+    header("Location: login.php");
+    exit(0);
+}
+
+$TheClient = new ClientsDAO(MaBD::getInstance());
+
+?>
+
 <!DOCTYPE html>
 
 <html lang="fr">
 
 <head>
     <meta charset="utf-8">
-    <title>Log In</title>
+    <title>Gestion des clients</title>
     <link rel="stylesheet" href="css/gestion-utilisateur.css">
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/liste.css">
@@ -16,11 +31,48 @@
     <nav>
         <section class="nav-left">
             <img src="img/logo.png" alt="logo">
-            <a href="home-ca.html">Accueil</a>
-            <a href="#">Clients & Véhicules</a>
-            <a href="#">Rendez-vous</a>
-            <a href="#">Factures</a>
-            <a href="#">Pièces</a>
+            <div>
+                <a href="home-ca.php">Accueil</a>
+                <div class="dropdown-content"></div>
+            </div>
+
+            <div>
+                <a href="#">Rendez-vous</a>
+                <div class="dropdown-content">
+                    <a href="creer-rdv.php">Créer un rendez-vous</a>
+                    <a href="liste-rdv.php">Gestion des rendez-vous</a>
+                </div>
+            </div>
+
+            <div>
+                <a href="#">Clients & Véhicules</a>
+                <div class="dropdown-content">
+                    <a href="gestion-clients.php">Gestion des clients</a>
+                    <a href="creer-client.php">Créer un client</a>
+                    <a href="gestion-vehicules.php">Gestion des véhicules</a>
+                </div>
+            </div>
+
+
+            <div>
+                <a href="#">Factures</a>
+                <div class="dropdown-content">
+                    <a href="creer-rdv.php">Créer une facture</a>
+                    <a href="gestion-factures.php">Gestion des factures</a>
+                </div>
+            </div>
+
+
+            <div>
+                <a href="#">Pièces</a>
+                <div class="dropdown-content">
+                    <a href="consulter-pieces.php">Consulter le stock des pièces</a>
+                    <a href="commander-pieces.php">Commander des pièces</a>
+                </div>
+            </div>
+
+
+
         </section>
         <section class="nav-right">
             <img src="img/logout.png" alt="Déconnexion" class="logout">
@@ -28,7 +80,7 @@
     </nav>
 
     <main class="interface">
-        <h2>Gestion des clientss</h2>
+        <h2>Gestion des clients</h2>
         <section>
             <aside>
                 <div class="recherche">
@@ -92,22 +144,22 @@
                                 <input type="email" name="email" id="email" value="jean.dujardin@gmail.com">
                             </div>
                             <div>
-                                <label>Téléphone</label>
+                                <label for="phone">Téléphone</label>
                                 <input type="tel" name="phone" id="phone" value="067816382029">
                             </div>
                         </div>
                         <div class="adressse">
                             <label for="adresse">Adresse</label>
                             <div>
-                                <label>Adresse</label>
+                                <label for="address">Adresse</label>
                                 <input type="text" name="address" id="address" value="12 rue de la paix">
                             </div>
                             <div>
-                                <label>Code postal</label>
+                                <label for="zip">Code postal</label>
                                 <input type="text" name="zip" id="zip" value="75000">
                             </div>
                             <div>
-                                <label>Ville</label>
+                                <label for="city">Ville</label>
                                 <input type="text" name="city" id="city" value="Paris">
                             </div>
                         </div>
@@ -117,17 +169,17 @@
                             <label>Véhicule</label>
 
                             <div>
-                                <label>Marque</label>
-                                <input type="text" class="marque" value="Renault">
+                                <label for="marque">Marque</label>
+                                <input type="text" class="marque" id="marque" value="Renault">
                             </div>
                             <div>
-                                <label>Modèle</label>
-                                <input type="text" class="modele" value="Clio">
+                                <label for="modele">Modèle</label>
+                                <input type="text" class="modele" id="modele" value="Clio">
                             </div>
                             <div>
 
-                                <label>Immatriculation</label>
-                                <input type="text" class="immatriculation" value="AB-123-CD">
+                                <label for="immat">Immatriculation</label>
+                                <input type="text" class="immat" id="immat" value="AB-123-CD">
                             </div>
                         </div>
 

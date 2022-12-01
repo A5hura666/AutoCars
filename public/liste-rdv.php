@@ -9,7 +9,7 @@ require "autoload.php";
 
 <head>
     <meta charset="utf-8">
-    <title>Log In</title>
+    <title>Gestion RDV</title>
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/liste.css">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -18,18 +18,55 @@ require "autoload.php";
 
 <body>
 <nav>
-    <section class="nav-left">
-        <img src="img/logo.png" alt="logo">
-        <a href="home-ca.html">Accueil</a>
-        <a href="#">Clients & Véhicules</a>
-        <a href="#">Rendez-vous</a>
-        <a href="#">Factures</a>
-        <a href="#">Pièces</a>
-    </section>
-    <section class="nav-right">
-        <img src="img/logout.png" alt="Déconnexion" class="logout">
-    </section>
-</nav>
+        <section class="nav-left">
+            <img src="img/logo.png" alt="logo">
+            <div>
+                <a href="home-ca.php">Accueil</a>
+                <div class="dropdown-content"></div>
+            </div>
+
+            <div>
+                <a href="#">Rendez-vous</a>
+                <div class="dropdown-content">
+                    <a href="creer-rdv.php">Créer un rendez-vous</a>
+                    <a href="liste-rdv.php">Gestion des rendez-vous</a>
+                </div>
+            </div>
+
+            <div>
+                <a href="#">Clients & Véhicules</a>
+                <div class="dropdown-content">
+                    <a href="gestion-clients.php">Gestion des clients</a>
+                    <a href="creer-client.php">Créer un client</a>
+                    <a href="gestion-vehicules.php">Gestion des véhicules</a>
+                </div>
+            </div>
+
+
+            <div>
+                <a href="#">Factures</a>
+                <div class="dropdown-content">
+                    <a href="creer-rdv.php">Créer une facture</a>
+                    <a href="gestion-factures.php">Gestion des factures</a>
+                </div>
+            </div>
+
+
+            <div>
+                <a href="#">Pièces</a>
+                <div class="dropdown-content">
+                    <a href="consulter-pieces.php">Consulter le stock des pièces</a>
+                    <a href="commander-pieces.php">Commander des pièces</a>
+                </div>
+            </div>
+
+
+
+        </section>
+        <section class="nav-right">
+            <img src="img/logout.png" alt="Déconnexion" class="logout">
+        </section>
+    </nav>
 
 <main class="interface">
     <h2>Gestion rendez-vous</h2>

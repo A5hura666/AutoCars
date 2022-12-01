@@ -39,7 +39,7 @@ if (isset($_POST['login']) && isset($_POST['password'])) {
 <head>
     <meta charset="utf-8">
     <title>Log In</title>
-    <link rel="stylesheet" href="../../AutoCars/public/css/style.css">
+    <link rel="stylesheet" href="css/style.css">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta lang="utf-8" content="text/html; charset=utf-8">
 </head>
