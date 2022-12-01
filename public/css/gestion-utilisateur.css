@@ -1,0 +1,16 @@
+.sectiondetails>div{
+    display: flex;
+    align-items: center !important;
+    flex-direction: column !important;
+    padding: 7px 20px;
+    background-color: rgba(255, 255, 255, 0.074);
+    border-radius: var(--border-norm);
+    margin: 7px 0;
+}
+
+.sectiondetails>div>div{
+    display: flex;
+    align-items: center !important;
+    justify-content: space-between !important;
+    width: 100%;
+}

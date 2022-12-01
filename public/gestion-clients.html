@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+
+<html lang="fr">
+
+<head>
+    <meta charset="utf-8">
+    <title>Log In</title>
+    <link rel="stylesheet" href="css/gestion-utilisateur.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/liste.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta lang="utf-8" content="text/html; charset=utf-8">
+</head>
+
+<body>
+    <nav>
+        <section class="nav-left">
+            <img src="img/logo.png" alt="logo">
+            <a href="home-ca.html">Accueil</a>
+            <a href="#">Clients & Véhicules</a>
+            <a href="#">Rendez-vous</a>
+            <a href="#">Factures</a>
+            <a href="#">Pièces</a>
+        </section>
+        <section class="nav-right">
+            <img src="img/logout.png" alt="Déconnexion" class="logout">
+        </section>
+    </nav>
+
+    <main class="interface">
+        <h2>Gestion des clientss</h2>
+        <section>
+            <aside>
+                <div class="recherche">
+                    <h3>Rechercher un utilisateur</h3>
+                    <form action="">
+                        <div>
+                            <label for="clientname">Nom</label>
+                            <input type="text" name="clientname" id="clientname" placeholder="Dujardin">
+                        </div>
+                        <div>
+                            <label for="clientfname">Prénom</label>
+                            <input type="text" name="clientfname" id="clientfname" placeholder="Jean">
+                        </div>
+                        <div>
+                            <label for="clientemail">Email</label>
+                            <input type="text" name="clientemail" id="clientemail" placeholder="jean.dujardin@mail.fr">
+                        </div>
+                        <div>
+                            <label for="clientphone">Téléphone</label>
+                            <input type="text" name="clientphone" id="clientphone" placeholder="067816382029">
+                        </div>
+
+                        <input type="submit" value="Rechercher">
+                    </form>
+                </div>
+                <div>
+                    <h3>Liste des clients</h3>
+                    <ul class="list">
+                        <li><span>Pierre Duchemin</span><a href="#" class="consulter">Consulter</a></li>
+                        <li><span>Cécile Metge</span><a href="#" class="consulter">Consulter</a></li>
+                        <li><span>Léa Jambon</span><a href="#" class="consulter">Consulter</a></li>
+                        <li><span>Dupond Dupont</span><a href="#" class="consulter">Consulter</a></li>
+                        <li><span>KatlyneDurand</span><a href="#" class="consulter">Consulter</a></li>
+                        <li><span>Martin Matin</span><a href="#" class="consulter">Consulter</a></li>
+                        <li><span>Saw Dazo</span><a href="#" class="consulter">Consulter</a></li>
+                        <li><span>Sylvain Charensol</span><a href="#" class="consulter">Consulter</a></li>
+                        <li><span>Guillaume De Sauza</span><a href="#" class="consulter">Consulter</a></li>
+                        <li><span>Louis Argentiéri</span><a href="#" class="consulter">Consulter</a></li>
+                    </ul>
+                </div>
+            </aside>
+            <div class="details">
+                <h3>Détails du client</h3>
+                <div>
+                    <form class="sectiondetails">
+                        <div>
+                            <label for="clientname">Informations</label>
+                            <div>
+                                <label for="name">Nom</label>
+                                <input type="text" name="name" id="name" value="Dujardin">
+                            </div>
+                            <div>
+                                <label for="fname">Prénom</label>
+                                <input type="text" name="fname" id="fname" value="Jean">
+                            </div>
+                        </div>
+                        <div>
+                            <label for="email">Contact</label>
+                            <div>
+                                <label for="email">Email</label>
+                                <input type="email" name="email" id="email" value="jean.dujardin@gmail.com">
+                            </div>
+                            <div>
+                                <label>Téléphone</label>
+                                <input type="tel" name="phone" id="phone" value="067816382029">
+                            </div>
+                        </div>
+                        <div class="adressse">
+                            <label for="adresse">Adresse</label>
+                            <div>
+                                <label>Adresse</label>
+                                <input type="text" name="address" id="address" value="12 rue de la paix">
+                            </div>
+                            <div>
+                                <label>Code postal</label>
+                                <input type="text" name="zip" id="zip" value="75000">
+                            </div>
+                            <div>
+                                <label>Ville</label>
+                                <input type="text" name="city" id="city" value="Paris">
+                            </div>
+                        </div>
+
+
+                        <div>
+                            <label>Véhicule</label>
+
+                            <div>
+                                <label>Marque</label>
+                                <input type="text" class="marque" value="Renault">
+                            </div>
+                            <div>
+                                <label>Modèle</label>
+                                <input type="text" class="modele" value="Clio">
+                            </div>
+                            <div>
+
+                                <label>Immatriculation</label>
+                                <input type="text" class="immatriculation" value="AB-123-CD">
+                            </div>
+                        </div>
+
+                </div>
+
+
+
+
+
+
+                <div>
+                    <input type="submit" value="Modifier">
+                    <input type="submit" value="Supprimer">
+                </div>
+                </form>
+            </div>
+            </div>
+        </section>
+    </main>
+
+
+
+
+    <script src="js/script.js"></script>
+</body>
+
+</html>
