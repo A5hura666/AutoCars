@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+
+<html lang="fr">
+
+<head>
+    <meta charset="utf-8">
+    <title>Log In</title>
+    <link rel="stylesheet" href="css/style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta lang="utf-8" content="text/html; charset=utf-8">
+</head>
+
+<body>
+    <nav>
+        <section class="nav-left">
+            <img src="img/logo.png" alt="logo">
+            <a href="#">Accueil</a>
+            <a href="#">Clients & Véhicules</a>
+            <a href="#">Rendez-vous</a>
+            <a href="#">Factures</a>
+            <a href="#">Pièces</a>
+        </section>
+        <section class="nav-right">
+            <img src="img/logout.png" alt="Déconnexion" class="logout">
+        </section>
+    </nav>
+
+    <main class="menu">
+
+        <article class="btn-menu rdv">
+            <img src="img/rdv.png" alt="Rendez-vous">
+            <h3>Rendez-vous</h3>
+        </article>
+
+        <article class="btn-menu client">
+            <img src="img/client.png" alt="Client">
+            <h3>Clients et Véhicules</h3>
+        </article>
+
+        <article class="btn-menu facture">
+            <img src="img/factures.png" alt="Factures">
+            <h3>Factures</h3>
+        </article>
+
+        <article class="btn-menu piece">
+            <img src="img/pieces.png" alt="Pièces">
+            <h3>Pièces</h3>
+        </article>
+
+
+    </main>
+
+    <section class="popupmenu rdv-full hidden">
+        <main class="menu">
+            <a href="creer-rdv.html">
+                <article class="btn-menu newrdv">
+                    <img src="img/createRdv.png" alt="Nouveau rendez-vous">
+                    <h3>Créer un rendez-vous</h3>
+                </article>
+            </a>
+
+            <a href="liste-rdv.html">
+                <article class="btn-menu listrdv">
+                    <img src="img/searchRdv.png" alt="Liste rendez-vous">
+                    <h3>Consulter les <br> rendez-vous</h3>
+                </article>
+            </a>
+        </main>
+        <button class="back">✖</button>
+    </section>
+
+    <section class="popupmenu client-full hidden">
+        <main class="menu">
+            <a href="gestion-clients.html">
+                <article class="btn-menu listclient">
+                    <img src="img/client.png" alt="Liste des clients">
+                    <h3>Gestion des clients</h3>
+                </article>
+            </a>
+
+            <a href="#">
+                <article class="btn-menu createclient">
+                    <img src="img/createClient.png" alt="Création client">
+                    <h3>Créer un client</h3>
+                </article>
+            </a>
+
+            <a href="#">
+                <article class="btn-menu managevehicles">
+                    <img src="img/car.png" alt="Création client">
+                    <h3>Gestion des véhicules</h3>
+                </article>
+            </a>
+        </main>
+        <button class="back">✖</button>
+    </section>
+
+    <section class="popupmenu facture-full hidden">
+        <main class="menu">
+            <a href="#">
+                <article class="btn-menu client">
+                    <img src="img/createFacture.png" alt="Créer facture">
+                    <h3>Créer une facture</h3>
+                </article>
+            </a>
+
+            <a href="#">
+                <article class="btn-menu facture">
+                    <img src="img/factures.png" alt="Liste factures">
+                    <h3>Consulter les factures</h3>
+                </article>
+            </a>
+        </main>
+        <button class="back">✖</button>
+    </section>
+
+    <section class="popupmenu pieces-full hidden">
+        <main class="menu">
+            <a href="#">
+                <article class="btn-menu client">
+                    <img src="img/pieces.png" alt="Liste Pièces">
+                    <h3>Consulter le stock <br> des pièces</h3>
+                </article>
+            </a>
+
+            <a href="#">
+                <article class="btn-menu facture">
+                    <img src="img/buyPieces.png" alt="Factures">
+                    <h3>Commander des pièces</h3>
+                </article>
+            </a>
+        </main>
+        <button class="back">✖</button>
+    </section>
+
+
+    <script src="js/script.js"></script>
+</body>
+
+</html>
