@@ -11,6 +11,18 @@ if (!isset($_SESSION['login'])) {
 
 $TheClient = new ClientsDAO(MaBD::getInstance());
 
+// Création date courante pour le client
+
+$date = new DateTime();
+$dateCli=$date->format('Y-m-d');
+
+if (isset($_POST['validation_create_client'])) {
+    $newClient = new Client(DAO::UNKNOWN_ID, $_POST['nom'], $_POST['prenom'], $_POST['adresse'], $_POST['cp'], $_POST['ville'],$_POST['tel'],$_POST['email'], $dateCli);
+    $message = $_POST['nom'] . " " . $_POST['prenom'] . " a bien été ajouté.";
+    $TheClient->insert($newClient);
+} else {
+    $erreur = "une erreur c'est produite lors de l'insertion de l'utilisateur";
+}
 ?>
 
 <!DOCTYPE html>
@@ -69,17 +81,13 @@ $TheClient = new ClientsDAO(MaBD::getInstance());
                 </div>
             </div>
 
-
-
         </section>
         <section class="nav-right">
             <img src="img/logout.png" alt="Déconnexion" class="logout">
         </section>
     </nav>
 
-    <?php
-    var_dump($TheClient->getAll());
-    ?>
+
     <main class="interface">
         <h2>Création de client</h2>
         <section>
@@ -120,14 +128,20 @@ $TheClient = new ClientsDAO(MaBD::getInstance());
                         <input type="email" class="email" name="email" placeholder="jean.dujardin@mail.com" id="email" required>
                         <label for="phone">Numéro de téléphone</label>
                         <input type="tel" class="phone" name="tel" placeholder="06 12 34 56 78" id="phone" required>
-
                     </div>
+                <?php
+                //var_dump($TheClient->getAll());
+                ?>
                 </section>
                 <div class="btn">
                     <input type="reset" value="Réinitialiser">
                     <input type="submit" name="validation_create_client" value="Créer l'utilisateur">
                 </div>
+                <?php
+                echo $message;
+                ?>
             </form>
+
         </section>
     </main>
 
