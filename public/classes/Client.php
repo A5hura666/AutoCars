@@ -13,6 +13,7 @@ class Client
     private string $City;
     private string $Telephone;
     private string $Mail;
+    private string $DateCreation;
 
     /**
      * @param int $CodeClient
@@ -23,8 +24,9 @@ class Client
      * @param string $City
      * @param string $Telephone
      * @param string $Mail
+     * @param string $DateCreation
      */
-    public function __construct(int $CodeClient, string $LastName, string $FirstName, string $Address, string $CP, string $City, string $Telephone, string $Mail)
+    public function __construct(int $CodeClient, string $LastName, string $FirstName, string $Address, string $CP, string $City, string $Telephone, string $Mail, string $DateCreation)
     {
         $this->CodeClient = $CodeClient;
         $this->LastName = $LastName;
@@ -34,6 +36,23 @@ class Client
         $this->City = $City;
         $this->Telephone = $Telephone;
         $this->Mail = $Mail;
+        $this->DateCreation = $DateCreation;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDateCreation(): string
+    {
+        return $this->DateCreation;
+    }
+
+    /**
+     * @param string $DateCreation
+     */
+    public function setDateCreation(string $DateCreation): void
+    {
+        $this->DateCreation = $DateCreation;
     }
 
     /**
