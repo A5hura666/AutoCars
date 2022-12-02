@@ -41,7 +41,7 @@
 	user-select: none;
 	transition-duration: .1s;
 	-webkit-user-drag: none;
-	
+
 }
 
 html,
@@ -91,7 +91,7 @@ body {
 	justify-content: flex-end;
 }
 
-ul{
+ul {
 	padding-inline-start: 0;
 }
 
@@ -113,14 +113,14 @@ ul{
 	border-bottom-right-radius: var(--border-norm);
 	background-color: rgb(28, 115, 181);
 
-		height: 100%;
-		display: flex;
-		align-items: center;
-		flex-direction: column;
-		justify-content: center;
-	}
+	height: 100%;
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+	justify-content: center;
+}
 
-.loginpage{
+.loginpage {
 	justify-content: center;
 }
 
@@ -150,7 +150,8 @@ form {
 	border-bottom-left-radius: var(--border-norm);
 }
 
-input, select {
+input,
+select {
 	background-color: #5b5b5b7a;
 	border: none;
 	border-radius: var(--border-norm);
@@ -188,11 +189,11 @@ nav {
 	width: 95%;
 	top: 8px;
 	position: absolute;
-	height: 50px;
-	align-items: center;
+	height: 17px;
+	align-items: flex-start;
 	justify-content: space-between;
 	box-shadow: 0px 8px 16px hsl(0deg 0% 0% / 14%);
-	padding: 0px 20px;
+	padding: 13px 0px 20px 0;
 }
 
 nav a {
@@ -217,25 +218,19 @@ nav section * {
 
 nav img {
 	width: 50px;
-	/* height: 20px; */
-}
-
-nav a:hover:after {
-	background-color: #141414;
-	height: 2px;
-	width: 100px;
-	margin-top: 5px;
-	content: "";
-	display: block;
-	position: absolute;
-	margin-left: 50px;
+	height: 20px;
+	margin: 0 30px;
 }
 
 
-.nav-left a {
+
+
+.nav-left>div {
 	width: 200px;
+	/* overflow: auto; */
 	text-align: center;
 }
+
 
 .menu {
 	display: flex;
@@ -311,6 +306,36 @@ nav a:hover:after {
 
 
 
+.dropdown-content {
+	display: none;
+	background-color: #000000d1;
+	min-width: 160px;
+	box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+	z-index: 1;
+	margin-top: 20px;
+	border-radius: var(--border-norm);
+}
+
+.nav-left>div:hover .dropdown-content {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+}
+
+
+.dropdown-content a {
+	color: black;
+	padding: 12px 16px;
+	text-decoration: none;
+	display: block;
+	width: 84%;
+	border-radius: var(--border-norm);
+}
+
+.dropdown-content a:hover {
+	background-color: #16161639;
+}
 
 /*---------------------------------------------------
 					Create User
@@ -349,6 +374,7 @@ aside>div,
 	border-radius: var(--border-norm);
 }
 
-.interface form input[type="text"], .interface form input[type="email"] {
+.interface form input[type="text"],
+.interface form input[type="email"] {
 	width: 300px;
 }
