@@ -28,14 +28,14 @@ class ClientsDAO extends DAO
         return $res;
     }
 
-    public function save(object $obj): int
+    /*public function save(object $obj): int
     {
         $stmt = $this->pdo->prepare("INSERT INTO Client (LastName, FirstName, Role, Login, Password)"
             . " VALUES (?,?,?,?,?)");
         $res = $stmt->execute([$obj->getLastName(), $obj->getFirstName(), $obj->getRole(), $obj->getLogin(), $obj->getPassword()]);
         $obj->id = $this->pdo->lastInsertId();
         return $res;
-    }
+    }*/
 
     public function delete(object $obj): int
     {

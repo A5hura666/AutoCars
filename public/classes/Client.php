@@ -1,8 +1,6 @@
 <?php
 
 
-use Cassandra\Date;
-
 class Client
 {
     private int $CodeClient;

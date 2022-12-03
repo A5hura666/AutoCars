@@ -85,7 +85,7 @@ $TheClient = new ClientsDAO(MaBD::getInstance());
             <aside>
                 <div class="recherche">
                     <h3>Rechercher un utilisateur</h3>
-                    <form action="">
+                    <form method="post" action="">
                         <div>
                             <label for="clientname">Nom</label>
                             <input type="text" name="clientname" id="clientname" placeholder="Dujardin">
@@ -200,7 +200,11 @@ $TheClient = new ClientsDAO(MaBD::getInstance());
         </section>
     </main>
 
-
+<!--    --><?php
+/*    foreach ($TheClient->getAll() as $clients){
+        echo $clients->getLastName() . $clients->getFirstName();
+    }
+    */?>
 
 
     <script src="js/script.js"></script>

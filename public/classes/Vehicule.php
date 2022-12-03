@@ -1,23 +1,21 @@
 <?php
 
-use Cassandra\Date;
-
 class Vehicule
 {
     private string $NoImmatriculation;
     private string $CodeClient;
     private string $NumModele;
     private string $NoSerie;
-    private DateTime $DateMiseEnCirculation;
+    private string $DateMiseEnCirculation;
 
     /**
      * @param string $NoImmatriculation
      * @param string $CodeClient
      * @param string $NumModele
      * @param string $NoSerie
-     * @param DateTime $DateMiseEnCirculation
+     * @param string $DateMiseEnCirculation
      */
-    public function __construct(string $NoImmatriculation, string $CodeClient, string $NumModele, string $NoSerie, DateTime $DateMiseEnCirculation)
+    public function __construct(string $NoImmatriculation, string $CodeClient, string $NumModele, string $NoSerie, string $DateMiseEnCirculation)
     {
         $this->NoImmatriculation = $NoImmatriculation;
         $this->CodeClient = $CodeClient;
@@ -91,19 +89,20 @@ class Vehicule
     }
 
     /**
-     * @return DateTime
+     * @return string
      */
-    public function getDateMiseEnCirculation(): DateTime
+    public function getDateMiseEnCirculation(): string
     {
         return $this->DateMiseEnCirculation;
     }
 
     /**
-     * @param DateTime $DateMiseEnCirculation
+     * @param string $DateMiseEnCirculation
      */
-    public function setDateMiseEnCirculation(DateTime $DateMiseEnCirculation): void
+    public function setDateMiseEnCirculation(string $DateMiseEnCirculation): void
     {
         $this->DateMiseEnCirculation = $DateMiseEnCirculation;
     }
+
 
 }

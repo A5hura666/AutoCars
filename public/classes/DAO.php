@@ -19,7 +19,7 @@ abstract class DAO {
     // Sauvegarde de l'objet $obj :
     //     $obj->id == UNKNOWN_ID ==> INSERT
     //     $obj->id != UNKNOWN_ID ==> UPDATE
-    abstract public function save(object $obj): int;
+    //abstract public function save(object $obj): int;
 
     abstract public function insert(object $obj): int;
 

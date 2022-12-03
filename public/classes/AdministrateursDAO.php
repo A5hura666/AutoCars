@@ -50,4 +50,16 @@ class AdministrateursDAO extends DAO {
         }
         return null;
     }
+
+    public function insert(object $obj): int
+    {
+        return 0;
+        // TODO: Implement insert() method.
+    }
+
+    public function update(object $obj): int
+    {
+        return 0;
+        // TODO: Implement update() method.
+    }
 }

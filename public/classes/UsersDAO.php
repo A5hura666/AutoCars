@@ -27,7 +27,7 @@ class UsersDAO extends DAO
     //     $obj->id == UNKNOWN_ID ==> INSERT
     //     $obj->id != UNKNOWN_ID ==> UPDATE
 
-    public function save(object $obj): int
+/*    public function save(object $obj): int
     {
         if ($obj->getIdUser() == DAO::UNKNOWN_ID) {
             $stmt = $this->pdo->prepare("INSERT INTO UserRole (LastName, FirstName, Role, Login, Password)"
@@ -41,6 +41,7 @@ class UsersDAO extends DAO
         }
         return $res;
     }
+*/
 
     public function insert(object $obj): int{
             $stmt = $this->pdo->prepare("INSERT INTO UserRole (LastName, FirstName, Role, Login, Password)"
