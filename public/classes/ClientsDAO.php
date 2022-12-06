@@ -13,7 +13,7 @@ class ClientsDAO extends DAO
 
     public function getOneByName(string $LastName, string $FirstName){
         $stmt = $this->pdo->prepare("SELECT * FROM Client WHERE Nom = ? and Prénom = ?");
-        $stmt->execute([$LastName]);
+        $stmt->execute([$LastName,$FirstName]);
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
         return new Client($row['CodeClient'], $row['Nom'], $row['Prénom'], $row['Adresse'], $row['CodePostal'], $row['Ville'],$row['Tel'], $row['mail'], $row["DateCreation"]);
     }
