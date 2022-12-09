@@ -10,9 +10,9 @@ if (!isset($_SESSION['login'])) {
 }
 
 $TheClient = new ClientsDAO(MaBD::getInstance());
-$TheVehicule = new VehiculesDAO(MaBD::getInstance());
-$Marque = new MarqueDAO(MaBD::getInstance());
-$Modele = new ModeleDAO(MaBD::getInstance());
+//$TheVehicule = new VehiculesDAO(MaBD::getInstance());
+//$Marque = new MarqueDAO(MaBD::getInstance());
+//$Modele = new ModeleDAO(MaBD::getInstance());
 
 ?>
 
@@ -117,14 +117,20 @@ $Modele = new ModeleDAO(MaBD::getInstance());
                         foreach ($TheClient->getAll() as $clients) {
                             echo "<li>";
                             echo '<span>' . $clients->getLastName() . " " . $clients->getFirstName() . '</span>';
-                            echo '<input  type="submit" name="Consulter" class="consulter" value="' . $clients->getCodeClient() . '">' . "</li>";
+                            echo '<input type="submit" name="Consulter" class="consulter" value="'. $clients->getCodeClient() .'">';
+                            echo "</li>";
+
                             //echo '<input  type="text" name="" hidden value="'.$clients->getCodeClient().'">' . "</li>";
-                            $_SESSION['info_clients'] = $_POST['Consulter'];
+                            if (isset($_POST['Consulter'])){
+                                $_SESSION['info_clients'] = $_POST['Consulter'];
+                            }
                         }
 
                         //Recuperation des different champs du client sélectionner
                         if (isset($_SESSION['info_clients'])) {
                             $newClient = $TheClient->getOne($_SESSION['info_clients']);
+                        }else{
+                            $newClient = $TheClient->getOne($_POST['Consulter']);
                         }
                         ?>
                     </form>

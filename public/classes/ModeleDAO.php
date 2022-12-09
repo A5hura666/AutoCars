@@ -11,6 +11,17 @@ class ModeleDAO extends DAO
         return new Modele($row['NumModele'],$row['NumMarque'], $row['Modèle']);
     }
 
+    public function getOneByMarque(string $id): array
+    {
+        /** @var Modele[] $res */
+        $res = [];
+        $stmt = $this->pdo->prepare("SELECT * FROM Modele join Marque using(NumMarque) WHERE Marque = ?");
+        $stmt->execute([$id]);
+        foreach ($stmt->fetchAll(PDO::FETCH_ASSOC) as $row)
+            $res[] = new Modele($row['NumModele'],$row['NumMarque'],$row['Modèle']);
+        return $res;
+    }
+
     public function getAll(): array
     {
         /** @var Modele[] $res */

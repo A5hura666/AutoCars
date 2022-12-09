@@ -11,7 +11,7 @@ abstract class DAO {
     public function __construct(PDO $connector) { $this->pdo = $connector; }
 
     // Récupération d'un objet dont on donne l'identifiant
-    abstract public function getOne(int|string $id): object;
+    abstract public function getOne(int|string $id): array|object;
 
     // Récupération de tous les objets dans une table
     abstract public function getAll(): array;

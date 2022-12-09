@@ -8,7 +8,6 @@ class ClientsDAO extends DAO
         $stmt->execute([$id]);
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
         return new Client($row['CodeClient'], $row['Nom'], $row['Prénom'], $row['Adresse'], $row['CodePostal'], $row['Ville'],$row['Tel'], $row['mail'], $row["DateCreation"]);
-        //return new Client("","","","","","","","");
     }
 
     public function getOneByName(string $LastName, string $FirstName): Client{

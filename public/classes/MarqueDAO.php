@@ -11,6 +11,7 @@ class MarqueDAO extends DAO
         return new Marque($row['NumMarque'], $row['Marque']);
     }
 
+
     public function getAll(): array
     {
         /** @var Marque[] $res */
