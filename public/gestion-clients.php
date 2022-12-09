@@ -110,8 +110,8 @@ $TheClient = new ClientsDAO(MaBD::getInstance());
             </div>
             <div>
                 <h3>Liste des clients</h3>
+                <form method="post">
                 <ul class="list">
-                    <form method="post">
                         <?php
                         //Affichage des clients
                         foreach ($TheClient->getAll() as $clients) {
@@ -133,8 +133,8 @@ $TheClient = new ClientsDAO(MaBD::getInstance());
                             $newClient = $TheClient->getOne($_POST['Consulter']);
                         }
                         ?>
-                    </form>
                 </ul>
+                </form>
             </div>
         </aside>
         <div class="details">

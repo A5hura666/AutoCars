@@ -3,7 +3,7 @@
 class VehiculesDAO extends DAO
 {
 
-    public function getOne(int|string $id): object
+    public function getOne(int|string $id): Vehicule
     {
         $stmt = $this->pdo->prepare("SELECT * FROM Vehicule WHERE NoImmatriculation = ?");
         $stmt->execute([$id]);

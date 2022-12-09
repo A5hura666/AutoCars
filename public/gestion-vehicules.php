@@ -136,8 +136,7 @@ if (isset($_POST["marque"])) {
             <div>
                 <h3>Liste des véhicules</h3>
                 <ul class="list">
-                    <form method="post">
-                        <!--<li><span>Ford - Fiesta</span><a href="#" class="consulter">Consulter</a></li>
+                        <li><span>Ford - Fiesta</span><a href="#" class="consulter">Consulter</a></li>
                         <li><span>Nissan - Micra</span><a href="#" class="consulter">Consulter</a></li>
                         <li><span>Renault - Clio</span><a href="#" class="consulter">Consulter</a></li>
                         <li><span>Peugeot - 308</span><a href="#" class="consulter">Consulter</a></li>
@@ -150,8 +149,7 @@ if (isset($_POST["marque"])) {
                         <li><span>Fiat - Punto</span><a href="#" class="consulter">Consulter</a></li>
                         <li><span>Opel - Corsa</span><a href="#" class="consulter">Consulter</a></li>
                         <li><span>Honda - Civic</span><a href="#" class="consulter">Consulter</a></li>
-                        <li><span>Hyundai - i30</span><a href="#" class="consulter">Consulter</a></li>-->
-                    </form>
+                        <li><span>Hyundai - i30</span><a href="#" class="consulter">Consulter</a></li>
                 </ul>
             </div>
         </aside>

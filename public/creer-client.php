@@ -2,16 +2,17 @@
 session_start();
 require "autoload.php";
 
-
 if (!isset($_SESSION['login'])) {
     // On renvoie vers la page d'accueil
     header("Location: login.php");
     exit(0);
 }
+$message="";
 
 $TheClient = new ClientsDAO(MaBD::getInstance());
 $TheVehicule = new VehiculesDAO(MaBD::getInstance());
 $Marque = new MarqueDAO(MaBD::getInstance());
+$Modele = new ModeleDAO(MaBD::getInstance());
 
 // Création date courante pour le client
 
@@ -26,6 +27,11 @@ if (isset($_POST['validation_create_client'])) {
     var_dump($TheVehicule->getAll());
 } else {
     $erreur = "une erreur c'est produite lors de l'insertion de l'utilisateur";
+}
+
+//formulaire vehicules
+if (isset($_POST["marque"])) {
+    $_SESSION["marque"] = $_POST["marque"];
 }
 ?>
 
