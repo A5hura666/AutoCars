@@ -2,7 +2,7 @@
 
 class ClientsDAO extends DAO
 {
-    public function getOne(int $id): object
+    public function getOne(int $id): Client
     {
         $stmt = $this->pdo->prepare("SELECT * FROM Client WHERE CodeClient = ?");
         $stmt->execute([$id]);
@@ -11,7 +11,7 @@ class ClientsDAO extends DAO
         //return new Client("","","","","","","","");
     }
 
-    public function getOneByName(string $LastName, string $FirstName){
+    public function getOneByName(string $LastName, string $FirstName): Client{
         $stmt = $this->pdo->prepare("SELECT * FROM Client WHERE Nom = ? and Prénom = ?");
         $stmt->execute([$LastName,$FirstName]);
         $row = $stmt->fetch(PDO::FETCH_ASSOC);

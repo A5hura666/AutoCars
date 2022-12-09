@@ -12,10 +12,6 @@ if (!isset($_SESSION['login'])) {
 
 $TheClient = new ClientsDAO(MaBD::getInstance());
 
-
-if (isset($_POST['id'])){
-    var_dump($_POST['id']);
-}
 ?>
 
 <!DOCTYPE html>
@@ -117,102 +113,96 @@ if (isset($_POST['id'])){
                         <?php
                         foreach ($TheClient->getAll() as $clients) {
                             echo "<li>";
-                            echo '<span class="cid">' . $clients->getLastName() . '</span>' . " " . '<span class="cid">' . $clients->getFirstName() . '</span>';
-                            echo '<input  type="submit" name="Consulter" value="Consulter">' . "</li>";
-                            echo '<input  type="text" name="id" value="'.$clients->getCodeClient().'" hidden>' . "</li>";
+                            echo '<span>' . $clients->getLastName() . " " . $clients->getFirstName() . '</span>';
+                            //echo '<input  type="submit" name="Consulter" id="'.$clients->getCodeClient().'" class="consulter" value="Consulter">' . "</li>";
+                            echo '<input  type="submit" name="Consulter" class="consulter" value="' . $clients->getCodeClient() . '">' . "</li>";
+                            //echo '<input  type="text" name="" hidden value="'.$clients->getCodeClient().'">' . "</li>";
+                            $_SESSION['info_clients'] = $_POST['Consulter'];
                         }
 
+                        if (isset($_SESSION['info_clients'])) {
+                            $newClient = $TheClient->getOne($_SESSION['info_clients']);
+                        }
                         ?>
                     </form>
-                    </ul>
-                </div>
-            </aside>
-            <div class="details">
-                <h3>Détails du client</h3>
-                <div>
-                    <form class="sectiondetails">
-                        <div>
-                            <label for="clientname">Informations</label>
-                            <div>
-                                <label for="name">Nom</label>
-                                <input type="text" name="name" id="name" value="random">
-                            </div>
-                            <div>
-                                <label for="fname">Prénom</label>
-                                <input type="text" name="fname" id="fname" value="Jean">
-                            </div>
-                        </div>
-                        <div>
-                            <label for="email">Contact</label>
-                            <div>
-                                <label for="email">Email</label>
-                                <input type="email" name="email" id="email" value="jean.dujardin@gmail.com">
-                            </div>
-                            <div>
-                                <label for="phone">Téléphone</label>
-                                <input type="tel" name="phone" id="phone" value="067816382029">
-                            </div>
-                        </div>
-                        <div class="adressse">
-                            <label for="adresse">Adresse</label>
-                            <div>
-                                <label for="address">Adresse</label>
-                                <input type="text" name="address" id="address" value="12 rue de la paix">
-                            </div>
-                            <div>
-                                <label for="zip">Code postal</label>
-                                <input type="text" name="zip" id="zip" value="75000">
-                            </div>
-                            <div>
-                                <label for="city">Ville</label>
-                                <input type="text" name="city" id="city" value="Paris">
-                            </div>
-                        </div>
-
-
-                        <div>
-                            <label>Véhicule</label>
-
-                            <div>
-                                <label for="marque">Marque</label>
-                                <input type="text" class="marque" id="marque" value="Renault">
-                            </div>
-                            <div>
-                                <label for="modele">Modèle</label>
-                                <input type="text" class="modele" id="modele" value="Clio">
-                            </div>
-                            <div>
-
-                                <label for="immat">Immatriculation</label>
-                                <input type="text" class="immat" id="immat" value="AB-123-CD">
-                            </div>
-                        </div>
-
-                </div>
-
-
-
-
-
-
-                <div>
-                    <input type="submit" value="Modifier">
-                    <input type="submit" value="Supprimer">
-                </div>
-                </form>
+                </ul>
             </div>
+        </aside>
+        <div class="details">
+            <h3>Détails du client</h3>
+            <div>
+                <form class="sectiondetails">
+                    <div>
+                        <label for="clientname">Informations</label>
+                        <div>
+                            <label for="name">Nom</label>
+                            <input type="text" name="name" id="name" value="<?php echo $newClient->getLastName() ?>">
+                        </div>
+                        <div>
+                            <label for="fname">Prénom</label>
+                            <input type="text" name="fname" id="fname" value="<?php echo $newClient->getFirstName() ?>">
+                        </div>
+                    </div>
+                    <div>
+                        <label for="email">Contact</label>
+                        <div>
+                            <label for="email">Email</label>
+                            <input type="email" name="email" id="email" value="<?php echo $newClient->getMail() ?>">
+                        </div>
+                        <div>
+                            <label for="phone">Téléphone</label>
+                            <input type="tel" name="phone" id="phone" value="<?php echo $newClient->getTelephone() ?>">
+                        </div>
+                    </div>
+                    <div class="adressse">
+                        <label for="adresse">Adresse</label>
+                        <div>
+                            <label for="address">Adresse</label>
+                            <input type="text" name="address" id="address"
+                                   value="<?php echo $newClient->getAddress() ?>">
+                        </div>
+                        <div>
+                            <label for="zip">Code postal</label>
+                            <input type="text" name="zip" id="zip" value="<?php echo $newClient->getCP() ?>">
+                        </div>
+                        <div>
+                            <label for="city">Ville</label>
+                            <input type="text" name="city" id="city" value="<?php echo $newClient->getCity() ?>">
+                        </div>
+                    </div>
+
+
+                    <div>
+                        <label>Véhicule</label>
+
+                        <div>
+                            <label for="marque">Marque</label>
+                            <input type="text" class="marque" id="marque" value="Renault">
+                        </div>
+                        <div>
+                            <label for="modele">Modèle</label>
+                            <input type="text" class="modele" id="modele" value="Clio">
+                        </div>
+                        <div>
+
+                            <label for="immat">Immatriculation</label>
+                            <input type="text" class="immat" id="immat" value="AB-123-CD">
+                        </div>
+                    </div>
+
             </div>
-        </section>
-    </main>
-
-<!--    --><?php
-/*    foreach ($TheClient->getAll() as $clients){
-        echo $clients->getLastName() . $clients->getFirstName();
-    }
-    */?>
 
 
-                        <script src="js/script.js"></script>
+            <div>
+                <input type="submit" value="Modifier">
+                <input type="submit" value="Supprimer">
+            </div>
+            </form>
+        </div>
+        </div>
+    </section>
+</main>
+<script src="js/script.js"></script>
 </body>
 
 </html>
