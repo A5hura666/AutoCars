@@ -10,6 +10,9 @@ if (!isset($_SESSION['login'])) {
 }
 
 $TheClient = new ClientsDAO(MaBD::getInstance());
+$TheVehicule = new VehiculesDAO(MaBD::getInstance());
+$Marque = new MarqueDAO(MaBD::getInstance());
+$Modele = new ModeleDAO(MaBD::getInstance());
 
 ?>
 
@@ -85,26 +88,23 @@ $TheClient = new ClientsDAO(MaBD::getInstance());
             <aside>
                 <div class="recherche">
                     <h3>Rechercher un véhicule</h3>
-                    <form action="">
+                    <?php
+                    if(isset($_POST['rechercher'])) {
+                        $modele = $_POST['marque'];
+                        $marque = $_POST['modele'];
+                        echo $modele .' '.$marque;
+                    }
+                    ?>
+                    <form method="post">
                         <div>
                             <label for="marque">Marque</label>
                             <input type="text" name="marque" id="marque" placeholder="Nissan" list="listemarques">
-
                             <datalist id="listemarques">
-                                <option value="Nissan">
-                                <option value="Renault">
-                                <option value="Peugeot">
-                                <option value="Citroën">
-                                <option value="Toyota">
-                                <option value="Ford">
-                                <option value="BMW">
-                                <option value="Mercedes">
-                                <option value="Audi">
-                                <option value="Volkswagen">
-                                <option value="Fiat">
-                                <option value="Opel">
-                                <option value="Honda">
-                                <option value="Hyundai">
+                                <?php
+                                foreach ($Marque->getAll() as $marque){
+                                    echo '<option value="'. $marque->getMarque().'">';
+                                }
+                                ?>
                             </datalist>
                         </div>
                         <div>
@@ -112,23 +112,14 @@ $TheClient = new ClientsDAO(MaBD::getInstance());
                             <input type="text" name="modele" id="modele" placeholder="Micra" list="listemodeles">
 
                             <datalist id="listemodeles">
-                                <option value="Micra">
-                                <option value="Clio">
-                                <option value="308">
-                                <option value="C3">
-                                <option value="Yaris">
-                                <option value="Fiesta">
-                                <option value="Série 3">
-                                <option value="Classe C">
-                                <option value="A3">
-                                <option value="Golf">
-                                <option value="Punto">
-                                <option value="Corsa">
-                                <option value="Civic">
-                                <option value="i30">
+                                <?php
+                                foreach ($Modele->getAll() as $modele){
+                                    echo '<option value="'. $modele->getModèle().'">';
+                                }
+                                ?>
                             </datalist>
                         </div>
-                        <input type="submit" value="Rechercher">
+                        <input type="submit" name="rechercher" value="Rechercher">
                     </form>
                 </div>
                 <div>

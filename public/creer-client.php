@@ -10,6 +10,8 @@ if (!isset($_SESSION['login'])) {
 }
 
 $TheClient = new ClientsDAO(MaBD::getInstance());
+$TheVehicule = new VehiculesDAO(MaBD::getInstance());
+$Marque = new MarqueDAO(MaBD::getInstance());
 
 // Création date courante pour le client
 
@@ -20,6 +22,8 @@ if (isset($_POST['validation_create_client'])) {
     $newClient = new Client(DAO::UNKNOWN_ID, $_POST['nom'], $_POST['prenom'], $_POST['adresse'], $_POST['cp'], $_POST['ville'],$_POST['tel'],$_POST['email'], $dateCli);
     $message = $_POST['nom'] . " " . $_POST['prenom'] . " a bien été ajouté.";
     $TheClient->insert($newClient);
+
+    var_dump($TheVehicule->getAll());
 } else {
     $erreur = "une erreur c'est produite lors de l'insertion de l'utilisateur";
 }

@@ -4,7 +4,7 @@ class UsersDAO extends DAO
 {
 // Récupération d'un objet Administrateur dont on donne l'identifiant (supposé fiable)
 
-    public function getOne(int $id): Users
+    public function getOne(int|string $id): Users
     {
         $stmt = $this->pdo->prepare("SELECT * FROM UserRole WHERE idUser = ?");
         $stmt->execute([$id]);

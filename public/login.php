@@ -2,18 +2,6 @@
 session_start();
 require_once "autoload.php";
 
-//Admin
-/*
-$lesContacts = new AdministrateursDAO(MaBD::getInstance());
-if (isset($_POST['login']) && isset($_POST['password'])) {
-    if (($theAdmin = $lesContacts->check($_POST['login'], $_POST['password'])) != null) {
-        $_SESSION['login'] = $theAdmin;
-        header("Location: home_ca.php");
-        exit(0);
-    } else {
-        $erreur = "login ou mdp incorrect";
-    }
-}*/
 $theUsers = new UsersDAO(MaBD::getInstance());
 
 $param['login'] = isset($_POST['login'])?trim($_POST['login']):"";

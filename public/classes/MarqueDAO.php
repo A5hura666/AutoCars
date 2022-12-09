@@ -1,26 +1,25 @@
 <?php
 
-class VehiculesDAO extends DAO
+class MarqueDAO extends DAO
 {
 
-    public function getOne(int|string $id): object
+    public function getOne(int|string $id): Marque
     {
-        $stmt = $this->pdo->prepare("SELECT * FROM Vehicule WHERE NoImmatriculation = ?");
+        $stmt = $this->pdo->prepare("SELECT * FROM Marque WHERE NumMarque = ?");
         $stmt->execute([$id]);
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
-        return new Vehicule($row['NoImmatriculation'], $row['CodeClient'], $row['NumModele'], $row['NoSerie'], $row['DateMiseEnCirculation']);
+        return new Marque($row['NumMarque'], $row['Marque']);
     }
 
     public function getAll(): array
     {
-        /** @var Vehicule[] $res */
+        /** @var Marque[] $res */
         $res = [];
-        $stmt = $this->pdo->query("SELECT * FROM Vehicule");
+        $stmt = $this->pdo->query("SELECT * FROM Marque");
         foreach ($stmt->fetchAll(PDO::FETCH_ASSOC) as $row)
-            $res[] = new Vehicule($row['NoImmatriculation'], $row['CodeClient'], $row['NumModele'], $row['NoSerie'], $row['DateMiseEnCirculation']);
+            $res[] = new Marque($row['NumMarque'], $row['Marque']);
         return $res;
     }
-
 
     public function insert(object $obj): int
     {
@@ -39,6 +38,4 @@ class VehiculesDAO extends DAO
         return 0;
         // TODO: Implement delete() method.
     }
-
-
 }

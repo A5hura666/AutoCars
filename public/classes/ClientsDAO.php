@@ -2,7 +2,7 @@
 
 class ClientsDAO extends DAO
 {
-    public function getOne(int $id): Client
+    public function getOne(int|string $id): Client
     {
         $stmt = $this->pdo->prepare("SELECT * FROM Client WHERE CodeClient = ?");
         $stmt->execute([$id]);

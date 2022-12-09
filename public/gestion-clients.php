@@ -9,8 +9,10 @@ if (!isset($_SESSION['login'])) {
     exit(0);
 }
 
-
 $TheClient = new ClientsDAO(MaBD::getInstance());
+$TheVehicule = new VehiculesDAO(MaBD::getInstance());
+$Marque = new MarqueDAO(MaBD::getInstance());
+$Modele = new ModeleDAO(MaBD::getInstance());
 
 ?>
 
@@ -111,15 +113,16 @@ $TheClient = new ClientsDAO(MaBD::getInstance());
                 <ul class="list">
                     <form method="post">
                         <?php
+                        //Affichage des clients
                         foreach ($TheClient->getAll() as $clients) {
                             echo "<li>";
                             echo '<span>' . $clients->getLastName() . " " . $clients->getFirstName() . '</span>';
-                            //echo '<input  type="submit" name="Consulter" id="'.$clients->getCodeClient().'" class="consulter" value="Consulter">' . "</li>";
                             echo '<input  type="submit" name="Consulter" class="consulter" value="' . $clients->getCodeClient() . '">' . "</li>";
                             //echo '<input  type="text" name="" hidden value="'.$clients->getCodeClient().'">' . "</li>";
                             $_SESSION['info_clients'] = $_POST['Consulter'];
                         }
 
+                        //Recuperation des different champs du client sélectionner
                         if (isset($_SESSION['info_clients'])) {
                             $newClient = $TheClient->getOne($_SESSION['info_clients']);
                         }
