@@ -11,6 +11,14 @@ class VehiculesDAO extends DAO
         return new Vehicule($row['NoImmatriculation'], $row['CodeClient'], $row['NumModele'], $row['NoSerie'], $row['DateMiseEnCirculation']);
     }
 
+    public function getOneByIdClient(int $id): Vehicule
+    {
+        $stmt = $this->pdo->prepare("SELECT * FROM Vehicule join Client using(CodeClient) WHERE CodeClient = ?");
+        $stmt->execute([$id]);
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+        return new Vehicule($row['NoImmatriculation'], $row['CodeClient'], $row['NumModele'], $row['NoSerie'], $row['DateMiseEnCirculation']);
+    }
+
     public function getAll(): array
     {
         /** @var Vehicule[] $res */

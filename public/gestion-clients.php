@@ -10,9 +10,9 @@ if (!isset($_SESSION['login'])) {
 }
 
 $TheClient = new ClientsDAO(MaBD::getInstance());
-//$TheVehicule = new VehiculesDAO(MaBD::getInstance());
-//$Marque = new MarqueDAO(MaBD::getInstance());
-//$Modele = new ModeleDAO(MaBD::getInstance());
+$TheVehicule = new VehiculesDAO(MaBD::getInstance());
+$Marque = new MarqueDAO(MaBD::getInstance());
+$Modele = new ModeleDAO(MaBD::getInstance());
 
 ?>
 
@@ -182,20 +182,26 @@ $TheClient = new ClientsDAO(MaBD::getInstance());
 
 
                     <div>
+                        <?php
+                        $info_vehicule = $TheVehicule->getOneByIdClient($newClient->getCodeClient());
+                        $info_modele = $Modele->getOne($info_vehicule->getNumModele());
+                        $numMarque = $info_modele->getNumMarque();
+                        $marque = $Marque->getOne($numMarque);
+                        ?>
                         <label>Véhicule</label>
 
                         <div>
                             <label for="marque">Marque</label>
-                            <input type="text" class="marque" id="marque" value="Renault">
+                            <input type="text" class="marque" id="marque" value="<?php echo $marque->getMarque() ?>">
                         </div>
                         <div>
                             <label for="modele">Modèle</label>
-                            <input type="text" class="modele" id="modele" value="Clio">
+                            <input type="text" class="modele" id="modele" value="<?php echo $info_modele->getModèle() ?>">
                         </div>
                         <div>
 
                             <label for="immat">Immatriculation</label>
-                            <input type="text" class="immat" id="immat" value="AB-123-CD">
+                            <input type="text" class="immat" id="immat" value="<?php echo $info_vehicule->getNoImmatriculation() ?>">
                         </div>
                     </div>
 
