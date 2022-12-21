@@ -10,6 +10,9 @@ if (!isset($_SESSION['login'])) {
 }
 
 $TheClient = new ClientsDAO(MaBD::getInstance());
+$TheVehicule = new VehiculesDAO(MaBD::getInstance());
+$Marque = new MarqueDAO(MaBD::getInstance());
+$Modele = new ModeleDAO(MaBD::getInstance());
 
 ?>
 
@@ -109,16 +112,27 @@ $TheClient = new ClientsDAO(MaBD::getInstance());
                 <div>
                     <h3>Liste des clients</h3>
                     <ul class="list">
-                        <li><span>Pierre Duchemin</span><a href="#" class="consulter">Consulter</a></li>
-                        <li><span>Cécile Metge</span><a href="#" class="consulter">Consulter</a></li>
-                        <li><span>Léa Jambon</span><a href="#" class="consulter">Consulter</a></li>
-                        <li><span>Dupond Dupont</span><a href="#" class="consulter">Consulter</a></li>
-                        <li><span>KatlyneDurand</span><a href="#" class="consulter">Consulter</a></li>
-                        <li><span>Martin Matin</span><a href="#" class="consulter">Consulter</a></li>
-                        <li><span>Saw Dazo</span><a href="#" class="consulter">Consulter</a></li>
-                        <li><span>Sylvain Charensol</span><a href="#" class="consulter">Consulter</a></li>
-                        <li><span>Guillaume De Sauza</span><a href="#" class="consulter">Consulter</a></li>
-                        <li><span>Louis Argentiéri</span><a href="#" class="consulter">Consulter</a></li>
+                        <?php
+                        //Affichage des clients
+                        foreach ($TheClient->getAll() as $clients) {
+                            echo "<li>";
+                            echo '<span>' . $clients->getLastName() . " " . $clients->getFirstName() . '</span>';
+                            echo '<input type="submit" name="Consulter" class="consulter" value="'. $clients->getCodeClient() .'">';
+                            echo "</li>";
+
+                            //echo '<input  type="text" name="" hidden value="'.$clients->getCodeClient().'">' . "</li>";
+                            if (isset($_POST['Consulter'])){
+                                $_SESSION['info_clients'] = $_POST['Consulter'];
+                            }
+                        }
+
+                        //Recuperation des different champs du client sélectionner
+                        if (isset($_SESSION['info_clients'])) {
+                            $newClient = $TheClient->getOne($_SESSION['info_clients']);
+                        }else{
+                            $newClient = $TheClient->getOne($_POST['Consulter']);
+                        }
+                        ?>
                     </ul>
                 </div>
             </aside>
@@ -130,47 +144,47 @@ $TheClient = new ClientsDAO(MaBD::getInstance());
                             <label for="clientname">Informations</label>
                             <div>
                                 <label for="name">Nom</label>
-                                <input type="text" name="name" id="name" value="Dujardin">
+                                <input type="text" name="name" id="name" value="<?php echo $newClient->getLastName() ?>">
                             </div>
                             <div>
                                 <label for="fname">Prénom</label>
-                                <input type="text" name="fname" id="fname" value="Jean">
+                                <input type="text" name="fname" id="fname" value="<?php echo $newClient->getFirstName() ?>">
                             </div>
                         </div>
                         <div>
                             <label for="email">Contact</label>
                             <div>
                                 <label for="email">Email</label>
-                                <input type="email" name="email" id="email" value="jean.dujardin@gmail.com">
+                                <input type="email" name="email" id="email" value="<?php echo $newClient->getMail() ?>">
                             </div>
                             <div>
                                 <label for="phone">Téléphone</label>
-                                <input type="tel" name="phone" id="phone" value="067816382029">
+                                <input type="tel" name="phone" id="phone" value="<?php echo $newClient->getTelephone() ?>">
                             </div>
                         </div>
                         <div class="adressse">
                             <label for="adresse">Adresse</label>
                             <div>
                                 <label for="address">Adresse</label>
-                                <input type="text" name="address" id="address" value="12 rue de la paix">
+                                <input type="text" name="address" id="address" value="<?php echo $newClient->getAddress() ?>">
                             </div>
                             <div>
                                 <label for="zip">Code postal</label>
-                                <input type="text" name="zip" id="zip" value="75000">
+                                <input type="text" name="zip" id="zip" value="<?php echo $newClient->getCP() ?>">
                             </div>
                             <div>
                                 <label for="city">Ville</label>
-                                <input type="text" name="city" id="city" value="Paris">
+                                <input type="text" name="city" id="city" value="<?php echo $newClient->getCity() ?>">
                             </div>
                         </div>
 
 
                         <div>
                             <label>Véhicule</label>
-
-                            <div>
-                                <label for="marque">Marque</label>
-                                <input type="text" class="marque" id="marque" value="Renault">
+                            <?php
+                            foreach ($TheVehicule->getByIdClient() as $vehicule){
+                                echo '<div> <label for="marque">Marque</label>
+                                <input type="text" class="marque" id="marque" value="'.$vehicule->getMarque().'">
                             </div>
                             <div>
                                 <label for="modele">Modèle</label>
@@ -180,7 +194,10 @@ $TheClient = new ClientsDAO(MaBD::getInstance());
 
                                 <label for="immat">Immatriculation</label>
                                 <input type="text" class="immat" id="immat" value="AB-123-CD">
-                            </div>
+                            </div>'
+                            }
+                                ?>
+
                         </div>
 
                 </div>

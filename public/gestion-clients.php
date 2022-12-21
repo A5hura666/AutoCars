@@ -183,8 +183,8 @@ $Modele = new ModeleDAO(MaBD::getInstance());
 
                     <div>
                         <?php
-                        $info_vehicule = $TheVehicule->getOneByIdClient($newClient->getCodeClient());
-                        $info_modele = $Modele->getOne($info_vehicule->getNumModele());
+                        $info_vehicule = $TheVehicule->getByIdClient($newClient->getCodeClient());
+                        $info_modele = $Modele->getOne($info_vehicule->getModele());
                         $numMarque = $info_modele->getNumMarque();
                         $marque = $Marque->getOne($numMarque);
                         ?>

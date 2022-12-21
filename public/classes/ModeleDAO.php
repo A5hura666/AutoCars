@@ -49,4 +49,5 @@ class ModeleDAO extends DAO
         return 0;
         // TODO: Implement delete() method.
     }
+
 }
