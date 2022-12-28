@@ -3,7 +3,7 @@
 class ModeleDAO extends DAO
 {
 
-    public function getOne(int|string $id): object
+    public function getOne(int|string $id): Modele
     {
         $stmt = $this->pdo->prepare("SELECT * FROM Modele WHERE NumModele = ?");
         $stmt->execute([$id]);

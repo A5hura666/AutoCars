@@ -184,19 +184,19 @@ $Modele = new ModeleDAO(MaBD::getInstance());
                     <div>
                         <?php
                         $info_vehicule = $TheVehicule->getByIdClient($newClient->getCodeClient());
-                        $info_modele = $Modele->getOne($info_vehicule->getModele());
-                        $numMarque = $info_modele->getNumMarque();
-                        $marque = $Marque->getOne($numMarque);
+                        $info_modele = $info_vehicule->getModele();
+                        $marque = $info_vehicule->getMarque();
+
                         ?>
                         <label>Véhicule</label>
 
                         <div>
                             <label for="marque">Marque</label>
-                            <input type="text" class="marque" id="marque" value="<?php echo $marque->getMarque() ?>">
+                            <input type="text" class="marque" id="marque" value="<?php echo $marque ?>">
                         </div>
                         <div>
                             <label for="modele">Modèle</label>
-                            <input type="text" class="modele" id="modele" value="<?php echo $info_modele->getModèle() ?>">
+                            <input type="text" class="modele" id="modele" value="<?php echo $info_modele ?>">
                         </div>
                         <div>
 
