@@ -161,11 +161,11 @@ if (isset($_POST["marque"])) {
                         <label for="clientname">Informations</label>
                         <div>
                             <label for="detailsmarque">Marque</label>
-                            <input type="text" name="detailsmarque" id="detailsmarque" value="<?php echo $_SESSION['marque']?>">
+                            <input type="text" name="detailsmarque" id="detailsmarque" value="<?php if(isset($_SESSION['marque'])) echo $_SESSION['marque']; else echo "" ;?>">
                         </div>
                         <div>
                             <label for="detailsmodele">Modèle</label>
-                            <input type="text" name="detailsmodele" id="detailsmodele" value="<?php echo $_POST['modele']?>">
+                            <input type="text" name="detailsmodele" id="detailsmodele" value="<?php if(isset($_POST['modele'])) echo $_POST['modele']; else echo "" ?>">
                         </div>
                         <div>
                             <label for="detailsannee">Année</label>
@@ -180,9 +180,11 @@ if (isset($_POST["marque"])) {
                             <label for="detailsnbclients">Nombre de client le possédant </label>
                             <input type="number" class="detailsnbclients" id="detailsnbclients" value="<?php
                             $counter = 0;
-                            foreach ($TheVehicule->getAll() as $vehicule){
-                                if($vehicule->getModele() === $_POST['modele']){
-                                    $counter++;
+                            if(isset($_POST['modele'])) {
+                                foreach ($TheVehicule->getAll() as $vehicule) {
+                                    if ($vehicule->getModele() === $_POST['modele']) {
+                                        $counter++;
+                                    }
                                 }
                             }
                             echo $counter;
