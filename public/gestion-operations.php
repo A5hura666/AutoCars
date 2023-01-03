@@ -11,8 +11,6 @@ if (!isset($_SESSION['login'])) {
 
 
 
-$role = explode(' ', explode('=>', print_r($_SESSION, true))[6])[1];
-print_r($role);
 
 
 $message = "";
