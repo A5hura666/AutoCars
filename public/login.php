@@ -13,7 +13,7 @@ $erreur="";
 if (isset($_POST['login']) && isset($_POST['password'])) {
     if (($theUser = $theUsers->check($_POST['login'],$_POST['password'])) != null) {
         $_SESSION['login'] = $theUser;
-        header("Location: home_ca.php");
+        header("Location: home-ca.php");
         exit(0);
     } else {
         $erreur = "Login or password wrong !";

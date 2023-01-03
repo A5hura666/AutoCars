@@ -180,7 +180,7 @@ $Modele = new ModeleDAO(MaBD::getInstance());
                         </div>
                     </div>
 
-
+                        
                     <div>
                         <?php
                         $info_vehicule = $TheVehicule->getByIdClient($newClient->getCodeClient());

@@ -59,18 +59,19 @@ html {
 body {
 	height: 100vh;
 	width: 100vw;
+	
+	/* overflow: scroll; */
 	-webkit-backdrop-filter: blur(var(--blur-norm));
 	backdrop-filter: blur(var(--blur-norm));
-
-}
-
-body {
+	
 	display: flex;
-	justify-content: center;
 	align-items: center;
 	flex-direction: column;
+	
+	justify-content: flex-end;
 
 }
+
 
 main {
 	height: 86vh;
@@ -85,10 +86,6 @@ main {
 
 }
 
-
-body {
-	justify-content: flex-end;
-}
 
 ul {
 	padding-inline-start: 0;
@@ -337,13 +334,15 @@ nav img {
 }
 
 /*---------------------------------------------------
-					Create User
+					Main interface
 ---------------------------------------------------*/
 .interface {
 	background-color: #0000009d;
 	flex-direction: column;
 	justify-content: space-evenly;
 	padding-bottom: 50px;
+	
+	overflow: scroll;
 }
 
 .interface h3 {
