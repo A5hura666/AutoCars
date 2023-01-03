@@ -59,15 +59,15 @@ html {
 body {
 	height: 100vh;
 	width: 100vw;
-	
+
 	/* overflow: scroll; */
 	-webkit-backdrop-filter: blur(var(--blur-norm));
 	backdrop-filter: blur(var(--blur-norm));
-	
+
 	display: flex;
 	align-items: center;
 	flex-direction: column;
-	
+
 	justify-content: flex-end;
 
 }
@@ -163,6 +163,7 @@ label {
 
 h2 {
 	font-size: 200%;
+	padding-top: 150px;
 }
 
 h3 {
@@ -341,7 +342,7 @@ nav img {
 	flex-direction: column;
 	justify-content: space-evenly;
 	padding-bottom: 50px;
-	
+
 	overflow: scroll;
 }
 
