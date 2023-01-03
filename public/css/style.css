@@ -202,6 +202,14 @@ nav img {
 	filter: invert(1);
 }
 
+
+.btn {
+    align-items: center;
+    justify-content: center;
+    display: flex;
+}
+
+
 nav>section {
 	display: flex;
 	flex-direction: row;
