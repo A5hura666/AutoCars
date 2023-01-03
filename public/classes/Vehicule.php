@@ -3,29 +3,46 @@
 class Vehicule
 {
     private string $NoImmatriculation;
-    private string $CodeClient;
-    private string $NumModele;
+    private int $CodeClient;
+    private int $NumModele;
     private string $NoSerie;
     private string $DateMiseEnCirculation;
-    private string $Marque;
+    private string $marque;
 
     /**
      * @param string $NoImmatriculation
-     * @param string $CodeClient
-     * @param string $NumModele
+     * @param int $CodeClient
+     * @param int $NumModele
      * @param string $NoSerie
      * @param string $DateMiseEnCirculation
-     * @param string $Marque
+     * @param string $marque
      */
-    public function __construct(string $NoImmatriculation, string $CodeClient, string $NumModele, string $NoSerie, string $DateMiseEnCirculation, string $Marque)
+    public function __construct(string $NoImmatriculation, int $CodeClient, int $NumModele, string $NoSerie, string $DateMiseEnCirculation, string $marque)
     {
         $this->NoImmatriculation = $NoImmatriculation;
         $this->CodeClient = $CodeClient;
         $this->NumModele = $NumModele;
         $this->NoSerie = $NoSerie;
         $this->DateMiseEnCirculation = $DateMiseEnCirculation;
-        $this->Marque = $Marque;
+        $this->marque = $marque;
     }
+
+    /**
+     * @return string
+     */
+    public function getMarque(): string
+    {
+        return $this->marque;
+    }
+
+    /**
+     * @param string $marque
+     */
+    public function setMarque(string $marque): void
+    {
+        $this->marque = $marque;
+    }
+
 
     /**
      * @return string
@@ -44,7 +61,7 @@ class Vehicule
     }
 
     /**
-     * @return string
+     * @return int
      */
     public function getCodeClient(): string
     {
@@ -52,28 +69,29 @@ class Vehicule
     }
 
     /**
-     * @param string $CodeClient
+     * @param int $CodeClient
      */
-    public function setCodeClient(string $CodeClient): void
+    public function setCodeClient(int $CodeClient): void
     {
         $this->CodeClient = $CodeClient;
     }
 
     /**
-     * @return string
+     * @return int
      */
-    public function getNumModele(): string
+    public function getNumModele(): int
     {
         return $this->NumModele;
     }
 
     /**
-     * @param string $NumModele
+     * @param int $NumModele
      */
-    public function setNumModele(string $NumModele): void
+    public function setNumModele(int $NumModele): void
     {
         $this->NumModele = $NumModele;
     }
+
 
     /**
      * @return string
@@ -105,14 +123,6 @@ class Vehicule
     public function setDateMiseEnCirculation(string $DateMiseEnCirculation): void
     {
         $this->DateMiseEnCirculation = $DateMiseEnCirculation;
-    }
-
-    /**
-     * @return string $marque
-     */
-
-    public function getMarque():string{
-        return $this->Marque;
     }
 
 

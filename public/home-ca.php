@@ -1,12 +1,9 @@
 <?php
 session_start();
 require_once "autoload.php";
+require "checkAccess.php";
 
-if (!isset($_SESSION['login'])) {
-    // On renvoie vers la page d'accueil
-    header("Location: login.php");
-    exit(0);
-}
+checkAccess("Chef d'atelier")
 
 
 ?>
@@ -71,7 +68,7 @@ if (!isset($_SESSION['login'])) {
         </section>
         <section class="nav-right">
             <a class="invert" href="logout.php">
-                <img class="logout" src="img/logout.png"  alt="Déconnexion" />
+                <img class="logout" src="img/logout.png" alt="Déconnexion" />
             </a>
         </section>
     </nav>
@@ -185,7 +182,7 @@ if (!isset($_SESSION['login'])) {
     </section>
 
 
-    <script src="js/script.js"></script>
+    <script src="js/accueilChef.js"></script>
 </body>
 
 </html>

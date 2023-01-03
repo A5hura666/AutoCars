@@ -1,15 +1,9 @@
 <?php
 session_start();
 require "autoload.php";
+require "checkAccess.php";
 
-
-if (!isset($_SESSION['login'])) {
-    // On renvoie vers la page d'accueil
-    header("Location: login.php");
-    exit(0);
-}
-
-print_r($_SESSION['role']);
+checkAccess("Administrateur");
 
 $message = "";
 $erreur = "";

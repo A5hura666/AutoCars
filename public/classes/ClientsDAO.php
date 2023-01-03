@@ -2,6 +2,8 @@
 
 class ClientsDAO extends DAO
 {
+    public int $lastId = -1;
+
     public function getOne(int|string $id): Client
     {
         $stmt = $this->pdo->prepare("SELECT * FROM Client WHERE CodeClient = ?");
@@ -48,6 +50,7 @@ class ClientsDAO extends DAO
             . " VALUES (?,?,?,?,?,?,?,?)");
         $res = $stmt->execute([$obj->getLastName(), $obj->getFirstName(), $obj->getAddress(), $obj->getCP(), $obj->getCity(),$obj->getTelephone(),$obj->getMail(),$obj->getDateCreation()]);
         $obj->id = $this->pdo->lastInsertId();
+        $this->lastId = $this->pdo->lastInsertId();
         return $res;
     }
 

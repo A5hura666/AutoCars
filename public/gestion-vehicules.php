@@ -2,12 +2,9 @@
 session_start();
 
 require "autoload.php";
+require "checkAccess.php";
 
-if (!isset($_SESSION['login'])) {
-    // On renvoie vers la page d'accueil
-    header("Location: login.php");
-    exit(0);
-}
+checkAccess("Chef d'atelier");
 
 $TheClient = new ClientsDAO(MaBD::getInstance());
 $TheVehicule = new VehiculesDAO(MaBD::getInstance());
@@ -184,7 +181,7 @@ if (isset($_POST["marque"])) {
                             $counter = 0;
                             if(isset($_POST['modele'])) {
                                 foreach ($TheVehicule->getAll() as $vehicule) {
-                                    if ($vehicule->getModele() === $_POST['modele']) {
+                                    if ($Modele->getOne($vehicule->getNumModele())->getModèle() === $_POST['modele']) {
                                         $counter++;
                                     }
                                 }

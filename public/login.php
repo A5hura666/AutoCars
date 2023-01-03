@@ -4,19 +4,36 @@ require_once "autoload.php";
 
 $theUsers = new UsersDAO(MaBD::getInstance());
 
-$param['login'] = isset($_POST['login'])?trim($_POST['login']):"";
-$param['password'] = isset($_POST['password'])?trim($_POST['password']):"";
+$param['login'] = isset($_POST['login']) ? trim($_POST['login']) : "";
+$param['password'] = isset($_POST['password']) ? trim($_POST['password']) : "";
 $param['message'] = "";
-$erreur="";
+$erreur = "";
 
 //Les Users Connexion
 if (isset($_POST['login']) && isset($_POST['password'])) {
-    if (($theUser = $theUsers->check($_POST['login'],$_POST['password'])) != null) {
+    if (($theUser = $theUsers->check($_POST['login'], $_POST['password'])) != null) {
         $_SESSION['login'] = $theUser;
-        header("Location: home-ca.php");
-        exit(0);
+        $_SESSION['role'] = $theUser->getRole();
+
+        print_r($_SESSION['role']);
+
+        if($_SESSION['role'] == "Administrateur"){
+            header("Location: home-admin.php");
+            exit(0);
+        }
+        if($_SESSION['role'] == "Chef d'atelier"){
+            header("Location: home-ca.php");
+            exit(0);
+        }
+        if($_SESSION['role'] == "Opérateur"){
+            header("Location: home-employe.php");
+            exit(0);
+        }
+
+        $erreur = "Quelque chose s'est mal passé ! Votre rôle n'est pas reconnu !";
+
     } else {
-        $erreur = "Login or password wrong !";
+        $erreur = "Identifiants incorrects !";
     }
 }
 ?>
@@ -33,42 +50,43 @@ if (isset($_POST['login']) && isset($_POST['password'])) {
 </head>
 
 <body class="loginpage">
-<?php
-if(!empty($erreur)){
-    echo '<p>'.$erreur.'</p>';
-}
-?>
-<main class="login">
 
-    <section id="login">
-        <form method="post">
-            <h1>Connexion</h1>
+    <main class="login">
+        <?php
+        if (!empty($erreur)) {
+            echo '<p>' . $erreur . '</p>';
+        }
+        ?>
+        <section id="login">
+            <form method="post">
+                <h1>Connexion</h1>
 
-            <section>
-                <section class="credentials">
-                    <label>ID d'employé</label>
-                    <input type="text" name="login" placeholder="DufourT">
+                <section>
+                    <section class="credentials">
+                        <label>ID d'employé</label>
+                        <input type="text" name="login" placeholder="DufourT">
+                    </section>
+
+                    <section class="credentials">
+                        <label>Mot de passe</label>
+                        <input type="password" name="password" placeholder="********">
+                    </section>
                 </section>
 
-                <section class="credentials">
-                    <label>Mot de passe</label>
-                    <input type="password" name="password" placeholder="********">
+                <section class="login-btn">
+                    <input type="submit" value="Se connecter">
                 </section>
-            </section>
-
-            <section class="login-btn">
-                <input type="submit" value="Se connecter">
-            </section>
-        </form>
-    </section>
+            </form>
+        </section>
 
 
-    <section id="logo">
-        <img src="img/logo.png" alt="logo">
-        <h2>Auto Cars</h2>
-    </section>
+        <section id="logo">
+            <img src="img/logo.png" alt="logo">
+            <h2>Auto Cars</h2>
 
-</main>
+        </section>
+
+    </main>
 </body>
 
 </html>

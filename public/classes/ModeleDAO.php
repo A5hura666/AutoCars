@@ -22,6 +22,14 @@ class ModeleDAO extends DAO
         return $res;
     }
 
+    public function getOneByModele(string $id): Modele
+    {
+        $stmt = $this->pdo->prepare("SELECT * FROM Modele WHERE Modèle = ?");
+        $stmt->execute([$id]);
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+        return new Modele($row['NumModele'],$row['NumMarque'], $row['Modèle']);
+    }
+
     public function getAll(): array
     {
         /** @var Modele[] $res */
