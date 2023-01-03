@@ -194,7 +194,7 @@ $Modele = new ModeleDAO(MaBD::getInstance());
 
                                 <label for="immat">Immatriculation</label>
                                 <input type="text" class="immat" id="immat" value="AB-123-CD">
-                            </div>'
+                            </div>';
                             }
                                 ?>
 
