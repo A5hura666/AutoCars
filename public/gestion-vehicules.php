@@ -184,7 +184,7 @@ if (isset($_POST["marque"])) {
                             $counter = 0;
                             if(isset($_POST['modele'])) {
                                 foreach ($TheVehicule->getAll() as $vehicule) {
-                                    if ($vehicule->getModele() === $_POST['modele']) {
+                                    if ($Modele->getOne($vehicule->getNumModele())->getModèle() === $_POST['modele']) {
                                         $counter++;
                                     }
                                 }
