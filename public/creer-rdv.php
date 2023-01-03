@@ -24,7 +24,7 @@ if (isset($_POST['usersearchbar'])){
 
 <head>
     <meta charset="utf-8">
-    <title>Création de RDV</title>
+    <title>AutoCars | Création de RDV</title>
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/creer-rdv.css">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -80,7 +80,9 @@ if (isset($_POST['usersearchbar'])){
 
         </section>
         <section class="nav-right">
-            <img src="img/logout.png" alt="Déconnexion" class="logout">
+            <a class="invert" href="logout.php">
+                <img class="logout" src="img/logout.png"  alt="Déconnexion" />
+            </a>
         </section>
     </nav>
 

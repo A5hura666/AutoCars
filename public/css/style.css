@@ -287,6 +287,9 @@ nav img {
 	text-decoration: none;
 }
 
+.invert {
+    filter: inherit;
+}
 
 .back {
 	position: absolute;

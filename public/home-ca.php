@@ -8,11 +8,6 @@ if (!isset($_SESSION['login'])) {
     exit(0);
 }
 
-if(isset($_POST['logout'])){
-    session_destroy();
-    header("Location: login.php");
-    exit(0);
-}
 
 ?>
 <!DOCTYPE html>
@@ -21,7 +16,7 @@ if(isset($_POST['logout'])){
 
 <head>
     <meta charset="utf-8">
-    <title>Accueil</title>
+    <title>AutoCars | Accueil</title>
     <link rel="stylesheet" href="css/style.css">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta lang="utf-8" content="text/html; charset=utf-8">
@@ -75,7 +70,9 @@ if(isset($_POST['logout'])){
 
         </section>
         <section class="nav-right">
-            <img src="img/logout.png" alt="Déconnexion" class="logout">
+            <a class="invert" href="logout.php">
+                <img class="logout" src="img/logout.png"  alt="Déconnexion" />
+            </a>
         </section>
     </nav>
 

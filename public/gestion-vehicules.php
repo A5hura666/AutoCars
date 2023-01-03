@@ -23,7 +23,7 @@ if (isset($_POST["marque"])) {
 <html lang="fr">
 <head>
     <meta charset="utf-8">
-    <title>Gestion des Véhicule</title>
+    <title>AutoCars | Gestion des Véhicule</title>
     <link rel="stylesheet" href="css/gestion-utilisateur.css">
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/liste.css">
@@ -76,8 +76,10 @@ if (isset($_POST["marque"])) {
 
     </section>
     <section class="nav-right">
-        <img src="img/logout.png" alt="Déconnexion" class="logout">
-    </section>
+            <a class="invert" href="logout.php">
+                <img class="logout" src="img/logout.png"  alt="Déconnexion" />
+            </a>
+        </section>
 </nav>
 
 <main class="interface">
@@ -182,8 +184,7 @@ if (isset($_POST["marque"])) {
                             $counter = 0;
                             if(isset($_POST['modele'])) {
                                 foreach ($TheVehicule->getAll() as $vehicule) {
-
-                                    if ($Modele->getOne($vehicule->getNumModele())->getModèle() === $_POST['modele']) {
+                                    if ($vehicule->getModele() === $_POST['modele']) {
                                         $counter++;
                                     }
                                 }
