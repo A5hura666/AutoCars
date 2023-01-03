@@ -4,7 +4,7 @@ class Vehicule
 {
     private string $NoImmatriculation;
     private string $CodeClient;
-    private string $NumModele;
+    private string $Modele;
     private string $NoSerie;
     private string $DateMiseEnCirculation;
     private string $Marque;
@@ -17,11 +17,11 @@ class Vehicule
      * @param string $DateMiseEnCirculation
      * @param string $Marque
      */
-    public function __construct(string $NoImmatriculation, string $CodeClient, string $NumModele, string $NoSerie, string $DateMiseEnCirculation, string $Marque)
+    public function __construct(string $NoImmatriculation, string $CodeClient, string $Modele, string $NoSerie, string $DateMiseEnCirculation, string $Marque)
     {
         $this->NoImmatriculation = $NoImmatriculation;
         $this->CodeClient = $CodeClient;
-        $this->NumModele = $NumModele;
+        $this->Modele = $Modele;
         $this->NoSerie = $NoSerie;
         $this->DateMiseEnCirculation = $DateMiseEnCirculation;
         $this->Marque = $Marque;
@@ -62,9 +62,9 @@ class Vehicule
     /**
      * @return string
      */
-    public function getNumModele(): string
+    public function getModele(): string
     {
-        return $this->NumModele;
+        return $this->Modele;
     }
 
     /**
