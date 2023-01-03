@@ -22,7 +22,7 @@ $Modele = new ModeleDAO(MaBD::getInstance());
 
 <head>
     <meta charset="utf-8">
-    <title>Gestion des factures</title>
+    <title>AutoCars | Gestion des factures</title>
     <link rel="stylesheet" href="css/gestion-utilisateur.css">
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/liste.css">
@@ -78,7 +78,9 @@ $Modele = new ModeleDAO(MaBD::getInstance());
 
         </section>
         <section class="nav-right">
-            <img src="img/logout.png" alt="Déconnexion" class="logout">
+            <a class="invert" href="logout.php">
+                <img class="logout" src="img/logout.png"  alt="Déconnexion" />
+            </a>
         </section>
     </nav>
 
@@ -194,7 +196,7 @@ $Modele = new ModeleDAO(MaBD::getInstance());
 
                                 <label for="immat">Immatriculation</label>
                                 <input type="text" class="immat" id="immat" value="AB-123-CD">
-                            </div>';
+                            </div>'
                             }
                                 ?>
 

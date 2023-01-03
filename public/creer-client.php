@@ -41,7 +41,7 @@ if (isset($_POST["marque"])) {
 
 <head>
     <meta charset="utf-8">
-    <title>Créer un client</title>
+    <title>AutoCars | Créer un client</title>
     <link rel="stylesheet" href="css/style.css">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta lang="utf-8" content="text/html; charset=utf-8">
@@ -93,8 +93,10 @@ if (isset($_POST["marque"])) {
 
     </section>
     <section class="nav-right">
-        <img src="img/logout.png" alt="Déconnexion" class="logout">
-    </section>
+            <a class="invert" href="logout.php">
+                <img class="logout" src="img/logout.png"  alt="Déconnexion" />
+            </a>
+        </section>
 </nav>
 
 

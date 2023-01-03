@@ -22,7 +22,7 @@ $Modele = new ModeleDAO(MaBD::getInstance());
 
 <head>
     <meta charset="utf-8">
-    <title>Gestion des clients</title>
+    <title>AutoCars | Gestion des clients</title>
     <link rel="stylesheet" href="css/gestion-utilisateur.css">
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/liste.css">
@@ -77,8 +77,10 @@ $Modele = new ModeleDAO(MaBD::getInstance());
 
     </section>
     <section class="nav-right">
-        <img src="img/logout.png" alt="Déconnexion" class="logout">
-    </section>
+            <a class="invert" href="logout.php">
+                <img class="logout" src="img/logout.png"  alt="Déconnexion" />
+            </a>
+        </section>
 </nav>
 
 <main class="interface">

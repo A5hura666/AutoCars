@@ -22,11 +22,6 @@ if (isset($_POST['createUser'])) {
 }
 
 
-if (isset($_POST['deconnexion'])) {
-    session_destroy();
-    header("Location: Connexion.php");
-    exit(0);
-}
 
 ?>
 <!DOCTYPE html>
@@ -34,7 +29,7 @@ if (isset($_POST['deconnexion'])) {
 
 <head>
     <meta charset="utf-8">
-    <title>Création utilisateur</title>
+    <title>AutoCars | Création utilisateur</title>
     <link rel="stylesheet" href="css/style.css">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta lang="utf-8" content="text/html; charset=utf-8">
@@ -42,53 +37,24 @@ if (isset($_POST['deconnexion'])) {
 
 <body>
     <nav>
-        <section class="nav-left">
-            <img src="img/logo.png" alt="logo">
-            <div>
-                <a href="home-ca.php">Accueil</a>
+        <section class="nav-left"> <a class="nav-logo" href="home-ca.php"><img src="img/logo.png" alt="logo" /></a>
+            <div> <a href="home-ca.php">Accueil</a>
                 <div class="dropdown-content"></div>
             </div>
-
-            <div>
-                <a href="#">Rendez-vous</a>
-                <div class="dropdown-content">
-                    <a href="creer-rdv.php">Créer un rendez-vous</a>
-                    <a href="liste-rdv.php">Gestion des rendez-vous</a>
-                </div>
+            <div><a href="creer-utilisateur.php">Créer un utilisateur</a>
+                <div class="dropdown-content"></div>
             </div>
-
-            <div>
-                <a href="#">Clients & Véhicules</a>
-                <div class="dropdown-content">
-                    <a href="gestion-clients.php">Gestion des clients</a>
-                    <a href="creer-client.php">Créer un client</a>
-                    <a href="gestion-vehicules.php">Gestion des véhicules</a>
-                </div>
+            <div><a href="statistiques.php">Statistiques</a>
+                <div class="dropdown-content"></div>
             </div>
-
-
-            <div>
-                <a href="#">Factures</a>
-                <div class="dropdown-content">
-                    <a href="creer-rdv.php">Créer une facture</a>
-                    <a href="gestion-factures.php">Gestion des factures</a>
-                </div>
+            <div><a href="#">Opérations</a>
+                <div class="dropdown-content"><a href="creer-operation.php">Créer une opération</a><a href="gestion-operations.php">Gérer les opérations</a></div>
             </div>
-
-
-            <div>
-                <a href="#">Pièces</a>
-                <div class="dropdown-content">
-                    <a href="consulter-pieces.php">Consulter le stock des pièces</a>
-                    <a href="commander-pieces.php">Commander des pièces</a>
-                </div>
-            </div>
-
-
-
         </section>
         <section class="nav-right">
-            <img src="img/logout.png" alt="Déconnexion" class="logout">
+            <a class="invert" href="logout.php">
+                <img class="logout" src="img/logout.png"  alt="Déconnexion" />
+            </a>
         </section>
     </nav>
 
