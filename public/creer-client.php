@@ -15,20 +15,21 @@ $Marque = new MarqueDAO(MaBD::getInstance());
 $Modele = new ModeleDAO(MaBD::getInstance());
 
 // Création date courante pour le client
-
 $date = new DateTime();
 $dateCli = $date->format('Y-m-d');
 
 if (isset($_POST['validation_create_client'])) {
-    $NumModele = $Modele->getOneByModele($_POST['modele'])->getNumModele();
     $newClient = new Client(DAO::UNKNOWN_ID, $_POST['nom'], $_POST['prenom'], $_POST['adresse'], $_POST['cp'], $_POST['ville'], $_POST['tel'], $_POST['email'], $dateCli);
-    $newVehicule = new Vehicule($_POST['immat'],21,$NumModele,$_POST['serie'],$_POST['annee'],$_POST['marque']);
     $TheClient->insert($newClient);
-    $TheVehicule->insert($newVehicule);
-    $message = $_POST['nom'] . " " . $_POST['prenom'] . " " .$_POST['immat']. " a bien été ajouté.";
-} else {
-    $erreur = "une erreur c'est produite lors de l'insertion de l'utilisateur";
-}
+        if($TheClient->lastId !=-1){
+            $NumModele = $Modele->getOneByModele($_POST['modele'])->getNumModele();
+            $newVehicule = new Vehicule($_POST['immat'],$TheClient->lastId,$NumModele,$_POST['serie'],$_POST['annee'],"");
+            $TheVehicule->insert($newVehicule);
+            $message = "création de l'utilisateur: ". $newClient->getFirstName() ." ". $newClient->getLastName() . " avec l'immatriculation du véhicule: " . $newVehicule->getNoImmatriculation();
+        } else {
+            $erreur = "une erreur c'est produite lors de l'insertion de l'utilisateur";
+        }
+    }
 
 if(isset($_POST['reset'])){
     $_POST = array();
@@ -188,7 +189,7 @@ function formFilling(string $sessionName,int $number,string $type ,string $name,
                     </datalist>
 
                     <label for="annee">Année</label>
-                    <?php formFilling("info_vehicules",0,"text","annee","2018"); ?>
+                    <?php formFilling("info_vehicules",0,"date","annee","2018"); ?>
                     <label for="immatriculation">Immatriculation</label>
                     <?php formFilling("info_vehicules",1,"text","immat","ABC1234"); ?>
                     <label for="serie">N° de série</label>
