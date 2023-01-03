@@ -1,7 +1,6 @@
 <?php
 session_start();
 require_once "autoload.php";
-require "checkAccess.php";
 
 checkAccess("Chef d'atelier")
 

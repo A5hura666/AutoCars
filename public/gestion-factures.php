@@ -76,7 +76,7 @@ $Modele = new ModeleDAO(MaBD::getInstance());
         </section>
         <section class="nav-right">
             <a class="invert" href="logout.php">
-                <img class="logout" src="img/logout.png"  alt="Déconnexion" />
+                <img class="logout" src="img/logout.png" alt="Déconnexion" />
             </a>
         </section>
     </nav>
@@ -116,11 +116,11 @@ $Modele = new ModeleDAO(MaBD::getInstance());
                         foreach ($TheClient->getAll() as $clients) {
                             echo "<li>";
                             echo '<span>' . $clients->getLastName() . " " . $clients->getFirstName() . '</span>';
-                            echo '<input type="submit" name="Consulter" class="consulter" value="'. $clients->getCodeClient() .'">';
+                            echo '<input type="submit" name="Consulter" class="consulter" value="' . $clients->getCodeClient() . '">';
                             echo "</li>";
 
                             //echo '<input  type="text" name="" hidden value="'.$clients->getCodeClient().'">' . "</li>";
-                            if (isset($_POST['Consulter'])){
+                            if (isset($_POST['Consulter'])) {
                                 $_SESSION['info_clients'] = $_POST['Consulter'];
                             }
                         }
@@ -128,7 +128,7 @@ $Modele = new ModeleDAO(MaBD::getInstance());
                         //Recuperation des different champs du client sélectionner
                         if (isset($_SESSION['info_clients'])) {
                             $newClient = $TheClient->getOne($_SESSION['info_clients']);
-                        }else{
+                        } else {
                             $newClient = $TheClient->getOne($_POST['Consulter']);
                         }
                         ?>
@@ -181,9 +181,9 @@ $Modele = new ModeleDAO(MaBD::getInstance());
                         <div>
                             <label>Véhicule</label>
                             <?php
-                            foreach ($TheVehicule->getByIdClient() as $vehicule){
+                            foreach ($TheVehicule->getAll() as $vehicule) {
                                 echo '<div> <label for="marque">Marque</label>
-                                <input type="text" class="marque" id="marque" value="'.$vehicule->getMarque().'">
+                                <input type="text" class="marque" id="marque" value="' . $vehicule->getMarque() . '">
                             </div>
                             <div>
                                 <label for="modele">Modèle</label>
@@ -193,9 +193,9 @@ $Modele = new ModeleDAO(MaBD::getInstance());
 
                                 <label for="immat">Immatriculation</label>
                                 <input type="text" class="immat" id="immat" value="AB-123-CD">
-                            </div>'
+                            </div>';
                             }
-                                ?>
+                            ?>
 
                         </div>
 
