@@ -21,18 +21,43 @@ $dateCli = $date->format('Y-m-d');
 
 if (isset($_POST['validation_create_client'])) {
     $newClient = new Client(DAO::UNKNOWN_ID, $_POST['nom'], $_POST['prenom'], $_POST['adresse'], $_POST['cp'], $_POST['ville'], $_POST['tel'], $_POST['email'], $dateCli);
-    $message = $_POST['nom'] . " " . $_POST['prenom'] . " a bien été ajouté.";
-    $TheClient->insert($newClient);
-
-    var_dump($TheVehicule->getAll());
+    $newVehicule = new Vehicule($_POST['immat'],21,$_POST['modele'],$_POST['serie'],$_POST['annee'],$_POST['marque']);
+    var_dump($_POST['modele']->getByModèle($_POST['modele']));
+    //$TheClient->insert($newClient);
+    //$TheVehicule->insert($newVehicule);
+    $message = $_POST['nom'] . " " . $_POST['prenom'] . " " .$_POST['immat']. " a bien été ajouté.";
 } else {
     $erreur = "une erreur c'est produite lors de l'insertion de l'utilisateur";
 }
 
-//formulaire vehicules
-if (isset($_POST["marque"])) {
-    $_SESSION["marque"] = $_POST["marque"];
+if(isset($_POST['reset'])){
+    $_POST = array();
+    $_SESSION["info_clients"]=array();
+    $_SESSION["info_vehicules"]=array();
+    $_SESSION["marque"]=array();
 }
+
+//formulaire client
+if (isset($_POST["prenom"]) || isset($_POST["nom"]) || isset($_POST["adresse"]) || isset($_POST["ville"]) || isset($_POST["cp"]) || isset($_POST["email"]) || isset($_POST["tel"])) {
+    $_SESSION["info_clients"] = [$_POST["prenom"], $_POST["nom"], $_POST["adresse"], $_POST["ville"], $_POST["cp"], $_POST["email"], $_POST["tel"]];
+}
+
+//formulaire vehicules
+if (isset($_POST["marque"]) || isset($_POST["annee"]) || isset($_POST["immat"]) || isset($_POST["serie"])) {
+    $_SESSION["marque"] = $_POST["marque"];
+    $_SESSION["info_vehicules"] = [$_POST["annee"], $_POST["immat"], $_POST["serie"]];
+}
+
+function formFilling(string $sessionName,int $number,string $type ,string $name, string $placeholder): void
+{
+    if (isset($_SESSION[$sessionName][$number]) && !empty($_SESSION[$sessionName][$number])) {
+        $value = $_SESSION[$sessionName][$number];
+    } else {
+        $value = "";
+    }
+    echo '<input type="'.$type.'" name="' . $name . '" placeholder="' . $placeholder . '" value="' . $value . '" required>';
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -41,7 +66,7 @@ if (isset($_POST["marque"])) {
 
 <head>
     <meta charset="utf-8">
-    <title>AutoCars | Créer un client</title>
+    <title>Créer un client</title>
     <link rel="stylesheet" href="css/style.css">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta lang="utf-8" content="text/html; charset=utf-8">
@@ -93,38 +118,35 @@ if (isset($_POST["marque"])) {
 
     </section>
     <section class="nav-right">
-            <a class="invert" href="logout.php">
-                <img class="logout" src="img/logout.png"  alt="Déconnexion" />
-            </a>
-        </section>
+        <img src="img/logout.png" alt="Déconnexion" class="logout">
+    </section>
 </nav>
 
 
 <main class="interface">
     <h2>Création de client</h2>
     <section>
-        <form class="createuser" method="post">
+        <form class="createuser" method="post" onchange="submit()">
             <section>
                 <div class="personalData">
                     <h3>Informations personnelles</h3>
+
                     <label for="fname">Prénom</label>
-                    <input type="text" class="fname" name="prenom" placeholder="François" required>
-                    <label for="fname">Nom</label>
-                    <input type="text" class="lname" name="nom" placeholder="Duchemin" required>
+                    <?php formFilling("info_clients",0,"text", "prenom", "François"); ?>
+                    <label for="lname">Nom</label>
+                    <?php formFilling("info_clients",1,"text", "nom", "Duchemin"); ?>
                     <br>
-                    <label for="fname">Adresse</label>
-                    <input type="text" class="address" name="adresse" placeholder="1234 rue de la Paix" required>
-                    <label for="fname">Ville</label>
-                    <input type="text" class="city" name="ville" placeholder="Montréal" required>
-                    <label for="fname">Code postal</label>
-                    <input type="text" class="postalCode" name="cp" placeholder="H2T 2M4" required>
-
+                    <label for="address">Adresse</label>
+                    <?php formFilling("info_clients",2,"text", "adresse", "1234 rue de la Paix"); ?>
+                    <label for="city">Ville</label>
+                    <?php formFilling("info_clients",3,"text", "ville", "Montréal"); ?>
+                    <label for="postalCode">Code postal</label>
+                    <?php formFilling("info_clients",4,"text", "cp", "H2T 2M4"); ?>
                 </div>
-        </form>
-        <div class="vehicledetails">
-            <h3>Véhicule</h3>
 
-            <form method="post" onchange="submit()">
+                <div class="vehicledetails">
+                    <h3>Véhicule</h3>
+
                     <label for="marque">Marque</label>
                     <?php
                     if (isset($_SESSION["marque"]) && !empty($_SESSION["marque"])) {
@@ -132,7 +154,7 @@ if (isset($_POST["marque"])) {
                     } else {
                         $value = "";
                     }
-                    echo '<input type="text" name="marque" id="marque" class="marque" placeholder="Nissan" list="listemarques" value="' . $value . '">';
+                    echo '<input type="text" name="marque" id="marque" class="marque" placeholder="Nissan" list="listemarques" value="' . $value . '" required>';
                     ?>
                     <datalist id="listemarques">
                         <?php
@@ -149,7 +171,7 @@ if (isset($_POST["marque"])) {
                     } else {
                         $value = "";
                     }
-                    echo '<input type="text" name="modele" id="modele" class="modele" placeholder="Micra" list="listemodeles" value="' . $value . '">';
+                    echo '<input type="text" name="modele" id="modele" class="modele" placeholder="Micra" list="listemodeles" value="' . $value . '" required>';
                     ?>
                     <datalist id="listemodeles">
                         <?php
@@ -165,40 +187,34 @@ if (isset($_POST["marque"])) {
                         ?>
                     </datalist>
 
-            </form>
-            <!--<label for="marque">Marque</label>
-            <input type="text" class="marque" name="marque" placeholder="Ford" required>
-            <label for="modele">Modèle</label>
-            <input type="text" class="modele" name="modele" placeholder="Mustang" required>-->
-            <form method="post">
-                <label for="annee">Année</label>
-                <input type="text" class="annee" name="annee" placeholder="2018" required>
-                <label for="immatriculation">Immatriculation</label>
-                <input type="text" class="immatriculation" name="immat" placeholder="ABC1234" required>
-                <label for="serie">N° de série</label>
-                <input type="text" class="serie" name="serie" placeholder="2UH287490YHU1IH" required>
-            </form>
-        </div>
-        <div class="contact">
-            <h3>Contact</h3>
-            <form>
-                <label for="email">Adresse e-mail</label>
-                <input type="email" class="email" name="email" placeholder="jean.dujardin@mail.com" id="email" required>
-                <label for="phone">Numéro de téléphone</label>
-                <input type="tel" class="phone" name="tel" placeholder="06 12 34 56 78" id="phone" required>
-        </div>
-        <?php
-        //var_dump($TheClient->getAll());
-        ?>
-    </section>
-    <div class="btn">
-        <input type="reset" value="Réinitialiser">
-        <input type="submit" name="validation_create_client" value="Créer l'utilisateur">
-    </div>
-    <?php
-    echo $message;
-    ?>
-    </form>
+                    <label for="annee">Année</label>
+                    <?php formFilling("info_vehicules",0,"text","annee","2018"); ?>
+                    <label for="immatriculation">Immatriculation</label>
+                    <?php formFilling("info_vehicules",1,"text","immat","ABC1234"); ?>
+                    <label for="serie">N° de série</label>
+                    <?php formFilling("info_vehicules",2,"text","serie","2UH287490YHU1IH"); ?>
+                </div>
+
+                <div class="contact">
+                    <h3>Contact</h3>
+                    <label for="email">Adresse e-mail</label>
+                    <?php formFilling("info_clients",5,"email", "email", "jean.dujardin@mail.com"); ?>
+                    <label for="phone">Numéro de téléphone</label>
+                    <?php formFilling("info_clients",6,"tel", "tel", "06 12 34 56 78"); ?>
+                </div>
+
+            </section>
+            <div class="btn">
+                <?php
+                //var_dump($TheClient->getAll());
+                ?>
+                <input type="submit" name="reset" value="Réinitialiser">
+                <input type="submit" name="validation_create_client" value="Créer l'utilisateur">
+            </div>
+            <?php
+            echo $message;
+            ?>
+        </form>
 
     </section>
 </main>

@@ -53,8 +53,7 @@ class ClientsDAO extends DAO
 
     public function update(object $obj): int
     {
-        $stmt = $this->pdo->prepare("UPDATE Client set LastName=:LastName, FirstName=:FirstName, Role=:Role, Login=:Login, Password=:Password"
-            . " WHERE idUser=:idUser");
+        $stmt = $this->pdo->prepare("UPDATE Client set LastName=:LastName, FirstName=:FirstName, Role=:Role, Login=:Login, Password=:Password WHERE idUser=:idUser");
         $res = $stmt->execute(['idUser' => $obj->getIdUser(), 'LastName' => $obj->getLastName(), 'FirstName' => $obj->getFirstName(), 'Role' => $obj->getRole(), 'Login' => $obj->getLogin(), 'Password' => $obj->getPassword()]);
         return $res;
     }
