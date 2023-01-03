@@ -9,7 +9,11 @@ if (!isset($_SESSION['login'])) {
     exit(0);
 }
 
-print_r($_SESSION['role']);
+
+
+$role = explode(' ', explode('=>', print_r($_SESSION, true))[6])[1];
+print_r($role);
+
 
 $message = "";
 $erreur = "";
