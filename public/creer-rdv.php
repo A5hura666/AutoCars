@@ -10,6 +10,12 @@ if (!isset($_SESSION['login'])) {
 }
 
 $TheClient = new ClientsDAO(MaBD::getInstance());
+if (isset($_POST['usersearchbar'])){
+    $Name = explode(" ",$_POST['usersearchbar']);
+    $selected_client = $TheClient->getOneByName($Name[0],$Name[1]);
+    var_dump($selected_client);
+}
+
 
 ?>
 <!DOCTYPE html>
@@ -27,6 +33,7 @@ $TheClient = new ClientsDAO(MaBD::getInstance());
 
 <body>
     <nav>
+        <?php var_dump($_POST['usersearchbar']);?>
         <section class="nav-left">
             <img src="img/logo.png" alt="logo">
             <div>
@@ -85,23 +92,27 @@ $TheClient = new ClientsDAO(MaBD::getInstance());
                     <div class="client">
                         <section>
                             <h3>Client</h3>
-                            <input type="text" class="usersearchbar" placeholder="Recherche un client" list="clientlist"
+                            <input type="text" name="usersearchbar" id="usersearchbar" onchange="select_client()" class="usersearchbar" placeholder="Recherche un client" list="clientlist"
                                 required>
                             <datalist id="clientlist">
-                                <option value="Michel Dupont"></option>
-                                <option value="Albert Martin"></option>
+                                <?php
+                                foreach ($TheClient->getAll() as $client){
+                                    echo '<option value="' . $client->getLastName() . " " . $client->getFirstName() . '"></option>';
+                                }
+                                ?>
                             </datalist>
                         </section>
+
 
 
                         <section class="clientdetails">
                             <div>
                                 <label for="lname">Nom</label>
-                                <input type="text" class="lname" placeholder="Duchemin" disabled>
+                                <input type="text" class="lname" placeholder="<?php if(isset($selected_client)) echo $selected_client->getLastName(); else echo "Duchemin" ?>" disabled>
                             </div>
                             <div>
                                 <label for="fname">Prénom</label>
-                                <input type="text" class="lname" placeholder="Partice" disabled>
+                                <input type="text" class="fname" placeholder="Partice" disabled>
                             </div>
                             <div>
                                 <label for="adress">Rue</label>
@@ -208,6 +219,7 @@ $TheClient = new ClientsDAO(MaBD::getInstance());
 
 
     <script src="js/script.js"></script>
+<script src="js/rdv_script.js"></script>
 </body>
 
 </html>
