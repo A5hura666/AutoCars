@@ -1,0 +1,78 @@
+/*--------------------------------------------------
+					Create RDV
+--------------------------------------------------*/
+
+.client,.vehicle{
+	align-items: center;
+}
+
+.client>section:first-child,.vehicle>section:first-child,.operation>section:first-child{
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+}
+
+.clientdetails, .vehicledetails{
+	margin-top: 25px;
+}
+
+.usersearchbar, .vehiclesearchbar,.operationsearchbar{
+	width: 400px !important;
+	border-radius: 100px;
+}
+
+.cp{
+	width: 60px !important;
+}
+
+.ville{
+	width: 150px !important;
+}
+
+.clientdetails>div,.vehicledetails>div{
+	align-items: center;
+	display: flex;
+	justify-content: space-between;
+}
+
+.clientdetails>div label,.vehicledetails>div label{
+	margin: 0 10px;
+}
+
+
+.vehicledetails input[type="text"]{
+	width: 250px !important;
+}
+
+
+.operationlist ul{
+	max-height: 270px;
+	overflow: auto;
+}
+
+.operationlist li{
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	padding: 10px 7px;
+	margin: 2px 0;
+	background-color: #5b5b5b7a;
+	border-radius: var(--border-norm);
+}
+.operationlist li *{
+	padding: 0 10px;
+	text-decoration: none;
+}
+
+.operation > div{
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	
+}
+.operation>div p{
+	margin:  2px 0 -10px 0;
+    opacity: .5 ;
+}
+
+
