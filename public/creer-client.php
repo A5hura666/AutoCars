@@ -20,11 +20,11 @@ $date = new DateTime();
 $dateCli = $date->format('Y-m-d');
 
 if (isset($_POST['validation_create_client'])) {
+    $NumModele = $Modele->getOneByModele($_POST['modele'])->getNumModele();
     $newClient = new Client(DAO::UNKNOWN_ID, $_POST['nom'], $_POST['prenom'], $_POST['adresse'], $_POST['cp'], $_POST['ville'], $_POST['tel'], $_POST['email'], $dateCli);
-    $newVehicule = new Vehicule($_POST['immat'],21,$_POST['modele'],$_POST['serie'],$_POST['annee'],$_POST['marque']);
-    var_dump($_POST['modele']->getByModèle($_POST['modele']));
-    //$TheClient->insert($newClient);
-    //$TheVehicule->insert($newVehicule);
+    $newVehicule = new Vehicule($_POST['immat'],21,$NumModele,$_POST['serie'],$_POST['annee'],$_POST['marque']);
+    $TheClient->insert($newClient);
+    $TheVehicule->insert($newVehicule);
     $message = $_POST['nom'] . " " . $_POST['prenom'] . " " .$_POST['immat']. " a bien été ajouté.";
 } else {
     $erreur = "une erreur c'est produite lors de l'insertion de l'utilisateur";
@@ -130,7 +130,7 @@ function formFilling(string $sessionName,int $number,string $type ,string $name,
             <section>
                 <div class="personalData">
                     <h3>Informations personnelles</h3>
-                    <?php var_dump($_POST['modele']); ?>
+
                     <label for="fname">Prénom</label>
                     <?php formFilling("info_clients",0,"text", "prenom", "François"); ?>
                     <label for="lname">Nom</label>

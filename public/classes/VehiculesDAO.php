@@ -32,7 +32,7 @@ class VehiculesDAO extends DAO
     public function insert(object $obj): int
     {
         /** @var Vehicule $obj */
-        $stmt = $this->pdo->prepare("INSERT INTO Vehicule (NoImmatriculation, CodeClient, Modele, NoSerie, DateMiseEnCirculation, Marque)"
+        $stmt = $this->pdo->prepare("INSERT INTO Vehicule (NoImmatriculation, CodeClient, NumModele, NoSerie, DateMiseEnCirculation, Marque)"
             . " VALUES (?,?,?,?,?,?)");
         $res = $stmt->execute([$obj->getNoImmatriculation(), $obj->getCodeClient(), $obj->getNumModele(), $obj->getNoSerie(), $obj->getDateMiseEnCirculation(),$obj->getMarque()]);
         return $res;
