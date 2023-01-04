@@ -6,7 +6,6 @@ require "checkAccess.php";
 checkAccess("Chef d'atelier");
 
 $TheArticle = new ArticleDAO(MaBD::getInstance());
-$search_article;
 if (isset($_POST['article'])) {
     $search_article = $_POST['article'];
 } else {
