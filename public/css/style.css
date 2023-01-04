@@ -415,8 +415,8 @@ aside>div,
 	justify-content: space-between;
 }
 .small{
-	min-width: 30px !important;
-	max-width: 30px !important;
-	width: 30px !important;
+	min-width: 70px !important;
+	max-width: 70px !important;
+	width: 70px !important;
 	padding: 5px 7px !important;
 }
