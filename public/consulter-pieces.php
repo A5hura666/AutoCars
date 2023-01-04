@@ -5,6 +5,31 @@ require "checkAccess.php";
 
 checkAccess("Chef d'atelier");
 
+$TheArticle = new ArticleDAO(MaBD::getInstance());
+$search_article=$_POST['article'];
+$message="";
+
+$tableau= array();
+
+function cherche(array $tabArticle): array{
+    $res=[];
+    $search_article=$_POST['article'];
+
+    foreach ($tabArticle as $key => $article){
+        if (strstr($article['LibelleArticle'],$search_article)){
+            array_push($res,$key);
+        }
+    }
+    return $res;
+}
+
+foreach ($TheArticle->getAllSort() as $article){
+    array_push($tableau,['CodeArticle'=>$article->getCodeArticle()
+        ,'LibelleArticle'=>$article->getLibelleArticle()
+        ,'TypeArticle'=>$article->getTypeArticle()
+        ,'PrixUnitActuelHT'=>$article->getPrixUnitActuelHT()
+        ,'quantite'=>$article->getQuantite()]);
+}
 ?>
 
 <!DOCTYPE html>
@@ -76,26 +101,38 @@ checkAccess("Chef d'atelier");
     </nav>
 
     <main class="interface">
-        <h2>Gestion des clients</h2>
+        <h2>Gestion des stocks de pièces</h2>
         <section>
             <aside>
                 <div class="recherche">
-                    <h3>Rechercher une pièces</h3>
-                    <form method="post" action="">
+                    <h3>Rechercher une pièce</h3>
+                    <form method="post" onchange="submit()">
                         <div>
                             <label for="article">Nom de la pièce</label>
                             <input type="text" name="article" id="article" placeholder="Pneus Hiver">
                         </div>
-                    </form>
+                        <input type="submit" name="validation_search" value="Recherche">
                 </div>
                 <div>
                     <h3>Liste des pièces</h3>
-                    <form method="post">
                         <ul class="list">
-                            <li class="big"><span>Pneus Hiver</span><input type="number" value="50" class="small" disabled></input></li>
+                            <?php
+                            $sort_article = cherche($tableau);
+                            if (isset($_POST["article"]) && !empty($_POST["article"])){
+                                foreach ($sort_article as $articles){
+                                    echo "<li class='big'><span> ".$tableau[$articles]["LibelleArticle"]." </span><input type='number' value=".$tableau[$articles]["quantite"]." class='small' disabled></li>";
+                                }
+                            }else{
+                                $message="Article inconnu";
+                                foreach ($TheArticle->getAllSort() as $article){
+                                    echo "<li class='big'><span> ".$article->getLibelleArticle()." </span><input type='number' value=".$article->getQuantite()." class='small' disabled></li>";
+                                }
+                            }
+                            ?>
+
                         </ul>
-                    </form>
                 </div>
+                </form>
             </aside>
 
         </section>

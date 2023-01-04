@@ -8,7 +8,7 @@ function replacefieldcli(data){
     document.querySelector(".ville").value = data.City
     document.querySelector(".phone").value = data.Telephone
     document.querySelector(".email").value = data.Mail
-    document.cookie = `id=${data.CodeClient}`
+    document.cookie = `clientid=${data.CodeClient}`
     let truc = fetch(`/jaux/laragon/www/AutoCars/public/classes/getVehiculeJson.php?id=${data.CodeClient}`).then((response)=> response.json()).then((data)=> replacefieldvehi(data))
 }
 
@@ -26,4 +26,16 @@ function select_client() {
     let Name = document.querySelector('.usersearchbar').value.split(' ');
     let res = fetch(`/jaux/laragon/www/AutoCars/public/classes/getOneByNameJson.php?LastName=${Name[0]}&FirstName=${Name[1]}`).then((response)=> response.json())
         .then((data)=> replacefieldcli(data))
+}
+
+function alsoChoise(id){
+    let idnotnull
+    let cook = document.cookie.split(';')
+    cook.forEach(element => {if( element.includes('client')){idnotnull = element.split('=')}})
+    console.log(idnotnull)
+    if (idnotnull[1]!==""){
+        fetch(`/jaux/laragon/www/AutoCars/public/classes/getOneByIdJson.php?id=${id}`).then((response)=> response.json())
+            .then((data)=> replacefieldcli(data))
+    }
+
 }

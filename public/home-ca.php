@@ -3,9 +3,9 @@ session_start();
 require_once "autoload.php";
 require "checkAccess.php";
 
-checkAccess("Chef d'atelier")
+checkAccess("Chef d'atelier");
 
-
+unset($_SESSION['operation']);
 ?>
 <!DOCTYPE html>
 
