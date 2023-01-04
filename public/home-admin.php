@@ -40,7 +40,7 @@ checkAccess("Administrateur")
             </a>
         </section>
     </nav>
-    <main class="menu"> <a href="creerUtilisateur">
+    <main class="menu"> <a href="creer-utilisateur.php">
             <article class="btn-menu"><img src="img/createClient.png" alt="Création utilisateur" />
                 <h3>Créer un utilisateur</h3>
             </article>
