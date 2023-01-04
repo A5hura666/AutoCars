@@ -22,8 +22,8 @@ $erreur = "";
 
 <body>
     <nav>
-        <section class="nav-left"> 
-            <a   class="nav-logo invert" href="home-ca.php">
+        <section class="nav-left">
+            <a class="nav-logo invert" href="home-ca.php">
                 <img src="img/logo.png" alt="logo" />
             </a>
             <div> <a href="home-ca.php">Accueil</a>
@@ -41,7 +41,7 @@ $erreur = "";
         </section>
         <section class="nav-right">
             <a class="invert" href="logout.php">
-                <img class="logout" src="img/logout.png"  alt="Déconnexion" />
+                <img class="logout" src="img/logout.png" alt="Déconnexion" />
             </a>
         </section>
     </nav>
@@ -93,6 +93,5 @@ $erreur = "";
         </section>
     </main>
 </body>
-<script src="js/bundle.js"></script>
 
 </html>

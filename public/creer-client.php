@@ -69,6 +69,7 @@ function formFilling(string $sessionName,int $number,string $type ,string $name,
     <link rel="stylesheet" href="css/style.css">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta lang="utf-8" content="text/html; charset=utf-8">
+    <link rel="shortcut icon" href="img/favicon.ico" />
 </head>
 
 <body>
@@ -211,7 +212,9 @@ function formFilling(string $sessionName,int $number,string $type ,string $name,
                 <input type="submit" name="validation_create_client" value="Créer l'utilisateur">
             </div>
             <?php
-            echo $message;
+                if (!empty($message)) {
+                    echo "<div class='alert'>" . $message . "</div>";
+                }
             ?>
         </form>
 

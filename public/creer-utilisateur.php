@@ -30,11 +30,12 @@ if (isset($_POST['createUser'])) {
     <link rel="stylesheet" href="css/style.css">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta lang="utf-8" content="text/html; charset=utf-8">
+    <link rel="shortcut icon" href="img/favicon.ico" />
 </head>
 
 <body>
     <nav>
-        <section class="nav-left"> <a class="nav-logo" href="home-ca.php"><img src="img/logo.png" alt="logo" /></a>
+        <section class="nav-left"> <a class="nav-logo invert" href="home-ca.php"><img src="img/logo.png" alt="logo" /></a>
             <div> <a href="home-ca.php">Accueil</a>
                 <div class="dropdown-content"></div>
             </div>
@@ -101,7 +102,7 @@ if (isset($_POST['createUser'])) {
 
     <?php
     if (!empty($message)) {
-        echo $message;
+        echo "<div class='alert'>" . $message . "</div>";
     }
     ?>
 

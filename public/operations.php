@@ -19,14 +19,13 @@ checkAccess("Opérateur")
     <link rel="stylesheet" href="css/liste.css">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta lang="utf-8" content="text/html; charset=utf-8">
+    <link rel="shortcut icon" href="img/favicon.ico" />
 </head>
 
 <body>
     <nav>
         <section class="nav-left"> <a class="nav-logo invert" href="home-employe.php"><img src="img/logo.png" alt="logo" /></a>
             <div> <a href="home-employe.php">Accueil</a>
-            </div>
-            <div><a href="emploisDuTemps">Emplois du temps</a>
             </div>
             <div>
                 <a href="operations.php">Opérations</a>

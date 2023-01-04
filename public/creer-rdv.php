@@ -6,7 +6,13 @@ require "checkAccess.php";
 checkAccess("Chef d'atelier");
 
 $TheClient = new ClientsDAO(MaBD::getInstance());
+$TheVehicule = new VehiculesDAO(MaBD::getInstance());
+$TheOperation = new OperationDAO(MaBD::getInstance());
 
+//Session pour les opérations
+if (isset($_POST["operation"])) {
+    array_push($_SESSION["operation"],$_POST["operation"]);
+}
 ?>
 <!DOCTYPE html>
 
@@ -19,6 +25,7 @@ $TheClient = new ClientsDAO(MaBD::getInstance());
     <link rel="stylesheet" href="css/creer-rdv.css">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta lang="utf-8" content="text/html; charset=utf-8">
+    <link rel="shortcut icon" href="img/favicon.ico" />
 </head>
 
 <body>
@@ -130,6 +137,12 @@ $TheClient = new ClientsDAO(MaBD::getInstance());
                     <div class="vehicle">
                         <section>
                             <h3>Vehicule</h3>
+                            <input type="text" class="vehiclesearchbar" placeholder="Choisir un véhicule" list="vehiclelist"
+                                required>
+                            <datalist id="vehiclelist">
+                                <option value="Fiat Multipla"></option>
+                                <option value="Renaut Zoé"></option>
+                            </datalist>
                         </section>
 
 
@@ -160,29 +173,44 @@ $TheClient = new ClientsDAO(MaBD::getInstance());
 
                     <div class="operation">
                         <section>
+                            <form method="post" onchange="submit()">
                             <h3>Liste d'opérations</h3>
-                            <input type="text" class="operationsearchbar" placeholder="Ajoutez une opération" list="operationlist"
-                                required>
-                            <datalist id="operationlist">
-                                <option value="Devis"></option>
-                                <option value="Oscultation du véhicule"></option>
-                                <option value="Changement des pneux"></option>
-                                <option value="Réparation pare brise"></option>
-                            </datalist>
-                        </section>
 
+                                <div>
+                                    <label for="operationlist">Operation</label>
+                                    <?php
+                                    if (empty($_SESSION["operation"])) {
+                                        $_SESSION["operation"]=[];
+                                    }
+                                    echo '<input type="text" name="operation" class="operationsearchbar" placeholder="Ajoutez une opération" list="operationlist">';
+                                    ?>
+                                    <datalist id="operationlist">
+                                        <?php
+                                        foreach ($TheOperation->getAll() as $operation) {
+                                            echo '<option value="' . $operation->getLibelleOp() . '">';
+                                        }
+                                        ?>
+                                    </datalist>
+                                    <?php
+                                    //var_dump($_SESSION);
+                                    //var_dump($_POST);
+                                    ?>
+                                </div>
+
+                        </section>
 
                         <section class="operationlist">
                             <ul>
-                                <li><span>Devis</span><a href="#">X</a></li>
-                                <li><span>Changement pneux</span><a href="#">X</a></li>
-                                <li><span>Ménage voiture</span><a href="#">X</a></li>
-                                <li><span>Contrôle technique</span><a href="#">X</a></li>
-                                <li><span>Peinture</span><a href="#">X</a></li>
-                                <li><span>Réparation pare brise</span><a href="#">X</a></li>
-                                <li><span>Mise à jour système de bord</span><a href="#">X</a></li>
-                                <li><span>Changement des freins</span><a href="#">X</a></li>
-                                <li><span>Remplacement rétroviseurs</span><a href="#">X</a></li>
+                                <?php
+                                //var_dump($_SESSION["operation"]);
+                                if (empty($_SESSION["operation"])){
+                                    echo "<li> </li>";
+                                }else{
+                                    foreach ($_SESSION["operation"] as $operation){
+                                        echo "<li>".$operation."</li>";
+                                    }
+                                }
+                                ?>
                             </ul>
                         </section>
                         <div>
@@ -191,6 +219,13 @@ $TheClient = new ClientsDAO(MaBD::getInstance());
                         </div>
                     </div>
                 </section>
+                <div>
+                    <label>Opérateur</label>
+                    <select name="operator" id="operator">
+                        <option value="1">Michel Dupont</option>
+                        <option value="2">Albert Martin</option>
+                    </select>
+                </div>
                 <div class="btn">
                     <input type="reset" value="Réinitialiser">
                     <input type="submit" value="Créer le devis">

@@ -47,6 +47,7 @@ if (isset($_POST['login']) && isset($_POST['password'])) {
     <link rel="stylesheet" href="css/style.css">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta lang="utf-8" content="text/html; charset=utf-8">
+    <link rel="shortcut icon" href="img/favicon.ico" />
 </head>
 
 <body class="loginpage">
