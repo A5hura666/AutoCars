@@ -181,6 +181,18 @@ class Client
         $this->Mail = $Mail;
     }
 
+    public function toArray(){
+        return ["CodeClient" => $this->CodeClient,
+            "LastName" => $this->LastName,
+            "FirstName" => $this->FirstName,
+            "Address" => $this->Address,
+            "CP" => $this->CP,
+            "City" => $this->City,
+            "Telephone" => $this->Telephone,
+            "Mail" => $this->Mail,
+            "DateCreation" => $this->DateCreation,];
+    }
+
 
 
 

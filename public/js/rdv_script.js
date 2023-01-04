@@ -1,18 +1,5 @@
 function select_client() {
-    Name = document.querySelector('.usersearchbar').value.split(' ');
-    jQuery.ajax({
-        type: "POST",
-        url: 'classes/ClientsDAO.php',
-        dataType: 'json',
-        data: {functionname: 'getOneByName', arguments: [Name[0], Name[1]]},
-
-        success: function (obj, textstatus) {
-            if( !('error' in obj) ) {
-                yourVariable = obj.result;
-            }
-            else {
-                console.log(obj.error);
-            }
-        }
-    });
+    let Name = document.querySelector('.usersearchbar').value.split(' ');
+    let res = fetch(`/jaux/laragon/www/AutoCars/public/classes/getOneByNameJson.php?LastName=${Name[0]}&FirstName=${Name[1]}`).then((response)=> response.json())
+        .then((data)=> console.log(data));
 }
