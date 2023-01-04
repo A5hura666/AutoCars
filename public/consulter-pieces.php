@@ -91,12 +91,13 @@ foreach ($TheArticle->getAllSort() as $article) {
 
 
             <div>
-                <a href="#">Pièces</a>
+                <a href="consulter-pieces.php">Pièces</a>
+                <!-- <a href="#">Pièces</a>
                 <div class="dropdown-content">
-                    <a href="consulter-pieces.php">Consulter le stock des pièces</a>
                     <a href="commander-pieces.php">Commander des pièces</a>
-                </div>
+                </div> -->
             </div>
+
 
 
         </section>
