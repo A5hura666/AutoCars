@@ -31,10 +31,10 @@ class entredeuxDAO extends DAO
 
     public function insert(object $obj): int
     {
+        /** @var entredeux $obj */
         $stmt = $this->pdo->prepare("INSERT INTO entredeux (codeOp, codeArticle, qtt)"
             . " VALUES (?,?,?)");
-        $res = $stmt->execute([$obj->getCodeTarif(), $obj->getLibelleOp(), $obj->getDureeOp()]);
-        $obj->id = $this->pdo->lastInsertId();
+        $res = $stmt->execute([$obj->getCodeOP(), $obj->getCodeArticle(), $obj->getQtt()]);
         return $res;
     }
 

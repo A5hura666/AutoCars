@@ -32,19 +32,14 @@ $Modele = new ModeleDAO(MaBD::getInstance());
         <section class="nav-left"> <a class="nav-logo invert" href="home-employe.php"><img src="img/logo.png" alt="logo" /></a>
             <div> <a href="home-employe.php">Accueil</a>
             </div>
-            <div><a href="emploisDuTemps">Emplois du temps</a>
-            </div>
             <div>
                 <a href="operations.php">Opérations</a>
             </div>
             <div>
                 <a href="info-client.php">Informations client</a>
             </div>
-            <div><a href="#">Pièces</a>
-                <div class="dropdown-content">
-                    <a href="stockPieces">Consulter le stock des pièces</a>
-                    <a href="demanderPieces">Demander des pièces</a>
-                </div>
+            <div>
+                <a href="liste-pieces.php">Pièces</a>
             </div>
         </section>
         <section class="nav-right">

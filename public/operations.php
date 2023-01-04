@@ -33,11 +33,8 @@ checkAccess("Opérateur")
             <div>
                 <a href="info-client.php">Informations client</a>
             </div>
-            <div><a href="#">Pièces</a>
-                <div class="dropdown-content">
-                    <a href="stockPieces">Consulter le stock des pièces</a>
-                    <a href="demanderPieces">Demander des pièces</a>
-                </div>
+            <div>
+                <a href="liste-pieces.php">Pièces</a>
             </div>
         </section>
         <section class="nav-right">
