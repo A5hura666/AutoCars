@@ -57,11 +57,11 @@ unset($_SESSION['operation']);
 
 
             <div>
-                <a href="#">Pièces</a>
+                <a href="consulter-pieces.php">Pièces</a>
+                <!-- <a href="#">Pièces</a>
                 <div class="dropdown-content">
-                    <a href="consulter-pieces.php">Consulter le stock des pièces</a>
                     <a href="commander-pieces.php">Commander des pièces</a>
-                </div>
+                </div> -->
             </div>
 
 
@@ -163,7 +163,7 @@ unset($_SESSION['operation']);
         <button class="back">✖</button>
     </section>
 
-    <section class="popupmenu pieces-full hidden">
+    <!-- <section class="popupmenu pieces-full hidden">
         <main class="menu">
             <a href="#">
                 <article class="btn-menu client">
@@ -180,7 +180,7 @@ unset($_SESSION['operation']);
             </a>
         </main>
         <button class="back">✖</button>
-    </section>
+    </section> -->
 
 
     <script src="js/accueilChef.js"></script>

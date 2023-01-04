@@ -34,9 +34,9 @@ function openfacture(){
     document.querySelector('.facture-full').classList.remove('hidden')
 }
 
-const piece = document.querySelector('.piece');
-piece.addEventListener('click', openpiece);
+// const piece = document.querySelector('.piece');
+// piece.addEventListener('click', openpiece);
 
-function openpiece(){
-    document.querySelector('.pieces-full').classList.remove('hidden')
-}
+// function openpiece(){
+//     document.querySelector('.pieces-full').classList.remove('hidden')
+// }
