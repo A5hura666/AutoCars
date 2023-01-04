@@ -5,28 +5,28 @@ class OperationDAO extends DAO
 
     public function getOne(int|string $id): array|object
     {
-        $stmt = $this->pdo->prepare("SELECT * FROM Operation WHERE CodeOp = ?");
+        $stmt = $this->pdo->prepare("SELECT * FROM Operation join Tarif_Mo using(CodeTarif) WHERE CodeOp = ?");
         $stmt->execute([$id]);
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
-        return new Operation($row['CodeOp'], $row['CodeTarif'], $row['LibelleOp'], $row['DureeOp']);
+        return new Operation($row['CodeOp'], $row['CodeTarif'], $row['LibelleOp'], $row['DureeOp'], $row['CoutHoraireActuelHT']);
     }
 
     public function getAll(): array
     {
         /** @var Operation[] $res */
         $res = [];
-        $stmt = $this->pdo->query("SELECT * FROM Operation");
+        $stmt = $this->pdo->query("SELECT * FROM Operation join Tarif_Mo using(CodeTarif)");
         foreach ($stmt->fetchAll(PDO::FETCH_ASSOC) as $row)
-            $res[] = new Operation($row['CodeOp'], $row['CodeTarif'], $row['LibelleOp'], $row['DureeOp']);
+            $res[] = new Operation($row['CodeOp'], $row['CodeTarif'], $row['LibelleOp'], $row['DureeOp'], $row['CoutHoraireActuelHT']);
         return $res;
     }
 
     public function getOneByLibOP(int|string $lib): Operation
     {
-        $stmt = $this->pdo->prepare("SELECT * FROM Operation WHERE LibelleOp = ?");
+        $stmt = $this->pdo->prepare("SELECT * FROM Operation join Tarif_Mo using(CodeTarif) WHERE LibelleOp = ?");
         $stmt->execute([$lib]);
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
-        return new Operation($row['CodeOp'], $row['CodeTarif'], $row['LibelleOp'], $row['DureeOp']);
+        return new Operation($row['CodeOp'], $row['CodeTarif'], $row['LibelleOp'], $row['DureeOp'], $row['CoutHoraireActuelHT']);
     }
 
     public function insert(object $obj): int

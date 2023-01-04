@@ -3,8 +3,18 @@
 class ArticleDAO extends DAO
 {
 
-    public function getOne(int|string $id): array|object
+    public function getOne(int|string $id): object
     {
+        /** @var entredeux[] $res */
+        $stmt = $this->pdo->prepare("SELECT * FROM Article WHERE CodeArticle = ?");
+        $stmt->execute([$id]);
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+        return new Article($row['CodeArticle'], $row['LibelleArticle'], $row['TypeArticle'], $row['PrixUnitActuelHT'], $row['quantite']);
+    }
+
+    public function getOnebyId(int|string $id): Article
+    {
+        /** @var entredeux[] $res */
         $stmt = $this->pdo->prepare("SELECT * FROM Article WHERE CodeArticle = ?");
         $stmt->execute([$id]);
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
