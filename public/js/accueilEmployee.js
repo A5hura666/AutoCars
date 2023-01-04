@@ -14,13 +14,13 @@ function remove() {
     }
 }
 
-const operations = document.querySelector('.operations');
-operations.addEventListener('click', openoperations);
+// const operations = document.querySelector('.operations');
+// operations.addEventListener('click', openoperations);
 
 
-function openoperations(){
-    document.querySelector('.operations-full').classList.remove('hidden')
-}
+// function openoperations(){
+//     document.querySelector('.operations-full').classList.remove('hidden')
+// }
 
 const client = document.querySelector('.client');
 client.addEventListener('click', openclient);

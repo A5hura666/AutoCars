@@ -393,3 +393,7 @@ aside>div,
 .login input[type="password"] {
 	width: 200px;
 }
+.list-big{
+	height: 585px !important;
+	overflow: auto;
+}
