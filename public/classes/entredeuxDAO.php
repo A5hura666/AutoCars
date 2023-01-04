@@ -3,10 +3,11 @@
 class entredeuxDAO extends DAO
 {
 
-    public function getOne(int|string $id): array
+    public function getArticleForOneOperation(int|string $id): array
     {
         /** @var entredeux[] $res */
-        $stmt = $this->pdo->query("SELECT * FROM entredeux WHERE codeOp = ?");
+        $stmt = $this->pdo->prepare("SELECT * FROM entredeux WHERE codeOp = ?");
+        $stmt->execute([$id]);
         foreach ($stmt->fetchAll(PDO::FETCH_ASSOC) as $row)
             $res[] = new entredeux($row['codeOp'], $row['codeArticle'], $row['qtt']);
         return $res;
@@ -34,7 +35,7 @@ class entredeuxDAO extends DAO
         /** @var entredeux $obj */
         $stmt = $this->pdo->prepare("INSERT INTO entredeux (codeOp, codeArticle, qtt)"
             . " VALUES (?,?,?)");
-        $res = $stmt->execute([$obj->getCodeOP(), $obj->getCodeArticle(), $obj->getQtt()]);
+        $res = $stmt->execute([$obj->getCodeOp(), $obj->getCodeArticle(), $obj->getQtt()]);
         return $res;
     }
 
@@ -47,4 +48,13 @@ class entredeuxDAO extends DAO
     {
         // TODO: Implement delete() method.
     }
+
+    public function getOne(int|string $id): array|object
+    {
+        $stmt = $this->pdo->prepare("SELECT * FROM entredeux WHERE codeOp = ? ");
+        $stmt->execute([$id]);
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+        return new entredeux($row['codeOp'], $row['codeArticle'], $row['qtt']);
+    }
+
 }

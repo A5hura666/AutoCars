@@ -19,7 +19,7 @@ if (isset($_POST["operation"])) {
     foreach ($_SESSION['operation'] as $op){
         $theop = $TheOperation->getOneByLibOP($op);
         $prix += $theop->getTarifHoraire();
-        foreach ($Theentredeux->getOne($theop->getCodeOp()) as $thop){
+        foreach ($Theentredeux->getArticleForOneOperation($theop->getCodeOp()) as $thop){
             $var = $TheArticle->getOnebyId($thop->getCodeArticle());
             $prix += $var->getPrixUnitActuelHT() *$thop->getQtt();
         }
@@ -221,7 +221,7 @@ if (isset($_POST["operation"])) {
                     </section>
                     <div>
                         <p>Temps estimé : <span>5h30</span></p>
-                        <p>Prix estimé : <span><?php echo $prix?></span>€</p>
+                        <p>Prix estimé : <span><?php echo $prix*1.2?></span>€</p>
                     </div>
                 </div>
         </section>

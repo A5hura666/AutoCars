@@ -2,18 +2,18 @@
 
 class entredeux
 {
-    private int $codeOP;
+    private int $codeOp;
     private int $codeArticle;
     private int $qtt;
 
     /**
-     * @param int $codeOP
+     * @param int $codeOp
      * @param int $codeArticle
      * @param int $qtt
      */
-    public function __construct(int $codeOP, int $codeArticle, int $qtt)
+    public function __construct(int $codeOp, int $codeArticle, int $qtt)
     {
-        $this->codeOP = $codeOP;
+        $this->codeOp = $codeOp;
         $this->codeArticle = $codeArticle;
         $this->qtt = $qtt;
     }
@@ -21,17 +21,17 @@ class entredeux
     /**
      * @return int
      */
-    public function getCodeOP(): int
+    public function getCodeOp(): int
     {
-        return $this->codeOP;
+        return $this->codeOp;
     }
 
     /**
-     * @param int $codeOP
+     * @param int $codeOp
      */
-    public function setCodeOP(int $codeOP): void
+    public function setCodeOp(int $codeOp): void
     {
-        $this->codeOP = $codeOP;
+        $this->codeOp = $codeOp;
     }
 
     /**
