@@ -18,7 +18,7 @@ checkAccess("Opérateur")
 
 <body>
     <nav>
-        <section class="nav-left"> <a class="nav-logo invert" href="home-employe.php"><img src="img/logo.png" alt="logo" /></a>
+    <section class="nav-left"> <a class="nav-logo invert" href="home-employe.php"><img src="img/logo.png" alt="logo" /></a>
             <div> <a href="home-employe.php">Accueil</a>
             </div>
             <div>
@@ -27,11 +27,8 @@ checkAccess("Opérateur")
             <div>
                 <a href="info-client.php">Informations client</a>
             </div>
-            <div><a href="#">Pièces</a>
-                <div class="dropdown-content">
-                    <a href="stockPieces">Consulter le stock des pièces</a>
-                    <a href="demanderPieces">Demander des pièces</a>
-                </div>
+            <div>
+                <a href="liste-pieces.php">Pièces</a>
             </div>
         </section>
         <section class="nav-right">
@@ -52,28 +49,14 @@ checkAccess("Opérateur")
                 <h3>Informations Clients</h3>
             </article>
         </a>
-        <article class="btn-menu piece">
-            <img src="img/pieces.png" alt="Pièces" />
-            <h3>Pièces</h3>
-        </article>
-    </main>
-
-    <section class="popupmenu pieces-full hidden">
-        <main class="menu">
-            <a href="creer-piece">
+        <a href="liste-pieces.php">
                 <article class="btn-menu client">
                     <img src="img/pieces.png" alt="Liste Pièces" />
-                    <h3>Consulter le stock des pièces</h3>
+                    <h3>Pièces</h3>
                 </article>
             </a>
-            <a href="liste-pieces">
-                <article class="btn-menu facture"><img src="img/buyPieces.png" alt="Factures" />
-                    <h3>Demander des pièces</h3>
-                </article>
-            </a>
-        </main>
-        <button class="back">✖</button>
-    </section>
+    </main>
+
     <script src="js/accueilEmployee.js"></script>
 </body>
 

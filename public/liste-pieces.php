@@ -3,7 +3,7 @@ session_start();
 require "autoload.php";
 require "checkAccess.php";
 
-checkAccess("Chef d'atelier");
+checkAccess("Opérateur");
 
 $TheArticle = new ArticleDAO(MaBD::getInstance());
 $search_article;
@@ -12,6 +12,7 @@ if (isset($_POST['article'])) {
 } else {
     $search_article = "";
 }
+
 $message = "";
 
 $tableau = array();
@@ -57,49 +58,18 @@ foreach ($TheArticle->getAllSort() as $article) {
 
 <body>
     <nav>
-        <section class="nav-left">
-            <img src="img/logo.png" alt="logo">
-            <div>
-                <a href="home-ca.php">Accueil</a>
-                <div class="dropdown-content"></div>
+        <section class="nav-left"> <a class="nav-logo invert" href="home-employe.php"><img src="img/logo.png" alt="logo" /></a>
+            <div> <a href="home-employe.php">Accueil</a>
             </div>
-
             <div>
-                <a href="#">Rendez-vous</a>
-                <div class="dropdown-content">
-                    <a href="creer-rdv.php">Créer un rendez-vous</a>
-                    <a href="liste-rdv.php">Gestion des rendez-vous</a>
-                </div>
+                <a href="operations.php">Opérations</a>
             </div>
-
             <div>
-                <a href="#">Clients & Véhicules</a>
-                <div class="dropdown-content">
-                    <a href="gestion-clients.php">Gestion des clients</a>
-                    <a href="creer-client.php">Créer un client</a>
-                    <a href="gestion-vehicules.php">Gestion des véhicules</a>
-                </div>
+                <a href="info-client.php">Informations client</a>
             </div>
-
-
             <div>
-                <a href="#">Factures</a>
-                <div class="dropdown-content">
-                    <a href="creer-rdv.php">Créer une facture</a>
-                    <a href="gestion-factures.php">Gestion des factures</a>
-                </div>
+                <a href="liste-pieces.php">Pièces</a>
             </div>
-
-
-            <div>
-                <a href="#">Pièces</a>
-                <div class="dropdown-content">
-                    <a href="consulter-pieces.php">Consulter le stock des pièces</a>
-                    <a href="commander-pieces.php">Commander des pièces</a>
-                </div>
-            </div>
-
-
         </section>
         <section class="nav-right">
             <a class="invert" href="logout.php">
