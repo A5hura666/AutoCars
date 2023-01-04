@@ -11,8 +11,9 @@ $erreur = "";
 $theOperations = new OperationDAO(MaBD::getInstance());
 
 if (isset($_POST['createOperation'])) {
-    $newOperation = new Operation(DAO::UNKNOWN_ID, $_POST['nom'], $_POST['prix'], $_POST['duree']);
-    $message = $_POST['nom'] . " " . " a bien été ajouté.";
+    print_r($_POST["createOperation"]);
+    $newOperation = new Operation(DAO::UNKNOWN_ID, $_POST['LibelleOp'], $_POST['CodeTarif'], $_POST['DureeOp']);
+    $message = $_POST['LibelleOp'] . " " . " a bien été ajouté.";
     $theOperations->insert($newOperation);
 } else {
     $erreur = "une erreur c'est produite lors de la créa de l'opération";
@@ -55,13 +56,21 @@ if (isset($_POST['createOperation'])) {
     <main class="interface">
         <h2>Créer une opération</h2>
         <section>
-            <form class="createoperation">
+            <form class="createoperation" method="POST">
                 <section>
                     <div class="operationdetails">
-                        <h3>Détails de l'opération</h3><label for="opname">Nom</label><input class="opname" type="text" placeholder="Changement peneux" required="required" /><label for="opprice">Prix (en €)</label><input class="opprice" type="number" placeholder="100" required="required" /><label for="opduration">Durée (en minutes)</label><input class="opduration" type="number" placeholder="30" required="required" />
+                        <h3>Détails de l'opération</h3>
+                        <label for="LibelleOp">Nom</label>
+                        <input class="LibelleOp" id="LibelleOp" name="LibelleOp" type="text" placeholder="Changement peneux" required="required" />
+                        <label for="CodeTarif">Prix (en €)</label>
+                        <input class="CodeTarif" id="CodeTarif" name="CodeTarif" type="number" placeholder="100" required="required" />
+                        <label for="DureeOp">Durée (en minutes)</label>
+                        <input class="DureeOp" id="DureeOp" name="DureeOp" type="number" placeholder="30" required="required" />
                     </div>
                 </section>
-                <div class="btn"><input type="reset" value="Réinitialiser" /><input type="submit" value="Créer l'opération" /></div>
+                <div class="btn"><input type="reset" value="Réinitialiser" />
+                    <input type="submit" name="createOperation" value="Créer l'opération" />
+                </div>
             </form>
         </section>
     </main>
@@ -69,8 +78,10 @@ if (isset($_POST['createOperation'])) {
     if (!empty($message)) {
         echo "<div class='alert'>" . $message . "</div>";
     }
-    
+
     ?>
+
+    <script src="js/alert.js"></script>
 </body>
 
 </html>
