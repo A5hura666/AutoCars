@@ -14,6 +14,8 @@ $TheOperation = new OperationDAO(MaBD::getInstance());
 if (isset($_POST["operation"])) {
     array_push($_SESSION["operation"], $_POST["operation"]);
 }
+
+
 ?>
 <!DOCTYPE html>
 
@@ -29,7 +31,7 @@ if (isset($_POST["operation"])) {
     <link rel="shortcut icon" href="img/favicon.ico"/>
 </head>
 
-<body>
+<body <?php if (isset($_COOKIE['clientid'])){ echo 'onload="alsoChoise('.$_COOKIE['clientid'].')"';} else echo ''?>>
 <nav>
     <section class="nav-left">
         <img src="img/logo.png" alt="logo">
