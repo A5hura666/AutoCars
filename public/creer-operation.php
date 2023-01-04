@@ -13,14 +13,12 @@ $theArticles = new ArticleDAO(MaBD::getInstance());
 
 if (isset($_POST['createOperation'])) {
     print_r($_POST["createOperation"]);
-    $newOperation = new Operation(DAO::UNKNOWN_ID, $_POST['LibelleOp'], $_POST['CodeTarif'], $_POST['DureeOp']);
+    $newOperation = new Operation(DAO::UNKNOWN_ID, $_POST['LibelleOp'], $_POST['CodeTarif'], $_POST['DureeOp'],'');
     $message = $_POST['LibelleOp'] . " " . " a bien été ajouté.";
     $theOperations->insert($newOperation);
 } else {
-    $erreur = "une erreur c'est produite lors de la créa de l'opération";
+    $erreur = "une erreur c'est produite lors de la création de l'opération";
 }
-
-$codeArticle = $theArticles->getOneByName($_POST['listeArticles'])->getCodeArticle();
 
 //formulaire création opération
 if (isset($_POST["LibelleOp"]) || isset($_POST["CodeTarif"]) ||isset($_POST["DureeOp"])) {
@@ -28,9 +26,22 @@ if (isset($_POST["LibelleOp"]) || isset($_POST["CodeTarif"]) ||isset($_POST["Dur
 }
 //formulaire articles nécessaires
 if (isset($_POST["listeArticles"]) || isset($_POST["QuantiteArt"])) {
-    $_SESSION["ArticleNess"] = [$_POST["listeArticles"],$_POST["QuantiteArt"]];
+    $_SESSION["listeArticles"] = $_POST["listeArticles"];
+    $_SESSION["QuantiteArt"] = $_POST["QuantiteArt"];
 }
 
+function formFilling(string $sessionName,int $number,string $type ,string $name, string $placeholder): void
+{
+    if (isset($_SESSION[$sessionName][$number]) && !empty($_SESSION[$sessionName][$number])) {
+        $value = $_SESSION[$sessionName][$number];
+    } else {
+        $value = "";
+    }
+    echo '<input type="'.$type.'" name="' . $name . '" placeholder="' . $placeholder . '" value="' . $value . '" required>';
+}
+
+//$codeArticle = $theArticles->getOneByName($_POST['listeArticles'])->getCodeArticle();
+//var_dump($codeArticle);
 ?>
 
 <html>
@@ -74,27 +85,45 @@ if (isset($_POST["listeArticles"]) || isset($_POST["QuantiteArt"])) {
                         <?php formFilling("CreationOp",0,"text", "LibelleOp", "Changement pneu"); ?>
 <!--                        <input class="LibelleOp" id="LibelleOp" name="LibelleOp" type="text" placeholder="Changement peneux" required="required" />-->
                         <label for="CodeTarif">Prix (en €)</label>
-                        <input class="CodeTarif" id="CodeTarif" name="CodeTarif" type="number" placeholder="100" required="required" />
+                        <?php formFilling("CreationOp",1,"number", "CodeTarif", "100"); ?>
+<!--                        <input class="CodeTarif" id="CodeTarif" name="CodeTarif" type="number" placeholder="100" required="required" />-->
                         <label for="DureeOp">Durée (en minutes)</label>
-                        <input class="DureeOp" id="DureeOp" name="DureeOp" type="number" placeholder="30" required="required" />
+                        <?php formFilling("CreationOp",2,"number", "DureeOp", "30"); ?>
+<!--                        <input class="DureeOp" id="DureeOp" name="DureeOp" type="number" placeholder="30" required="required" />-->
                     </div>
                     <div class="necessaryarticles">
                         <h3>Articles nécessaires</h3>
                         <div class="article">
                             <label for="CodeArt">Article</label>
-                            <input type="text" name="listeArticles" list="listeArticles">
+
+                            <?php
+                            if (isset($_SESSION["listeArticles"]) && !empty($_SESSION["listeArticles"])) {
+                                $value = $_SESSION["listeArticles"];
+                            } else {
+                                $value = "";
+                            }
+                            //echo '<input type="text" name="listeArticles" id="listeArticles" class="listeArticles" placeholder="Roue" list="listemarques" value="' . $value . '" required>';
+                            echo '<input type="text" name="listeArticles" list="listeArticles" value="' . $value . '" placeholder="Batterie" required>';
+                            ?>
+
                             <datalist id="listeArticles">
                                 <?php
-                                $listeArticles = $theArticles->getAll();
-                                foreach ($listeArticles as $article) {
-                                    echo "<option value='" . $article->getLibelleArticle() . "'></option>";
+                                foreach ($theArticles->getAll() as $article) {
+                                    echo '<option value="' . $article->getLibelleArticle() . '">';
                                 }
                                 ?>
                             </datalist>
 
                             
                             <label for="QuantiteArt">Quantité</label>
-                            <input class="QuantiteArt" id="QuantiteArt" min="1" name="QuantiteArt" type="number" placeholder="1" required="required" />
+                            <?php
+                            if (isset($_SESSION["QuantiteArt"]) && !empty($_SESSION["QuantiteArt"])) {
+                                $value = $_SESSION["QuantiteArt"];
+                            } else {
+                                $value = "";
+                            }
+                            echo '<input class="QuantiteArt" id="QuantiteArt" min="1" name="QuantiteArt" type="number" placeholder="1" value="'. $value .'" required="required" />';
+                            ?>
 
                         </div>
                 </section>
