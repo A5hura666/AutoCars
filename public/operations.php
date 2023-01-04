@@ -27,8 +27,6 @@ checkAccess("Opérateur")
         <section class="nav-left"> <a class="nav-logo invert" href="home-employe.php"><img src="img/logo.png" alt="logo" /></a>
             <div> <a href="home-employe.php">Accueil</a>
             </div>
-            <div><a href="emploisDuTemps">Emplois du temps</a>
-            </div>
             <div>
                 <a href="operations.php">Opérations</a>
             </div>

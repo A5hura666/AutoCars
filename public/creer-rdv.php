@@ -230,6 +230,13 @@ if (isset($_POST["operation"])) {
                         </div>
                     </div>
                 </section>
+                <div>
+                    <label>Opérateur</label>
+                    <select name="operator" id="operator">
+                        <option value="1">Michel Dupont</option>
+                        <option value="2">Albert Martin</option>
+                    </select>
+                </div>
                 <div class="btn">
                     <input type="reset" value="Réinitialiser">
                     <input type="submit" value="Créer le devis">

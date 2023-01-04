@@ -21,8 +21,6 @@ checkAccess("Opérateur")
         <section class="nav-left"> <a class="nav-logo invert" href="home-employe.php"><img src="img/logo.png" alt="logo" /></a>
             <div> <a href="home-employe.php">Accueil</a>
             </div>
-            <div><a href="emploisDuTemps">Emplois du temps</a>
-            </div>
             <div>
                 <a href="operations.php">Opérations</a>
             </div>
@@ -43,11 +41,6 @@ checkAccess("Opérateur")
         </section>
     </nav>
     <main class="menu">
-        <a href="emploisDuTemps">
-            <article class="btn-menu"><img src="img/rdv.png" alt="Emplois du temps" />
-                <h3>Emplois du temps</h3>
-            </article>
-        </a>
         <a href="operations.php">
             <article class="btn-menu"><img src="img/operation.png" alt="Opérations" />
                 <h3>Liste des opération</h3>

@@ -130,28 +130,9 @@ if (isset($_POST["marque"])) {
                             ?>
                         </datalist>
                     </div>
-                    <input type="submit" name="rechercher" value="Rechercher">
                 </form>
             </div>
-            <div>
-                <h3>Liste des véhicules</h3>
-                <ul class="list">
-                        <li><span>Ford - Fiesta</span><a href="#" class="consulter">Consulter</a></li>
-                        <li><span>Nissan - Micra</span><a href="#" class="consulter">Consulter</a></li>
-                        <li><span>Renault - Clio</span><a href="#" class="consulter">Consulter</a></li>
-                        <li><span>Peugeot - 308</span><a href="#" class="consulter">Consulter</a></li>
-                        <li><span>Citroën - C3</span><a href="#" class="consulter">Consulter</a></li>
-                        <li><span>Toyota - Yaris</span><a href="#" class="consulter">Consulter</a></li>
-                        <li><span>BMW - Série 3</span><a href="#" class="consulter">Consulter</a></li>
-                        <li><span>Mercedes - Classe C</span><a href="#" class="consulter">Consulter</a></li>
-                        <li><span>Audi - A3</span><a href="#" class="consulter">Consulter</a></li>
-                        <li><span>Volkswagen - Golf</span><a href="#" class="consulter">Consulter</a></li>
-                        <li><span>Fiat - Punto</span><a href="#" class="consulter">Consulter</a></li>
-                        <li><span>Opel - Corsa</span><a href="#" class="consulter">Consulter</a></li>
-                        <li><span>Honda - Civic</span><a href="#" class="consulter">Consulter</a></li>
-                        <li><span>Hyundai - i30</span><a href="#" class="consulter">Consulter</a></li>
-                </ul>
-            </div>
+            
         </aside>
         <div class="details">
             <h3>Détails du véhicule</h3>

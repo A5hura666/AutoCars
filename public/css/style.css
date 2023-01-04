@@ -397,3 +397,14 @@ aside>div,
 	height: 585px !important;
 	overflow: auto;
 }
+
+.alert {
+    position: absolute;
+    background-color: #008bff;
+    padding: 20px 50px;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+    top: 0;
+    z-index: 1;
+	color: black;
+}
