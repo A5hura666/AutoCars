@@ -30,9 +30,9 @@ if (isset($_POST['login']) && isset($_POST['password'])) {
             exit(0);
         }
 
-        $erreur = "Quelque chose s'est mal passé ! Votre rôle n'est pas reconnu !";
+        $erreur = "<div class='alert'>Quelque chose s'est mal passé ! Votre rôle n'est pas reconnu !</div>";
     } else {
-        $erreur = "Identifiants incorrects !";
+        $erreur = "<div class='alert'>Identifiants incorrects !</div>";
     }
 }
 ?>
