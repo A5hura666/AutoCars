@@ -43,7 +43,7 @@ checkAccess("Opérateur")
     <main class="menu">
         <a href="operations.php">
             <article class="btn-menu"><img src="img/operation.png" alt="Opérations" />
-                <h3>Liste des opération</h3>
+                <h3>Liste des opérations</h3>
             </article>
         </a>
         <a href="info-client.php">

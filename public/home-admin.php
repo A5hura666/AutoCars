@@ -31,7 +31,7 @@ checkAccess("Administrateur")
                 <div class="dropdown-content"></div>
             </div>
             <div><a href="#">Opérations</a>
-                <div class="dropdown-content"><a href="">Créer une opération</a><a href="gestion-operations">Gérer les opérations</a></div>
+                <div class="dropdown-content"><a href="creer-operation.php">Créer une opération</a><a href="gestion-operations.php">Gérer les opérations</a></div>
             </div>
         </section>
         <section class="nav-right">
@@ -54,11 +54,11 @@ checkAccess("Administrateur")
         </article>
     </main>
     <section class="popupmenu operation-full hidden">
-        <main class="menu"><a href="creerOperation">
+        <main class="menu"><a href="creer-operation.php">
                 <article class="btn-menu"><img src="img/operation.png" alt="Création opération" />
                     <h3>Créer une opération</h3>
                 </article>
-            </a><a href="gererOperation">
+            </a><a href="gerer-operations.php">
                 <article class="btn-menu"><img src="img/operationsList.png" alt="Gestion opérations" />
                     <h3>Gérer les opérations</h3>
                 </article>
