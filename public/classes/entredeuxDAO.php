@@ -7,15 +7,15 @@ class entredeuxDAO extends DAO
     {
         $stmt = $this->pdo->query("SELECT * FROM entredeux WHERE codeOp = ?");
         foreach ($stmt->fetchAll(PDO::FETCH_ASSOC) as $row)
-            $res[] = new entredeux($row['codeOp'], $row['codeArticle']);
+            $res[] = new entredeux($row['codeOp'], $row['codeArticle'], $row['qtt']);
         return $res;
     }
 
-    public function TruegetOne(int $op, int $Art){
+    public function TrueGetOne(int $op, int $Art){
         $stmt = $this->pdo->prepare("SELECT * FROM entredeux WHERE codeOp = ? and codeArticle = ?");
         $stmt->execute([$op,$Art]);
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
-        return new entredeux($row['codeOp'], $row['codeArticle']);
+        return new entredeux($row['codeOp'], $row['codeArticle'], $row['qtt']);
     }
 
     public function getAll(): array
@@ -24,13 +24,17 @@ class entredeuxDAO extends DAO
         $res = [];
         $stmt = $this->pdo->query("SELECT * FROM entredeux");
         foreach ($stmt->fetchAll(PDO::FETCH_ASSOC) as $row)
-            $res[] = new entredeux($row['codeOp'], $row['codeArticle']);
+            $res[] = new entredeux($row['codeOp'], $row['codeArticle'], $row['qtt']);
         return $res;
     }
 
     public function insert(object $obj): int
     {
-        // TODO: Implement insert() method.
+        $stmt = $this->pdo->prepare("INSERT INTO entredeux (codeOp, codeArticle, qtt)"
+            . " VALUES (?,?,?)");
+        $res = $stmt->execute([$obj->getCodeTarif(), $obj->getLibelleOp(), $obj->getDureeOp()]);
+        $obj->id = $this->pdo->lastInsertId();
+        return $res;
     }
 
     public function update(object $obj): int
