@@ -24,9 +24,12 @@ function cherche(array $tabArticle): array{
 }
 
 foreach ($TheArticle->getAllSort() as $article){
-    array_push($tableau,[$article->getCodeArticle(),$article->getLibelleArticle(),$article->getTypeArticle(),$article->getPrixUnitActuelHT(),$article->getQuantite()]);
+    array_push($tableau,['CodeArticle'=>$article->getCodeArticle()
+        ,'LibelleArticle'=>$article->getLibelleArticle()
+        ,'TypeArticle'=>$article->getTypeArticle()
+        ,'PrixUnitActuelHT'=>$article->getPrixUnitActuelHT()
+        ,'quantite'=>$article->getQuantite()]);
 }
-//var_dump($tableau);
 ?>
 
 <!DOCTYPE html>
@@ -98,36 +101,33 @@ foreach ($TheArticle->getAllSort() as $article){
     </nav>
 
     <main class="interface">
-        <h2>Gestion des clients</h2>
+        <h2>Gestion des stocks de pièces</h2>
         <section>
             <aside>
                 <div class="recherche">
-                    <h3>Rechercher une pièces</h3>
+                    <h3>Rechercher une pièce</h3>
                     <form method="post" onchange="submit()">
                         <div>
                             <label for="article">Nom de la pièce</label>
                             <input type="text" name="article" id="article" placeholder="Pneus Hiver">
                         </div>
                         <input type="submit" name="validation_search" value="Recherche">
-                        <?php var_dump($search_article); ?>
                 </div>
                 <div>
                     <h3>Liste des pièces</h3>
                         <ul class="list">
                             <?php
-
                             $sort_article = cherche($tableau);
-                            var_dump($sort_article);
-//                            if (empty($sort_article)){
-//                                $message="Article inconnu";
-//                                foreach ($TheArticle->getAllSort() as $article){
-//                                    echo "<li class='big'><span> ".$article->getLibelleArticle()." </span><input type='number' value=".$article->getQuantite()." class='small' disabled></li>";
-//                                }
-//                            }else{
-//                                foreach ($sort_article as $articles){
-//                                    echo "<li class='big'><span> ".$articles->getLibelleArticle()." </span><input type='number' value=".$articles->getQuantite()." class='small' disabled></li>";
-//                                }
-//                            }
+                            if (isset($_POST["article"]) && !empty($_POST["article"])){
+                                foreach ($sort_article as $articles){
+                                    echo "<li class='big'><span> ".$tableau[$articles]["LibelleArticle"]." </span><input type='number' value=".$tableau[$articles]["quantite"]." class='small' disabled></li>";
+                                }
+                            }else{
+                                $message="Article inconnu";
+                                foreach ($TheArticle->getAllSort() as $article){
+                                    echo "<li class='big'><span> ".$article->getLibelleArticle()." </span><input type='number' value=".$article->getQuantite()." class='small' disabled></li>";
+                                }
+                            }
                             ?>
 
                         </ul>
