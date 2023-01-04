@@ -8,41 +8,38 @@ checkAccess("Administrateur");
 $message = "";
 $erreur = "";
 
-$theUsers = new UsersDAO(MaBD::getInstance());
+$theOperations = new OperationsDAO(MaBD::getInstance());
 
-if (isset($_POST['createUser'])) {
-    $newUser = new Users(DAO::UNKNOWN_ID, $_POST['nom'], $_POST['prenom'], $_POST['role'], $_POST['login'], password_hash($_POST['password'], PASSWORD_ARGON2ID));
-    $message = $_POST['nom'] . " " . $_POST['prenom'] . " " . $_POST['role'] . " a bien été ajouté.";
-    $theUsers->insert($newUser);
+if (isset($_POST['createOperation'])) {
+    $newOperation = new Operation(DAO::UNKNOWN_ID, $_POST['nom'], $_POST['prix'], $_POST['duree']);
+    $message = $_POST['nom'] . " " . " a bien été ajouté.";
+    $theOperations->insert($newOperation);
 } else {
-    $erreur = "une erreur c'est produite lors de l'insertion de l'utilisateur";
+    $erreur = "une erreur c'est produite lors de la créa de l'opération";
 }
 
 
 
 ?>
-<!DOCTYPE html>
-<html lang="fr">
+
+<html>
 
 <head>
-    <meta charset="utf-8">
-    <title>AutoCars | Création utilisateur</title>
-    <link rel="stylesheet" href="css/style.css">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta lang="utf-8" content="text/html; charset=utf-8">
+    <title>AutoCars | Créer une opération</title>
+    <link rel="stylesheet" href="css/style.css" />
     <link rel="shortcut icon" href="img/favicon.ico" />
 </head>
 
 <body>
     <nav>
-        <section class="nav-left"> <a class="nav-logo invert" href="home-ca.php"><img src="img/logo.png" alt="logo" /></a>
-            <div> <a href="home-ca.php">Accueil</a>
+        <section class="nav-left"> <a class="nav-logo invert" href="accueilAdmin"><img src="img/logo.png" alt="logo" /></a>
+            <div> <a href="home-admin.php">Accueil</a>
                 <div class="dropdown-content"></div>
             </div>
-            <div><a href="creer-utilisateur.php">Créer un utilisateur</a>
+            <div><a href="creer-utilisateur">Créer un utilisateur</a>
                 <div class="dropdown-content"></div>
             </div>
-            <div><a href="statistiques.php">Statistiques</a>
+            <div><a href="statistiques">Statistiques</a>
                 <div class="dropdown-content"></div>
             </div>
             <div><a href="#">Opérations</a>
@@ -51,62 +48,29 @@ if (isset($_POST['createUser'])) {
         </section>
         <section class="nav-right">
             <a class="invert" href="logout.php">
-                <img class="logout" src="img/logout.png"  alt="Déconnexion" />
+                <img class="logout" src="img/logout.png" alt="Déconnexion" />
             </a>
         </section>
     </nav>
-
     <main class="interface">
-        <h2>Création d'utilisateur</h2>
+        <h2>Créer une opération</h2>
         <section>
-            <form class="createuser" method="post">
-
+            <form class="createoperation">
                 <section>
-                    <div class="personalData">
-                        <h3>Informations personnelles</h3>
-                        <label for="fname">Prénom</label>
-                        <input type="text" class="fname" name="prenom" placeholder="François" required>
-                        <label for="fname">Nom</label>
-                        <input type="text" class="lname" name="nom" placeholder="Duchemin" required>
-                    </div>
-                    <div class="role">
-                        <h3>Rôle</h3>
-                        <div>
-                            <input type="radio" name="role" id="Administrateur" value="Administrateur" required>
-                            <label for="Administrateur">Administrateur</label><br>
-                        </div>
-                        <div>
-                            <input type="radio" name="role" id="Chef d'atelier" value="Chef d'atelier" required>
-                            <label for="Chef d'atelier">Chef d'atelier</label><br>
-                        </div>
-                        <div>
-                            <input type="radio" name="role" id="Employé" value="Employé" required>
-                            <label for="Employé">Employé</label>
-                        </div>
-                    </div>
-                    <div class="credentials">
-                        <h3>Identifiants</h3>
-                        <label for="username">Nom d'utilisateur</label>
-                        <input type="text" class="username" name="login" placeholder="fduchemin" required>
-                        <label for="password">Mot de passe</label>
-                        <input type="text" class="password" name="password" placeholder="**************" required>
+                    <div class="operationdetails">
+                        <h3>Détails de l'opération</h3><label for="opname">Nom</label><input class="opname" type="text" placeholder="Changement peneux" required="required" /><label for="opprice">Prix (en €)</label><input class="opprice" type="number" placeholder="100" required="required" /><label for="opduration">Durée (en minutes)</label><input class="opduration" type="number" placeholder="30" required="required" />
                     </div>
                 </section>
-                <div class="btn">
-                    <input type="reset" value="Réinitialiser">
-                    <input type="submit" name="createUser" value="Créer l'utilisateur">
-                </div>
+                <div class="btn"><input type="reset" value="Réinitialiser" /><input type="submit" value="Créer l'opération" /></div>
             </form>
         </section>
     </main>
-
     <?php
     if (!empty($message)) {
         echo "<div class='alert'>" . $message . "</div>";
     }
+    
     ?>
-
-    <script src="js/script.js"></script>
 </body>
 
 </html>
