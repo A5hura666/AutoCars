@@ -11,11 +11,28 @@ $erreur = "";
 $theOperations = new OperationDAO(MaBD::getInstance());
 $theArticles = new ArticleDAO(MaBD::getInstance());
 
+function formFilling(string $sessionName,int $number,string $type ,string $name, string $placeholder): void
+{
+    if (isset($_SESSION[$sessionName][$number]) && !empty($_SESSION[$sessionName][$number])) {
+        $value = $_SESSION[$sessionName][$number];
+    } else {
+        $value = "";
+    }
+    echo '<input type="'.$type.'" name="' . $name . '" placeholder="' . $placeholder . '" value="' . $value . '" min="1" required>';
+}
+
 if (isset($_POST['createOperation'])) {
     print_r($_POST["createOperation"]);
     $newOperation = new Operation(DAO::UNKNOWN_ID, $_POST['LibelleOp'], $_POST['CodeTarif'], $_POST['DureeOp'],'');
     $message = $_POST['LibelleOp'] . " " . " a bien été ajouté.";
     $theOperations->insert($newOperation);
+
+    if($theOperations->lastIdOp !=-1){
+        $codeArticle = $theArticles->getOneByName($_POST['listeArticles'])->getCodeArticle();
+
+        $newEntrevue = new entredeux();
+    }
+
 } else {
     $erreur = "une erreur c'est produite lors de la création de l'opération";
 }
@@ -28,20 +45,16 @@ if (isset($_POST["LibelleOp"]) || isset($_POST["CodeTarif"]) ||isset($_POST["Dur
 if (isset($_POST["listeArticles"]) || isset($_POST["QuantiteArt"])) {
     $_SESSION["listeArticles"] = $_POST["listeArticles"];
     $_SESSION["QuantiteArt"] = $_POST["QuantiteArt"];
+    //$_SESSION["infoArticles"] = [$_SESSION["listeArticles"],$_SESSION["QuantiteArt"]];
 }
 
-function formFilling(string $sessionName,int $number,string $type ,string $name, string $placeholder): void
-{
-    if (isset($_SESSION[$sessionName][$number]) && !empty($_SESSION[$sessionName][$number])) {
-        $value = $_SESSION[$sessionName][$number];
-    } else {
-        $value = "";
-    }
-    echo '<input type="'.$type.'" name="' . $name . '" placeholder="' . $placeholder . '" value="' . $value . '" required>';
+if (isset($_POST["listeArticles"]) && isset($_POST["QuantiteArt"])) {
+    array_push($_SESSION["infoArticles"],$_POST["listeArticles"],$_POST["QuantiteArt"]);
 }
 
-//$codeArticle = $theArticles->getOneByName($_POST['listeArticles'])->getCodeArticle();
-//var_dump($codeArticle);
+function test(): void{
+    array_push($_SESSION["infoArticles"],$_SESSION["listeArticles"],$_SESSION["QuantiteArt"]);
+}
 ?>
 
 <html>
@@ -81,15 +94,24 @@ function formFilling(string $sessionName,int $number,string $type ,string $name,
     <main class="interface">
         <h2>Créer une opération</h2>
         <section>
-            <form class="createoperation" method="post" onchange="submit()">
+            <form class="createoperation" method="post">
                 <section>
+                    <a href="creer-operation.php?idprod=1">adaadazdazda</a>
+                    <?php
+                    if ($_GET['idprod']){
+                        var_dump($_GET['idprod']);
+                    }
+                    ?>
+
                     <div class="operationdetails">
                         <h3>Détails de l'opération</h3>
                         <label for="LibelleOp">Nom</label>
                         <?php formFilling("CreationOp",0,"text", "LibelleOp", "Changement pneu"); ?>
 <!--                        <input class="LibelleOp" id="LibelleOp" name="LibelleOp" type="text" placeholder="Changement peneux" required="required" />-->
                         <label for="CodeTarif">Prix (en €)</label>
-                        <?php formFilling("CreationOp",1,"number", "CodeTarif", "100"); ?>
+                        <?php
+                        formFilling("CreationOp",1,"number", "CodeTarif", "100");
+                        ?>
 <!--                        <input class="CodeTarif" id="CodeTarif" name="CodeTarif" type="number" placeholder="100" required="required" />-->
                         <label for="DureeOp">Durée (en minutes)</label>
                         <?php formFilling("CreationOp",2,"number", "DureeOp", "30"); ?>
@@ -106,8 +128,7 @@ function formFilling(string $sessionName,int $number,string $type ,string $name,
                             } else {
                                 $value = "";
                             }
-                            //echo '<input type="text" name="listeArticles" id="listeArticles" class="listeArticles" placeholder="Roue" list="listemarques" value="' . $value . '" required>';
-                            echo '<input type="text" name="listeArticles" list="listeArticles" value="' . $value . '" placeholder="Batterie" required>';
+                            echo '<input type="text" name="listeArticles" list="listeArticles" placeholder="Batterie" required>';
                             ?>
 
                             <datalist id="listeArticles">
@@ -121,14 +142,28 @@ function formFilling(string $sessionName,int $number,string $type ,string $name,
                             
                             <label for="QuantiteArt">Quantité</label>
                             <?php
+
                             if (isset($_SESSION["QuantiteArt"]) && !empty($_SESSION["QuantiteArt"])) {
                                 $value = $_SESSION["QuantiteArt"];
                             } else {
                                 $value = "";
                             }
-                            echo '<input class="QuantiteArt" id="QuantiteArt" min="1" name="QuantiteArt" type="number" placeholder="1" value="'. $value .'" required="required" />';
+                            echo '<input class="QuantiteArt" id="QuantiteArt" min="1" name="QuantiteArt" type="number" placeholder="1" required="required" />';
                             ?>
 
+                            <ul>
+                            <?php
+
+                            var_dump($_SESSION["infoArticles"]);
+                            if (empty($_SESSION["infoArticles"])) {
+                                echo "<li> </li>";
+                            } else {
+                                foreach ($_SESSION["infoArticles"] as $infoArticle) {
+                                    echo "<li>" . $infoArticle["qte"] . "</li>";
+                                }
+                            }
+                            ?>
+                            </ul>
                         </div>
                 </section>
                 <div class="btn"><input type="reset" value="Réinitialiser" />
