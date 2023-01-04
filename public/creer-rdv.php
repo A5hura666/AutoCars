@@ -14,10 +14,13 @@ $TheArticle = new ArticleDAO(MaBD::getInstance());
 
 //Session pour les opérations et calcul du prix total
 $prix = 0;
+$temps = new DateTime('0:0:0');
 if (isset($_POST["operation"])) {
     array_push($_SESSION["operation"], $_POST["operation"]);
     foreach ($_SESSION['operation'] as $op){
         $theop = $TheOperation->getOneByLibOP($op);
+        $time = explode(':',$theop->getDureeOp());
+        $temps->add(new DateInterval('PT'.$time[1].'H'.$time[2].'M0S'));
         $prix += $theop->getTarifHoraire();
         foreach ($Theentredeux->getArticleForOneOperation($theop->getCodeOp()) as $thop){
             $var = $TheArticle->getOnebyId($thop->getCodeArticle());
@@ -25,6 +28,11 @@ if (isset($_POST["operation"])) {
         }
     }
 }
+
+$temps = $temps->format('H:i');
+$temps = explode(':',$temps);
+$hour = $temps[0];
+$min = $temps[1];
 
 
 ?>
@@ -149,12 +157,6 @@ if (isset($_POST["operation"])) {
             <div class="vehicle">
                 <section>
                     <h3>Vehicule</h3>
-                    <input type="text" class="vehiclesearchbar" placeholder="Choisir un véhicule" list="vehiclelist"
-                           required>
-                    <datalist id="vehiclelist">
-                        <option value="Fiat Multipla"></option>
-                        <option value="Renaut Zoé"></option>
-                    </datalist>
                 </section>
 
 
@@ -220,8 +222,8 @@ if (isset($_POST["operation"])) {
                         </ul>
                     </section>
                     <div>
-                        <p>Temps estimé : <span>5h30</span></p>
-                        <p>Prix estimé : <span><?php echo $prix*1.2?></span>€</p>
+                        <p>Temps estimé : <span><?php echo $hour.'h'.$min ?></span></p>
+                        <p>Prix estimé : <span><?php echo round($prix*1.2,2) ?></span>€</p>
                     </div>
                 </div>
         </section>
