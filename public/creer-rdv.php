@@ -83,11 +83,14 @@ $TheClient = new ClientsDAO(MaBD::getInstance());
                     <div class="client">
                         <section>
                             <h3>Client</h3>
-                            <input type="text" class="usersearchbar" placeholder="Recherche un client" list="clientlist"
+                            <input type="text" class="usersearchbar" placeholder="Recherche un client" list="clientlist" onchange="select_client()"
                                 required>
                             <datalist id="clientlist">
-                                <option value="Michel Dupont"></option>
-                                <option value="Albert Martin"></option>
+                                <?php
+                                foreach ($TheClient->getAll() as $client){
+                                    echo '<option value="' . $client->getLastName() . " " . $client->getFirstName() . '"></option>';
+                                }
+                                ?>
                             </datalist>
                         </section>
 
@@ -127,12 +130,6 @@ $TheClient = new ClientsDAO(MaBD::getInstance());
                     <div class="vehicle">
                         <section>
                             <h3>Vehicule</h3>
-                            <input type="text" class="vehiclesearchbar" placeholder="Choisir un véhicule" list="vehiclelist"
-                                required>
-                            <datalist id="vehiclelist">
-                                <option value="Fiat Multipla"></option>
-                                <option value="Renaut Zoé"></option>
-                            </datalist>
                         </section>
 
 
@@ -201,11 +198,8 @@ $TheClient = new ClientsDAO(MaBD::getInstance());
             </form>
         </section>
     </main>
-
-
-
-
-    <script src="js/script.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="js/rdv_script.js"></script>
 </body>
 
 </html>
