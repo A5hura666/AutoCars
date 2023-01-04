@@ -109,7 +109,7 @@ if (isset($_POST["operation"])) {
                     </div>
                     <div>
                         <label for="fname">Prénom</label>
-                        <input type="text" class="lname" placeholder="Partice" disabled>
+                        <input type="text" class="fname" placeholder="Partice" disabled>
                     </div>
                     <div>
                         <label for="adress">Rue</label>

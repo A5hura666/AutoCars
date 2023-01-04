@@ -13,7 +13,6 @@ function replacefieldcli(data){
 }
 
 function replacefieldvehi(data){
-    console.log(data)
     document.querySelector(".brand").value = data.marque
     document.querySelector(".model").value = data.NumModele
     document.querySelector(".serialnumber").value = data.NoSerie
