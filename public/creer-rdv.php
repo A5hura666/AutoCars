@@ -197,10 +197,6 @@ if (isset($_POST["operation"])) {
                                 }
                                 ?>
                             </datalist>
-                            <?php
-                            //var_dump($_SESSION);
-                            //var_dump($_POST);
-                            ?>
                         </div>
 
                     </section>
@@ -208,7 +204,6 @@ if (isset($_POST["operation"])) {
                     <section class="operationlist">
                         <ul>
                             <?php
-                            //var_dump($_SESSION["operation"]);
                             if (empty($_SESSION["operation"])) {
                                 echo "<li> </li>";
                             } else {

@@ -5,6 +5,28 @@ require "checkAccess.php";
 
 checkAccess("Chef d'atelier");
 
+$TheArticle = new ArticleDAO(MaBD::getInstance());
+$search_article=$_POST['article'];
+$message="";
+
+$tableau= array();
+
+function cherche(array $tabArticle): array{
+    $res=[];
+    $search_article=$_POST['article'];
+
+    foreach ($tabArticle as $key => $article){
+        if (strstr($article['LibelleArticle'],$search_article)){
+            array_push($res,$key);
+        }
+    }
+    return $res;
+}
+
+foreach ($TheArticle->getAllSort() as $article){
+    array_push($tableau,[$article->getCodeArticle(),$article->getLibelleArticle(),$article->getTypeArticle(),$article->getPrixUnitActuelHT(),$article->getQuantite()]);
+}
+//var_dump($tableau);
 ?>
 
 <!DOCTYPE html>
@@ -81,21 +103,36 @@ checkAccess("Chef d'atelier");
             <aside>
                 <div class="recherche">
                     <h3>Rechercher une pièces</h3>
-                    <form method="post" action="">
+                    <form method="post" onchange="submit()">
                         <div>
                             <label for="article">Nom de la pièce</label>
                             <input type="text" name="article" id="article" placeholder="Pneus Hiver">
                         </div>
-                    </form>
+                        <input type="submit" name="validation_search" value="Recherche">
+                        <?php var_dump($search_article); ?>
                 </div>
                 <div>
                     <h3>Liste des pièces</h3>
-                    <form method="post">
                         <ul class="list">
-                            <li class="big"><span>Pneus Hiver</span><input type="number" value="50" class="small" disabled></input></li>
+                            <?php
+
+                            $sort_article = cherche($tableau);
+                            var_dump($sort_article);
+//                            if (empty($sort_article)){
+//                                $message="Article inconnu";
+//                                foreach ($TheArticle->getAllSort() as $article){
+//                                    echo "<li class='big'><span> ".$article->getLibelleArticle()." </span><input type='number' value=".$article->getQuantite()." class='small' disabled></li>";
+//                                }
+//                            }else{
+//                                foreach ($sort_article as $articles){
+//                                    echo "<li class='big'><span> ".$articles->getLibelleArticle()." </span><input type='number' value=".$articles->getQuantite()." class='small' disabled></li>";
+//                                }
+//                            }
+                            ?>
+
                         </ul>
-                    </form>
                 </div>
+                </form>
             </aside>
 
         </section>
