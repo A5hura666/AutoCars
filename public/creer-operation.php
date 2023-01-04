@@ -71,6 +71,8 @@ if (isset($_POST['createOperation'])) {
     }
     
     ?>
+    
+<script src="js/alert.js"></script>
 </body>
 
 </html>

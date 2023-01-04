@@ -92,6 +92,8 @@ $erreur = "";
             </div>
         </section>
     </main>
+    
+<script src="js/alert.js"></script>
 </body>
 
 </html>

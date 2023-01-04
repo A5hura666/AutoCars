@@ -17,21 +17,20 @@ if (isset($_POST['login']) && isset($_POST['password'])) {
 
         print_r($_SESSION['role']);
 
-        if($_SESSION['role'] == "Administrateur"){
+        if ($_SESSION['role'] == "Administrateur") {
             header("Location: home-admin.php");
             exit(0);
         }
-        if($_SESSION['role'] == "Chef d'atelier"){
+        if ($_SESSION['role'] == "Chef d'atelier") {
             header("Location: home-ca.php");
             exit(0);
         }
-        if($_SESSION['role'] == "Opérateur"){
+        if ($_SESSION['role'] == "Opérateur") {
             header("Location: home-employe.php");
             exit(0);
         }
 
         $erreur = "Quelque chose s'est mal passé ! Votre rôle n'est pas reconnu !";
-
     } else {
         $erreur = "Identifiants incorrects !";
     }
@@ -88,6 +87,8 @@ if (isset($_POST['login']) && isset($_POST['password'])) {
         </section>
 
     </main>
+
+    <script src="js/alert.js"></script>
 </body>
 
 </html>
