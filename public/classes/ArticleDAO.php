@@ -11,6 +11,14 @@ class ArticleDAO extends DAO
         return new Article($row['CodeArticle'], $row['LibelleArticle'], $row['TypeArticle'], $row['PrixUnitActuelHT'], $row['quantite']);
     }
 
+    public function getOneByName(int|string $id): Article
+    {
+        $stmt = $this->pdo->prepare("SELECT * FROM Article WHERE LibelleArticle = ?");
+        $stmt->execute([$id]);
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+        return new Article($row['CodeArticle'], $row['LibelleArticle'], $row['TypeArticle'], $row['PrixUnitActuelHT'], $row['quantite']);
+    }
+
     public function getAll(): array
     {
         /** @var Article[] $res */
