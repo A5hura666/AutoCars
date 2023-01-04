@@ -9,6 +9,7 @@ $message = "";
 $erreur = "";
 
 $theOperations = new OperationDAO(MaBD::getInstance());
+$theArticles = new ArticleDAO(MaBD::getInstance());
 
 if (isset($_POST['createOperation'])) {
     print_r($_POST["createOperation"]);
@@ -72,15 +73,20 @@ if (isset($_POST['createOperation'])) {
                         <div class="article">
                             <label for="CodeArt">Article</label>
                             <input type="text" list="listeArticles">
-                            <datalist name="listeArticles">
-                                
+                            <datalist id="listeArticles">
+                                <?php
+                                $listeArticles = $theArticles->getAll();
+                                foreach ($listeArticles as $article) {
+                                    echo "<option value='" . $article->getCodeArticle() . "'>" . $article->getLibelleArticle() . "</option>";
+                                }
+                                ?>
                             </datalist>
-                            </select>
 
+                            
                             <label for="QuantiteArt">Quantité</label>
                             <input class="QuantiteArt" id="QuantiteArt" name="QuantiteArt" type="number" placeholder="1" required="required" />
 
-                    </div>
+                        </div>
                 </section>
                 <div class="btn"><input type="reset" value="Réinitialiser" />
                     <input type="submit" name="createOperation" value="Créer l'opération" />
