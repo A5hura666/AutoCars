@@ -222,6 +222,7 @@ function formFilling(string $sessionName,int $number,string $type ,string $name,
 </main>
 
 <script src="js/script.js"></script>
+<script src="js/alert.js"></script>
 </body>
 
 </html>

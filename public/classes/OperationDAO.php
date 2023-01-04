@@ -31,16 +31,25 @@ class OperationDAO extends DAO
 
     public function insert(object $obj): int
     {
-        // TODO: Implement insert() method.
+        $stmt = $this->pdo->prepare("INSERT INTO Operation (CodeTarif, LibelleOp, DureeOp)"
+            . " VALUES (?,?,?)");
+        $res = $stmt->execute([$obj->getCodeTarif(), $obj->getLibelleOp(), $obj->getDureeOp()]);
+        $obj->id = $this->pdo->lastInsertId();
+        return $res;
     }
 
     public function update(object $obj): int
     {
-        // TODO: Implement update() method.
+        $stmt = $this->pdo->prepare("UPDATE Operation set CodeTarif=:CodeTarif, LibelleOp=:LibelleOp, DureeOp=:DureeOp"
+            . " WHERE CodeOp=:CodeOp");
+        $res = $stmt->execute(['CodeOp' => $obj->getCodeOp(), 'CodeTarif' => $obj->getCodeTarif(), 'LibelleOp' => $obj->getLibelleOp(), 'DureeOp' => $obj->getDureeOp()]);
+        return $res;
     }
 
     public function delete(object $obj): int
     {
-        // TODO: Implement delete() method.
+        $stmt = $this->pdo->prepare("DELETE FROM Operation WHERE CodeOp = ?");
+        $res = $stmt->execute([$obj->getCodeOp()]);
+        return $res;
     }
 }

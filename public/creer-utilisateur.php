@@ -51,7 +51,7 @@ if (isset($_POST['createUser'])) {
         </section>
         <section class="nav-right">
             <a class="invert" href="logout.php">
-                <img class="logout" src="img/logout.png"  alt="Déconnexion" />
+                <img class="logout" src="img/logout.png" alt="Déconnexion" />
             </a>
         </section>
     </nav>
@@ -107,6 +107,7 @@ if (isset($_POST['createUser'])) {
     ?>
 
     <script src="js/script.js"></script>
+    <script src="js/alert.js"></script>
 </body>
 
 </html>
