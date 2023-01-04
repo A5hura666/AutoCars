@@ -20,7 +20,16 @@ if (isset($_POST['createOperation'])) {
     $erreur = "une erreur c'est produite lors de la créa de l'opération";
 }
 
+$codeArticle = $theArticles->getOneByName($_POST['listeArticles'])->getCodeArticle();
 
+//formulaire création opération
+if (isset($_POST["LibelleOp"]) || isset($_POST["CodeTarif"]) ||isset($_POST["DureeOp"])) {
+    $_SESSION["CreationOp"] = [$_POST["LibelleOp"],$_POST["CodeTarif"],$_POST["DureeOp"]];
+}
+//formulaire articles nécessaires
+if (isset($_POST["listeArticles"]) || isset($_POST["QuantiteArt"])) {
+    $_SESSION["ArticleNess"] = [$_POST["listeArticles"],$_POST["QuantiteArt"]];
+}
 
 ?>
 
@@ -61,12 +70,13 @@ if (isset($_POST['createOperation'])) {
     <main class="interface">
         <h2>Créer une opération</h2>
         <section>
-            <form class="createoperation" method="POST">
+            <form class="createoperation" method="post" onchange="submit()">
                 <section>
                     <div class="operationdetails">
                         <h3>Détails de l'opération</h3>
                         <label for="LibelleOp">Nom</label>
-                        <input class="LibelleOp" id="LibelleOp" name="LibelleOp" type="text" placeholder="Changement peneux" required="required" />
+                        <?php formFilling("CreationOp",0,"text", "LibelleOp", "Changement pneu"); ?>
+<!--                        <input class="LibelleOp" id="LibelleOp" name="LibelleOp" type="text" placeholder="Changement peneux" required="required" />-->
                         <label for="CodeTarif">Prix (en €)</label>
                         <input class="CodeTarif" id="CodeTarif" name="CodeTarif" type="number" placeholder="100" required="required" />
                         <label for="DureeOp">Durée (en minutes)</label>
@@ -76,19 +86,19 @@ if (isset($_POST['createOperation'])) {
                         <h3>Articles nécessaires</h3>
                         <div class="article">
                             <label for="CodeArt">Article</label>
-                            <input type="text" list="listeArticles">
+                            <input type="text" name="listeArticles" list="listeArticles">
                             <datalist id="listeArticles">
                                 <?php
                                 $listeArticles = $theArticles->getAll();
                                 foreach ($listeArticles as $article) {
-                                    echo "<option value='" . $article->getCodeArticle() . "'>" . $article->getLibelleArticle() . "</option>";
+                                    echo "<option value='" . $article->getLibelleArticle() . "'></option>";
                                 }
                                 ?>
                             </datalist>
 
                             
                             <label for="QuantiteArt">Quantité</label>
-                            <input class="QuantiteArt" id="QuantiteArt" name="QuantiteArt" type="number" placeholder="1" required="required" />
+                            <input class="QuantiteArt" id="QuantiteArt" min="1" name="QuantiteArt" type="number" placeholder="1" required="required" />
 
                         </div>
                 </section>

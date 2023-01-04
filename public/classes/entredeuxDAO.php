@@ -3,8 +3,9 @@
 class entredeuxDAO extends DAO
 {
 
-    public function getOne(int|string $id): array|object
+    public function getOne(int|string $id): array
     {
+        /** @var entredeux[] $res */
         $stmt = $this->pdo->query("SELECT * FROM entredeux WHERE codeOp = ?");
         foreach ($stmt->fetchAll(PDO::FETCH_ASSOC) as $row)
             $res[] = new entredeux($row['codeOp'], $row['codeArticle'], $row['qtt']);
