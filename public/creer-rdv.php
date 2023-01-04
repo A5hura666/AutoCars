@@ -6,7 +6,13 @@ require "checkAccess.php";
 checkAccess("Chef d'atelier");
 
 $TheClient = new ClientsDAO(MaBD::getInstance());
+$TheVehicule = new VehiculesDAO(MaBD::getInstance());
+$TheOperation = new OperationDAO(MaBD::getInstance());
 
+//Session pour les opérations
+if (isset($_POST["operation"])) {
+    array_push($_SESSION["operation"],$_POST["operation"]);
+}
 ?>
 <!DOCTYPE html>
 
@@ -79,7 +85,7 @@ $TheClient = new ClientsDAO(MaBD::getInstance());
     <main class="interface">
         <h2>Création de rendez-vous</h2>
         <section>
-            <form class="createrdv">
+            <form class="createrdv" method="post" onchange="submit()">
                 <section>
                     <div class="client">
                         <section>
@@ -165,19 +171,48 @@ $TheClient = new ClientsDAO(MaBD::getInstance());
                     <div class="operation">
                         <section>
                             <h3>Liste d'opérations</h3>
-                            <input type="text" class="operationsearchbar" placeholder="Ajoutez une opération" list="operationlist"
+
+                                <div>
+                                    <label for="operationlist">Operation</label>
+                                    <?php
+                                    if (empty($_SESSION["operation"])) {
+                                        $_SESSION["operation"]=[];
+                                    }
+                                    echo '<input type="text" name="operation" class="operationsearchbar" placeholder="Ajoutez une opération" list="operationlist">';
+                                    ?>
+                                    <datalist id="operationlist">
+                                        <?php
+                                        foreach ($TheOperation->getAll() as $operation) {
+                                            echo '<option value="' . $operation->getLibelleOp() . '">';
+                                        }
+                                        ?>
+                                    </datalist>
+                                    <?php
+                                    var_dump($_SESSION);
+                                    var_dump($_POST);
+                                    ?>
+                                </div>
+
+                            <!--<input type="text" class="operationsearchbar" placeholder="Ajoutez une opération" list="operationlist"
                                 required>
                             <datalist id="operationlist">
                                 <option value="Devis"></option>
                                 <option value="Oscultation du véhicule"></option>
                                 <option value="Changement des pneux"></option>
                                 <option value="Réparation pare brise"></option>
-                            </datalist>
+                            </datalist>-->
                         </section>
 
 
                         <section class="operationlist">
                             <ul>
+                                <?php
+                                //var_dump($_SESSION["operation"][3]);
+                                /*foreach ($_SESSION["operation"] as $operation){
+                                    //echo "<li> . $_SESSION["$operation"] .  </li>";
+                                    echo $_SESSION["$operation"][1];
+                                }*/
+                                ?>
                                 <li><span>Devis</span><a href="#">X</a></li>
                                 <li><span>Changement pneux</span><a href="#">X</a></li>
                                 <li><span>Ménage voiture</span><a href="#">X</a></li>
@@ -213,7 +248,7 @@ $TheClient = new ClientsDAO(MaBD::getInstance());
 
 
 
-    <script src="js/script.js"></script>
+    <!-- <script src="js/script.js"></script>-->
 </body>
 
 </html>
