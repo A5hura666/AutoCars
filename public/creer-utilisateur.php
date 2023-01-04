@@ -45,8 +45,12 @@ if (isset($_POST['createUser'])) {
             <div><a href="statistiques.php">Statistiques</a>
                 <div class="dropdown-content"></div>
             </div>
-            <div><a href="#">Opérations</a>
-                <div class="dropdown-content"><a href="creer-operation.php">Créer une opération</a><a href="gestion-operations.php">Gérer les opérations</a></div>
+            <div>
+                <a href="creer-operation.php">Créer une opération</a>
+                <!-- <a href="#">Opérations</a> -->
+                <!-- <div class="dropdown-content"> -->
+                    <!-- <a href="gestion-operations.php">Gérer les opérations</a> -->
+                <!-- </div> -->
             </div>
         </section>
         <section class="nav-right">

@@ -136,7 +136,6 @@ foreach ($TheArticle->getAllSort() as $article) {
                             }
                         }
                         ?>
-
                     </ul>
                 </div>
                 </form>

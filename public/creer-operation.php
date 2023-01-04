@@ -38,14 +38,18 @@ if (isset($_POST['createOperation'])) {
             <div> <a href="home-admin.php">Accueil</a>
                 <div class="dropdown-content"></div>
             </div>
-            <div><a href="creer-utilisateur">Créer un utilisateur</a>
+            <div><a href="creer-utilisateur.php">Créer un utilisateur</a>
                 <div class="dropdown-content"></div>
             </div>
             <div><a href="statistiques">Statistiques</a>
                 <div class="dropdown-content"></div>
             </div>
-            <div><a href="#">Opérations</a>
-                <div class="dropdown-content"><a href="creer-operation.php">Créer une opération</a><a href="gestion-operations.php">Gérer les opérations</a></div>
+            <div>
+                <a href="creer-operation.php">Créer une opération</a>
+                <!-- <a href="#">Opérations</a> -->
+                <!-- <div class="dropdown-content"> -->
+                    <!-- <a href="gestion-operations.php">Gérer les opérations</a> -->
+                <!-- </div> -->
             </div>
         </section>
         <section class="nav-right">

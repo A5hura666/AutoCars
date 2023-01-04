@@ -9,7 +9,9 @@ $TheClient = new ClientsDAO(MaBD::getInstance());
 $TheVehicule = new VehiculesDAO(MaBD::getInstance());
 $Marque = new MarqueDAO(MaBD::getInstance());
 $Modele = new ModeleDAO(MaBD::getInstance());
-
+if(!isset($_POST['Consulter'])){
+    $_POST['Consulter'] = "1";
+}
 ?>
 
 <!DOCTYPE html>
