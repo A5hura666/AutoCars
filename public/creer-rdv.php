@@ -85,7 +85,6 @@ if (isset($_POST["operation"])) {
     <main class="interface">
         <h2>Création de rendez-vous</h2>
         <section>
-            <form class="createrdv">
                 <section>
                     <div class="client">
                         <section>
@@ -173,7 +172,7 @@ if (isset($_POST["operation"])) {
 
                     <div class="operation">
                         <section>
-                            <form method="post" onchange="submit()">
+                            <form class="createrdv" method="post" onchange="submit()">
                             <h3>Liste d'opérations</h3>
 
                                 <div>
