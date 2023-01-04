@@ -8,7 +8,7 @@ checkAccess("Administrateur");
 $message = "";
 $erreur = "";
 
-$theOperations = new OperationsDAO(MaBD::getInstance());
+$theOperations = new OperationDAO(MaBD::getInstance());
 
 if (isset($_POST['createOperation'])) {
     $newOperation = new Operation(DAO::UNKNOWN_ID, $_POST['nom'], $_POST['prix'], $_POST['duree']);
