@@ -90,8 +90,7 @@ if (isset($_POST["operation"])) {
                     <div class="client">
                         <section>
                             <h3>Client</h3>
-                            <input type="text" class="usersearchbar" placeholder="Recherche un client" list="clientlist" onchange="select_client()"
-                                required>
+                            <input type="text" class="usersearchbar" placeholder="Recherche un client" list="clientlist" onchange="select_client()">
                             <datalist id="clientlist">
                                 <?php
                                 foreach ($TheClient->getAll() as $client){
@@ -109,7 +108,7 @@ if (isset($_POST["operation"])) {
                             </div>
                             <div>
                                 <label for="fname">Prénom</label>
-                                <input type="text" class="lname" placeholder="Partice" disabled>
+                                <input type="text" class="fname" placeholder="Partice" disabled>
                             </div>
                             <div>
                                 <label for="adress">Rue</label>
@@ -137,12 +136,6 @@ if (isset($_POST["operation"])) {
                     <div class="vehicle">
                         <section>
                             <h3>Vehicule</h3>
-                            <input type="text" class="vehiclesearchbar" placeholder="Choisir un véhicule" list="vehiclelist"
-                                required>
-                            <datalist id="vehiclelist">
-                                <option value="Fiat Multipla"></option>
-                                <option value="Renaut Zoé"></option>
-                            </datalist>
                         </section>
 
 
@@ -205,9 +198,9 @@ if (isset($_POST["operation"])) {
                                 //var_dump($_SESSION["operation"]);
                                 if (empty($_SESSION["operation"])){
                                     echo "<li> </li>";
-                                }else{
-                                    foreach ($_SESSION["operation"] as $operation){
-                                        echo "<li>".$operation."</li>";
+                                }else {
+                                    foreach ($_SESSION["operation"] as $operation) {
+                                        echo "<li>" . $operation . "</li>";
                                     }
                                 }
                                 ?>
