@@ -10,6 +10,7 @@ $TheUser= new UsersDAO(MaBD::getInstance());
 $TheVehicule = new VehiculesDAO(MaBD::getInstance());
 $TheOperation = new OperationDAO(MaBD::getInstance());
 $Theentredeux = new entredeuxDAO(MaBD::getInstance());
+$TheArticle = new ArticleDAO(MaBD::getInstance());
 
 //Session pour les opérations et calcul du prix total
 $prix = 0;
@@ -19,10 +20,11 @@ if (isset($_POST["operation"])) {
         $theop = $TheOperation->getOneByLibOP($op);
         $prix += $theop->getTarifHoraire();
         foreach ($Theentredeux->getOne($theop->getCodeOp()) as $thop){
-            $prix += $thop->get;
-        }
+            $var = $TheArticle->getOnebyId($thop->getCodeArticle());
+            $prix += $var->getPrixUnitActuelHT() *$thop->getQtt();
         }
     }
+}
 
 
 ?>
