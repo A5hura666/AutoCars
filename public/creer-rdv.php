@@ -10,9 +10,15 @@ $TheUser= new UsersDAO(MaBD::getInstance());
 $TheVehicule = new VehiculesDAO(MaBD::getInstance());
 $TheOperation = new OperationDAO(MaBD::getInstance());
 
-//Session pour les opérations
+//Session pour les opérations et calcul du prix total
+$prixtotal = 0;
 if (isset($_POST["operation"])) {
     array_push($_SESSION["operation"], $_POST["operation"]);
+    foreach ($_SESSION['operation'] as $op){
+        $TheOperation->getOneByLibOP($op)->getCodeTarif()
+
+        }
+    }
 }
 
 
