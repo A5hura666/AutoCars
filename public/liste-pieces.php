@@ -6,7 +6,6 @@ require "checkAccess.php";
 checkAccess("Opérateur");
 
 $TheArticle = new ArticleDAO(MaBD::getInstance());
-$search_article;
 if (isset($_POST['article'])) {
     $search_article = $_POST['article'];
 } else {
@@ -103,13 +102,14 @@ foreach ($TheArticle->getAllSort() as $article) {
                         } else {
                             $message = "Article inconnu";
                             foreach ($TheArticle->getAllSort() as $article) {
-                                echo "<li class='big'><span> " . $article->getLibelleArticle() . " </span><input type='number' value=" . $article->getQuantite() . " class='small' disabled></li>";
+                                echo "<li class='big'><span> " . $article->getLibelleArticle() . " </span><input type='number' value=" . $article->getQuantite() . " class='small' min='0'></li>";
                             }
                         }
                         ?>
 
                     </ul>
                 </div>
+
                 </form>
             </aside>
 
