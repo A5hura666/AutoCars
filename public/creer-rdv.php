@@ -9,17 +9,20 @@ $TheClient = new ClientsDAO(MaBD::getInstance());
 $TheUser= new UsersDAO(MaBD::getInstance());
 $TheVehicule = new VehiculesDAO(MaBD::getInstance());
 $TheOperation = new OperationDAO(MaBD::getInstance());
+$Theentredeux = new entredeuxDAO(MaBD::getInstance());
 
 //Session pour les opérations et calcul du prix total
-$prixtotal = 0;
+$prix = 0;
 if (isset($_POST["operation"])) {
     array_push($_SESSION["operation"], $_POST["operation"]);
     foreach ($_SESSION['operation'] as $op){
-        $TheOperation->getOneByLibOP($op)->getCodeTarif()
-
+        $theop = $TheOperation->getOneByLibOP($op);
+        $prix += $theop->getTarifHoraire();
+        foreach ($Theentredeux->getOne($theop->getCodeOp()) as $thop){
+            $prix += $thop->get;
+        }
         }
     }
-}
 
 
 ?>
@@ -216,7 +219,7 @@ if (isset($_POST["operation"])) {
                     </section>
                     <div>
                         <p>Temps estimé : <span>5h30</span></p>
-                        <p>Prix estimé : <span>500</span>€</p>
+                        <p>Prix estimé : <span><?php echo $prix?></span>€</p>
                     </div>
                 </div>
         </section>

@@ -6,6 +6,7 @@ class Operation
     private int $CodeTarif;
     private string $LibelleOp;
     private string $DureeOp;
+    private string $tarifHoraire;
 
     /**
      * @param int $CodeOp
@@ -13,12 +14,13 @@ class Operation
      * @param string $LibelleOp
      * @param string $DureeOp
      */
-    public function __construct(int $CodeOp, int $CodeTarif, string $LibelleOp, string $DureeOp)
+    public function __construct(int $CodeOp, int $CodeTarif, string $LibelleOp, string $DureeOp, float $tarifHoraire)
     {
         $this->CodeOp = $CodeOp;
         $this->CodeTarif = $CodeTarif;
         $this->LibelleOp = $LibelleOp;
         $this->DureeOp = $DureeOp;
+        $this->tarifHoraire = $tarifHoraire;
     }
 
     /**
@@ -84,6 +86,23 @@ class Operation
     {
         $this->DureeOp = $DureeOp;
     }
+
+    /**
+     * @return string
+     */
+    public function getTarifHoraire(): string
+    {
+        return $this->tarifHoraire;
+    }
+
+    /**
+     * @param string $tarifHoraire
+     */
+    public function setTarifHoraire(string $tarifHoraire): void
+    {
+        $this->tarifHoraire = $tarifHoraire;
+    }
+
 
 
 
