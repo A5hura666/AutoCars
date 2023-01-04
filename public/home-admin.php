@@ -27,7 +27,7 @@ checkAccess("Administrateur")
             <div><a href="creer-utilisateur">Créer un utilisateur</a>
                 <div class="dropdown-content"></div>
             </div>
-            <div><a href="statistiques">Statistiques</a>
+            <div><a href="statistiques.php">Statistiques</a>
                 <div class="dropdown-content"></div>
             </div>
             <div><a href="#">Opérations</a>
@@ -44,7 +44,7 @@ checkAccess("Administrateur")
             <article class="btn-menu"><img src="img/createClient.png" alt="Création utilisateur" />
                 <h3>Créer un utilisateur</h3>
             </article>
-        </a><a href="statistiques">
+        </a><a href="statistiques.php">
             <article class="btn-menu client"><img src="img/stats.png" alt="Statistiques" />
                 <h3>Statistiques</h3>
             </article>
