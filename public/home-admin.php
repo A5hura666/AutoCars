@@ -15,7 +15,7 @@ checkAccess("Administrateur")
 <head>
     <title>AutoCars | Accueil</title>
     <link rel="stylesheet" href="css/style.css" />
-    <link rel="shortcut icon" href="/img/favicon.ico" />
+    <link rel="shortcut icon" href="img/favicon.ico" />
 </head>
 
 <body>

@@ -25,6 +25,7 @@ $Modele = new ModeleDAO(MaBD::getInstance());
     <link rel="stylesheet" href="css/liste.css">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta lang="utf-8" content="text/html; charset=utf-8">
+    <link rel="shortcut icon" href="img/favicon.ico" />
 </head>
 
 <body>
