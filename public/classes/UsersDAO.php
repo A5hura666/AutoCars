@@ -23,6 +23,16 @@ class UsersDAO extends DAO
         return $res;
     }
 
+    public function getAllOperator(): array
+    {
+        /** @var Users[] $res */
+        $res = [];
+        $stmt = $this->pdo->query("SELECT * FROM UserRole where Role='Opérateur' ");
+        foreach ($stmt->fetchAll(PDO::FETCH_ASSOC) as $row)
+            $res[] = new Users($row['idUser'], $row['LastName'], $row['FirstName'], $row['Role'], $row['Login'], $row['Password']);
+        return $res;
+    }
+
     // Sauvegarde de l'objet $obj :
     //     $obj->id == UNKNOWN_ID ==> INSERT
     //     $obj->id != UNKNOWN_ID ==> UPDATE
