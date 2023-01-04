@@ -85,7 +85,6 @@ if (isset($_POST["operation"])) {
     <main class="interface">
         <h2>Création de rendez-vous</h2>
         <section>
-            <form class="createrdv" method="post" onchange="submit()">
                 <section>
                     <div class="client">
                         <section>
@@ -170,6 +169,7 @@ if (isset($_POST["operation"])) {
 
                     <div class="operation">
                         <section>
+                            <form method="post" onchange="submit()">
                             <h3>Liste d'opérations</h3>
 
                                 <div>
@@ -188,40 +188,25 @@ if (isset($_POST["operation"])) {
                                         ?>
                                     </datalist>
                                     <?php
-                                    var_dump($_SESSION);
-                                    var_dump($_POST);
+                                    //var_dump($_SESSION);
+                                    //var_dump($_POST);
                                     ?>
                                 </div>
 
-                            <!--<input type="text" class="operationsearchbar" placeholder="Ajoutez une opération" list="operationlist"
-                                required>
-                            <datalist id="operationlist">
-                                <option value="Devis"></option>
-                                <option value="Oscultation du véhicule"></option>
-                                <option value="Changement des pneux"></option>
-                                <option value="Réparation pare brise"></option>
-                            </datalist>-->
                         </section>
-
 
                         <section class="operationlist">
                             <ul>
                                 <?php
-                                //var_dump($_SESSION["operation"][3]);
-                                /*foreach ($_SESSION["operation"] as $operation){
-                                    //echo "<li> . $_SESSION["$operation"] .  </li>";
-                                    echo $_SESSION["$operation"][1];
-                                }*/
+                                //var_dump($_SESSION["operation"]);
+                                if (empty($_SESSION["operation"])){
+                                    echo "<li> </li>";
+                                }else{
+                                    foreach ($_SESSION["operation"] as $operation){
+                                        echo "<li>".$operation."</li>";
+                                    }
+                                }
                                 ?>
-                                <li><span>Devis</span><a href="#">X</a></li>
-                                <li><span>Changement pneux</span><a href="#">X</a></li>
-                                <li><span>Ménage voiture</span><a href="#">X</a></li>
-                                <li><span>Contrôle technique</span><a href="#">X</a></li>
-                                <li><span>Peinture</span><a href="#">X</a></li>
-                                <li><span>Réparation pare brise</span><a href="#">X</a></li>
-                                <li><span>Mise à jour système de bord</span><a href="#">X</a></li>
-                                <li><span>Changement des freins</span><a href="#">X</a></li>
-                                <li><span>Remplacement rétroviseurs</span><a href="#">X</a></li>
                             </ul>
                         </section>
                         <div>
