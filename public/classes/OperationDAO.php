@@ -21,6 +21,14 @@ class OperationDAO extends DAO
         return $res;
     }
 
+    public function getOneByLibOP(int|string $lib): Operation
+    {
+        $stmt = $this->pdo->prepare("SELECT * FROM Operation WHERE LibelleOp = ?");
+        $stmt->execute([$lib]);
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+        return new Operation($row['CodeOp'], $row['CodeTarif'], $row['LibelleOp'], $row['DureeOp']);
+    }
+
     public function insert(object $obj): int
     {
         $stmt = $this->pdo->prepare("INSERT INTO Operation (CodeTarif, LibelleOp, DureeOp)"

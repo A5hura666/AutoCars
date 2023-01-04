@@ -5,6 +5,7 @@ require "checkAccess.php";
 
 checkAccess("Chef d'atelier");
 
+unset($_SESSION['operation']);
 ?>
 <!DOCTYPE html>
 

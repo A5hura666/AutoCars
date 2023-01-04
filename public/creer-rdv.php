@@ -10,10 +10,18 @@ $TheUser= new UsersDAO(MaBD::getInstance());
 $TheVehicule = new VehiculesDAO(MaBD::getInstance());
 $TheOperation = new OperationDAO(MaBD::getInstance());
 
-//Session pour les opérations
+//Session pour les opérations et calcul du prix total
+$prixtotal = 0;
 if (isset($_POST["operation"])) {
     array_push($_SESSION["operation"], $_POST["operation"]);
+    foreach ($_SESSION['operation'] as $op){
+        $TheOperation->getOneByLibOP($op)->getCodeTarif()
+
+        }
+    }
 }
+
+
 ?>
 <!DOCTYPE html>
 
@@ -29,7 +37,7 @@ if (isset($_POST["operation"])) {
     <link rel="shortcut icon" href="img/favicon.ico"/>
 </head>
 
-<body>
+<body <?php if (isset($_COOKIE['clientid'])){ echo 'onload="alsoChoise('.$_COOKIE['clientid'].')"';} else echo ''?>>
 <nav>
     <section class="nav-left">
         <img src="img/logo.png" alt="logo">
