@@ -67,6 +67,20 @@ if (isset($_POST['createOperation'])) {
                         <label for="DureeOp">Durée (en minutes)</label>
                         <input class="DureeOp" id="DureeOp" name="DureeOp" type="number" placeholder="30" required="required" />
                     </div>
+                    <div class="necessaryarticles">
+                        <h3>Articles nécessaires</h3>
+                        <div class="article">
+                            <label for="CodeArt">Article</label>
+                            <input type="text" list="listeArticles">
+                            <datalist name="listeArticles">
+                                
+                            </datalist>
+                            </select>
+
+                            <label for="QuantiteArt">Quantité</label>
+                            <input class="QuantiteArt" id="QuantiteArt" name="QuantiteArt" type="number" placeholder="1" required="required" />
+
+                    </div>
                 </section>
                 <div class="btn"><input type="reset" value="Réinitialiser" />
                     <input type="submit" name="createOperation" value="Créer l'opération" />
