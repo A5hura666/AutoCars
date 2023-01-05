@@ -13,6 +13,7 @@ $erreur = "";
 if (isset($_POST['login']) && isset($_POST['password'])) {
     if (($theUser = $theUsers->check($_POST['login'], $_POST['password'])) != null) {
         $_SESSION['login'] = $theUser;
+        $_SESSION['idUser'] = $theUser->getIdUser();
         $_SESSION['role'] = $theUser->getRole();
 
         print_r($_SESSION['role']);

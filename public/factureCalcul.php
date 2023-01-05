@@ -124,7 +124,7 @@ function createFacture($data, $id, $type)
         fwrite($handle, $htmlcode);
         fclose($handle);
 
-        header('Location: facture.html');
+        //header('Location: facture.html');
 
         // try {
         //     // create the API client instance

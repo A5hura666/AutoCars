@@ -2,10 +2,32 @@
 session_start();
 require_once "autoload.php";
 require "checkAccess.php";
+checkAccess("Opérateur");
 
-checkAccess("Opérateur")
+$Dde_Intervention = new Dde_InterventionDAO(MaBD::getInstance());
+$TheUsers = new UsersDAO(MaBD::getInstance());
+$TheClients = new ClientsDAO(MaBD::getInstance());
+$RealiserOp = new Réaliser_OpDAO(MaBD::getInstance());
+$PrevoirOp = new Prévoir_OpDAO(MaBD::getInstance());
+$TheFacture = new FactureDAO(MaBD::getInstance());
+$TheDevis = new DevisDAO(MaBD::getInstance());
 
+function etatRdv(string $etat, string $emoji): void
+{
+    $Dde_Intervention = new Dde_InterventionDAO(MaBD::getInstance());
+    $TheClients = new ClientsDAO(MaBD::getInstance());
 
+    foreach ($Dde_Intervention->getOneAllByOp($_SESSION["idUser"]) as $dde_Intervention) {
+        if ($etat==$dde_Intervention->getEtatDemande()){
+            $infoOperateur = $TheClients->getOne($dde_Intervention->getCodeClient());
+            echo '<span>' . $dde_Intervention->getDateRdv() . '</span>';
+            echo '<li>' . $emoji . '<p>'.$dde_Intervention->getNumDde() ." " . $infoOperateur->getFirstName() . " " . $infoOperateur->getLastName()." - ". $dde_Intervention->getDescriptifDemande() . '</p><span></span>
+        <a href="#" class="consulter">Consulter</a></li>';
+        }
+    }
+}
+
+//var_dump($Dde_Intervention->getOneAllByOp($_SESSION["idUser"]));
 ?>
 
 <!DOCTYPE html>
@@ -51,20 +73,25 @@ checkAccess("Opérateur")
                 <div>
                     <h3>Liste des opérations</h3>
                     <ul class="list list-big">
-                        <span>01/04/2022</span>
-                        <li><span>🚧 Duchemin - Changement pneus</span><a href="#" class="consulter">Consulter</a></li>
-                        <li><span>🚧 Martin - Réparation phare</span><a href="#" class="consulter">Consulter</a></li>
-                        <li><span>📃 Leclerc - Changement filtre à air</span><a href="#" class="consulter">Consulter</a></li>
 
-                        <span>01/04/2022</span>
-                        <li><span>📃 Lucci - Réparation pare-brise</span><a href="#" class="consulter">Consulter</a></li>
-                        <li><span>📃 Metge - Mise à jour du système de navigation</span><a href="#" class="consulter">Consulter</a></li>
-                        <li><span>📃 Seg - Changement liquide de boite de vitesse</span><a href="#" class="consulter">Consulter</a></li>
-
-                        <span>01/04/2022</span>
-                        <li><span>📃 Dupont - Nettoyage vehicule</span><a href="#" class="consulter">Consulter</a></li>
-                        <li><span>📃 Objois - Réparation courroie distribution</span><a href="#" class="consulter">Consulter</a></li>
-                        <li><span>📃 Durand - Réparation climatisation</span><a href="#" class="consulter">Consulter</a></li>
+                        <?php
+                        etatRdv("En attente","📃");
+                        etatRdv("En cours","⏳");
+                        ?>
+<!--                        <span>01/04/2022</span>-->
+<!--                        <li><span>🚧 Duchemin - Changement pneus</span><a href="#" class="consulter">Consulter</a></li>-->
+<!--                        <li><span>🚧 Martin - Réparation phare</span><a href="#" class="consulter">Consulter</a></li>-->
+<!--                        <li><span>📃 Leclerc - Changement filtre à air</span><a href="#" class="consulter">Consulter</a></li>-->
+<!---->
+<!--                        <span>01/04/2022</span>-->
+<!--                        <li><span>📃 Lucci - Réparation pare-brise</span><a href="#" class="consulter">Consulter</a></li>-->
+<!--                        <li><span>📃 Metge - Mise à jour du système de navigation</span><a href="#" class="consulter">Consulter</a></li>-->
+<!--                        <li><span>📃 Seg - Changement liquide de boite de vitesse</span><a href="#" class="consulter">Consulter</a></li>-->
+<!---->
+<!--                        <span>01/04/2022</span>-->
+<!--                        <li><span>📃 Dupont - Nettoyage vehicule</span><a href="#" class="consulter">Consulter</a></li>-->
+<!--                        <li><span>📃 Objois - Réparation courroie distribution</span><a href="#" class="consulter">Consulter</a></li>-->
+<!--                        <li><span>📃 Durand - Réparation climatisation</span><a href="#" class="consulter">Consulter</a></li>-->
 
 
                     </ul>

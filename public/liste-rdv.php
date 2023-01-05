@@ -188,7 +188,7 @@ function etatAllRdvForFacture(string $etat, string $emoji): void
                     <ul class="list">
                         <?php
                         if (isset($_SESSION["etat"]) && $_SESSION["etat"] == "En attente") {
-                            etatRdvForDevis("En attente", '🚧');
+                            etatRdvForDevis("En attente", '📃');
                         }
                         if (isset($_SESSION["etat"]) && $_SESSION["etat"] == "En cours") {
                             etatRdvForDevis("En cours", '⏳');
@@ -201,7 +201,7 @@ function etatAllRdvForFacture(string $etat, string $emoji): void
                         }
 
                         if (isset($_SESSION["etat"]) && $_SESSION["etat"] == "Tous") {
-                            etatAllRdvForDevis("En attente", '🚧');
+                            etatAllRdvForDevis("En attente", '📃');
                             etatAllRdvForDevis("En cours", '⏳');
                             etatAllRdvForDevis("Terminé", '✅');
                             etatAllRdvForDevis("Annulé", '❌');
@@ -215,7 +215,7 @@ function etatAllRdvForFacture(string $etat, string $emoji): void
                     <ul class="list">
                         <?php
                         if (isset($_SESSION["etat"]) && $_SESSION["etat"] == "En attente") {
-                            etatRdvForFacture("En attente", '🚧');
+                            etatRdvForFacture("En attente", '📃');
                         }
                         if (isset($_SESSION["etat"]) && $_SESSION["etat"] == "En cours") {
                             etatRdvForFacture("En cours", '⏳');
@@ -228,7 +228,7 @@ function etatAllRdvForFacture(string $etat, string $emoji): void
                         }
 
                         if (isset($_SESSION["etat"]) && $_SESSION["etat"] == "Tous") {
-                            etatAllRdvForFacture("En attente", '🚧');
+                            etatAllRdvForFacture("En attente", '📃');
                             etatAllRdvForFacture("En cours", '⏳');
                             etatAllRdvForFacture("Terminé", '✅');
                             etatAllRdvForFacture("Annulé", '❌');
