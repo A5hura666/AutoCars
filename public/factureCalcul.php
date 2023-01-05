@@ -50,7 +50,7 @@ function calculCost($id, $type, $bool){
         $rescalcul["total"] += $tempOpPrice;
     }
 
-    var_dump($rescalcul);
+    //var_dump($rescalcul);
 
     if ($bool) {
         return $rescalcul;
