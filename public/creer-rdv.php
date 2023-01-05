@@ -63,21 +63,23 @@ if (isset($_POST["sub"])) {
     $horaire = new DateTime();
     $horaire = $horaire->format('H:i:s');
 
-
     $facture = new Facture(DAO::UNKNOWN_ID,$date,20,0,"En attente");
     $interv = new Dde_Intervention(DAO::UNKNOWN_ID,$TheVehicule->getByIdClient($_COOKIE['clientid'])->getNoImmatriculation(),$TheUser->getOneByName($lName,$fName)->getIdUser(),$_COOKIE['clientid'],$date,$horaire,"",$_SESSION['km_actu'],"En attente");
     $TheInterv->insert($interv);
     $TheFacture->insert($facture);
     $devis = new Devis(DAO::UNKNOWN_ID,$facture->getNoFacture(),$interv->getNumDde(),$date,$prix,$facture->getTauxTVA(),$_SESSION['dateestime']);
     $TheDevis->insert($devis);
-
-        foreach ($_SESSION['operation'] as $op) {
-            $reaOp = new Réaliser_Op($facture->getNoFacture(), $TheOperation->getOneByLibOP($op)->getCodeOp());
-            $preOP = new Prévoir_Op($TheOperation->getOneByLibOP($op)->getCodeOp(), $devis->getNoDevis());
-            $ThePreOp->insert($preOP);
-            $TheReaOp->insert($reaOp);
-        }
+    foreach ($_SESSION['operation'] as $op) {
+        $preOP = new Prévoir_Op($TheOperation->getOneByLibOP($op)->getCodeOp(), $devis->getNoDevis());
+        $ThePreOp->insert($preOP);
+        $reaOp = new Réaliser_Op($facture->getNoFacture(), $TheOperation->getOneByLibOP($op)->getCodeOp());
+        $TheReaOp->insert($reaOp);
+    }
     $factureup = new Facture($facture->getNoFacture(),"",20,$prix*1.2,"En attente");
+    foreach ($TheArticle->getAllFromOneRealiserOp($TheReaOp->TrueGetOne($reaOp->getCodeOp(),$reaOp->getNoFacture())) as $art){
+        $art->setQuantite($art->getQuantite()-$Theentredeux->TrueGetOne($reaOp->getCodeOp(),$art->getCodeArticle())->getQtt());
+        $TheArticle->update($art);
+    }
 
 
 

@@ -20,6 +20,13 @@ class Réaliser_OpDAO extends DAO
         return $res;
     }
 
+    public function TrueGetOne(int $op, int $fact){
+        $stmt = $this->pdo->prepare("SELECT * FROM Réaliser_Op WHERE CodeOp = ? and NoFacture = ?");
+        $stmt->execute([$op,$fact]);
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+        return new Réaliser_Op($row['NoFacture'], $row['CodeOp']);
+    }
+
     public function insert(object $obj): int
     {
         $stmt = $this->pdo->prepare("INSERT INTO Réaliser_Op (NoFacture,CodeOp)"
