@@ -18,52 +18,52 @@ function createFacture($id, $type)
     $Article = new ArticleDAO(MaBD::getInstance());
 
 
-    if (file_exists('facture.html')) {
 
+
+    $_SESSION["total"] = 0;
+    $_SESSION["operations"] = [];
+
+    if ($type == "facture") {
+        $operationList = $RealiserOp->getOperationForOneFacture($id);
+    } else if ($type == "devis") {
+        $operationList = $PrevoirOp->getOperationForOneDevis($id);
+    }
+
+
+
+    foreach ($operationList as $operation) {
+        $operationDetails = $Operation->getOne($operation->getCodeOp());
+        $tempOpPrice = $operationDetails->getCodeTarif();
+
+        $articleNeccessary = $EntreDeux->getArticleForOneOperation($operation->getCodeOp());
+
+        // var_dump($articleNeccessary);
+
+        foreach ($articleNeccessary as $article) {
+            $articleDetails = $Article->getOne($article->getCodeArticle());
+            var_dump($articleDetails->getPrixUnitActuelHT());
+            $tempOpPrice += $articleDetails->getPrixUnitActuelHT() * $article->getQtt();
+        }
+
+
+        $operationInfo = [];
+        $operationInfo["nom"] = $operationDetails->getLibelleOp();
+        $operationInfo["prix"] = $tempOpPrice;
+
+        array_push($_SESSION["operations"], $operationInfo);
+
+        $_SESSION["total"] += $tempOpPrice;
+    }
+
+    var_dump($_SESSION);
+
+
+    if (file_exists('facture.html')) {
 
 
         // $handle = fopen('facture.html', 'w+');
         // fwrite($handle, "<div>test</div><br><p>test</p>");
         // fclose($handle);
-
-        $_SESSION["total"] = 0;
-        $_SESSION["operations"] = [];
-
-        if($type == "facture"){
-            $operationList = $RealiserOp->getOperationForOneFacture($id);
-        }
-        else if ($type == "devis"){
-            $operationList = $PrevoirOp->getOperationForOneDevis($id);
-        }
-
-
-
-        foreach ($operationList as $operation) {
-            $operationDetails = $Operation->getOne($operation->getCodeOp());
-            $tempOpPrice = $operationDetails->getCodeTarif();
-
-            $articleNeccessary = $EntreDeux->getArticleForOneOperation($operation->getCodeOp());
-
-            // var_dump($articleNeccessary);
-
-            foreach ($articleNeccessary as $article) {
-                $articleDetails = $Article->getOne($article->getCodeArticle());
-                var_dump($articleDetails->getPrixUnitActuelHT());
-                $tempOpPrice += $articleDetails->getPrixUnitActuelHT() * $article->getQtt();
-            }
-
-
-            $operationInfo = [];
-            $operationInfo["nom"] = $operationDetails->getLibelleOp();
-            $operationInfo["prix"] = $tempOpPrice;
-
-            array_push($_SESSION["operations"], $operationInfo);
-
-            $_SESSION["total"] = $tempOpPrice;
-            
-        }
-        
-        var_dump($_SESSION);
 
 
 
@@ -92,15 +92,18 @@ function createFacture($id, $type)
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
+
 <body>
     <?php
-    createFacture(3, "facture");
+    createFacture(4, "devis");
     ?>
 </body>
+
 </html>
