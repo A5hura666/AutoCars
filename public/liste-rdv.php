@@ -39,7 +39,7 @@ function etatRdvForDevis(string $etat, string $emoji): void
         $devis = $TheDevis->getOne($numDde);
         $infoOperateur = $TheClients->getOne($dde_Intervention->getCodeClient());
         $rescalcul=calculCost($dde_Intervention->getNumDde(),"devis",true);
-        echo '<li>' . $emoji . '<p>'.$dde_Intervention->getNumDde() ." " . $infoOperateur->getFirstName() . " " . $infoOperateur->getLastName() . '</p><span>'.$rescalcul["total"]."€".'</span><span>' . $dde_Intervention->getDateRdv() . '</span>
+        echo '<li>' . $emoji . '<p>'.$dde_Intervention->getNumDde() ." " . $infoOperateur->getFirstName() . " " . $infoOperateur->getLastName() . '</p><span>'.$rescalcul["total"]."€".'</span><span>' . $devis->getEstimationFin() . '</span>
         <btn onclick="f('.$id.','.$type.','.$bool.')"><img src="https://cdn.freebiesupply.com/logos/large/2x/adobe-pdf-icon-logo-png-transparent.png" width="20px"></btn>></li>';
     }
 }
