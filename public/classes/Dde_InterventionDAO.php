@@ -21,6 +21,17 @@ class Dde_InterventionDAO extends DAO
         return new Dde_Intervention($row['NumDde'], $row['NoImmatriculation'], $row['IdOpérateur'], $row['CodeClient'], $row['DateRdv'], $row['HeureRdv'],$row['Descriptif_demande'],$row['km_actuel'],$row['EtatDemande']);
     }
 
+    public function getAllByEtat(string $id): array
+    {
+        /** @var Dde_Intervention[] $res */
+        $res = [];
+        $stmt = $this->pdo->prepare("SELECT * FROM DDE_Intervention WHERE EtatDemande = ?");
+        $stmt->execute([$id]);
+        foreach ($stmt->fetchAll(PDO::FETCH_ASSOC) as $row)
+            $res[] = new Dde_Intervention($row['NumDde'], $row['NoImmatriculation'], $row['IdOpérateur'], $row['CodeClient'],$row['DateRdv'], $row['HeureRdv'],$row['Descriptif_demande'],$row['km_actuel'],$row['EtatDemande']);
+        return $res;
+    }
+
     public function getAll(): array
     {
         /** @var Dde_Intervention[] $res */
