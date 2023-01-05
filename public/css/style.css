@@ -420,3 +420,8 @@ aside>div,
 	width: 70px !important;
 	padding: 5px 7px !important;
 }
+
+.sect_article{
+	display: flex;
+	justify-content: space-around;
+}
