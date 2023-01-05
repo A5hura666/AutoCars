@@ -21,6 +21,15 @@ class Prévoir_OpDAO extends DAO
         return $res;
     }
 
+    public function getOperationForOneDevis(int|string $id){
+        /** @var Prévoir_Op[] $res */
+        $stmt = $this->pdo->prepare("SELECT * FROM Prévoir_Op WHERE NoDevis = ?");
+        $stmt->execute([$id]);
+        foreach ($stmt->fetchAll(PDO::FETCH_ASSOC) as $row)
+            $res[] = new Prévoir_Op($row['CodeOp'], $row['NoDevis']);
+        return $res;
+    }
+
     public function insert(object $obj): int
     {
         $stmt = $this->pdo->prepare("INSERT INTO Prévoir_Op (CodeOp,NoDevis)"

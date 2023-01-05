@@ -28,6 +28,15 @@ class Réaliser_OpDAO extends DAO
         return $res;
     }
 
+    public function getOperationForOneFacture(int|string $id){
+        /** @var Réaliser_Op[] $res */
+        $stmt = $this->pdo->prepare("SELECT * FROM Réaliser_Op WHERE NoFacture = ?");
+        $stmt->execute([$id]);
+        foreach ($stmt->fetchAll(PDO::FETCH_ASSOC) as $row)
+            $res[] = new Réaliser_Op($row['codeOp'], $row['codeArticle'], $row['qtt']);
+        return $res;
+    }
+
     public function update(object $obj): int
     {
         // TODO: Implement update() method.
