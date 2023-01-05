@@ -2,8 +2,20 @@
 session_start();
 require "autoload.php";
 require "checkAccess.php";
-
 checkAccess("Chef d'atelier");
+
+$Dde_Intervention = new Dde_InterventionDAO(MaBD::getInstance());
+$TheUsers = new UsersDAO(MaBD::getInstance());
+$RealiserOp = new Réaliser_OpDAO(MaBD::getInstance());
+$PrevoirOp = new Prévoir_OpDAO(MaBD::getInstance());
+
+//Pour gérer les états
+$TabEtat=["Tous","En attente","En cours","Terminé","Annulé"];
+if(isset($_POST["etat"])){
+    $_SESSION["etat"] = $_POST["etat"];
+}
+
+
 ?>
 
 <!DOCTYPE html>
@@ -88,11 +100,15 @@ checkAccess("Chef d'atelier");
                         <div>
                             <label for="etat">Etat</label>
                             <select name="etat" id="etat">
-                                <option value="0">Tous</option>
-                                <option value="1">En attente</option>
-                                <option value="2">En cours</option>
-                                <option value="3">Terminé</option>
-                                <option value="4">Annulé</option>
+                                <?php
+                                if(isset($_SESSION['etat']) || !empty($_SESSION['etat'])){
+                                    foreach ($TabEtat as $etat){
+                                        echo '<option value="'.$etat.'"> '.$etat.' </option>';
+                                    }
+                                }else{
+                                    echo '<option value="'.$TabEtat[0].'" > '.$TabEtat[0].' </option>';
+                                }
+                                ?>
                             </select>
                         </div>
                         <input type="submit" name="validation_search" value="Recherche">

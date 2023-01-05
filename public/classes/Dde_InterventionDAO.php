@@ -23,7 +23,7 @@ class Dde_InterventionDAO extends DAO
 
     public function getAll(): array
     {
-        /** @var Users[] $res */
+        /** @var Dde_Intervention[] $res */
         $res = [];
         $stmt = $this->pdo->query("SELECT * FROM DDE_Intervention");
         foreach ($stmt->fetchAll(PDO::FETCH_ASSOC) as $row)

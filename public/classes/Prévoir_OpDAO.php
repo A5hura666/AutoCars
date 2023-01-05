@@ -8,7 +8,7 @@ class Prévoir_OpDAO extends DAO
         $stmt = $this->pdo->prepare("SELECT * FROM Prévoir_Op WHERE CodeOp = ?");
         $stmt->execute([$id]);
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
-        return new Prévoir_Op($row['CodeOp'], $row['NoDevis'], $row['CoutHoraireHT'], $row['Duree_prevue']);
+        return new Prévoir_Op($row['CodeOp'], $row['NoDevis']);
     }
 
     public function getAll(): array
@@ -17,7 +17,7 @@ class Prévoir_OpDAO extends DAO
         $res = [];
         $stmt = $this->pdo->query("SELECT * FROM Prévoir_Op");
         foreach ($stmt->fetchAll(PDO::FETCH_ASSOC) as $row)
-            $res[] = new Prévoir_Op($row['CodeOp'], $row['NoDevis'], $row['CoutHoraireHT'], $row['Duree_prevue']);
+            $res[] = new Prévoir_Op($row['CodeOp'], $row['NoDevis']);
         return $res;
     }
 

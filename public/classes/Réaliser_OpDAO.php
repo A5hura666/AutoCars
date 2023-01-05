@@ -7,7 +7,7 @@ class Réaliser_OpDAO extends DAO
         $stmt = $this->pdo->prepare("SELECT * FROM Réaliser_Op WHERE NoFacture = ?");
         $stmt->execute([$id]);
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
-        return new Réaliser_Op($row['NoFacture'], $row['CodeOp'], $row['CoutHoraireHT'], $row['Duree_reelle']);
+        return new Réaliser_Op($row['NoFacture'], $row['CodeOp']);
     }
 
     public function getAll(): array
@@ -16,7 +16,7 @@ class Réaliser_OpDAO extends DAO
         $res = [];
         $stmt = $this->pdo->query("SELECT * FROM Réaliser_Op");
         foreach ($stmt->fetchAll(PDO::FETCH_ASSOC) as $row)
-            $res[] = new Réaliser_Op($row['NoFacture'], $row['CodeOp'], $row['CoutHoraireHT'], $row['Duree_reelle']);
+            $res[] = new Réaliser_Op($row['NoFacture'], $row['CodeOp']);
         return $res;
     }
 
