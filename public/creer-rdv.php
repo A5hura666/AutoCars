@@ -158,7 +158,7 @@ if (isset($_POST["sub"])) {
 <main class="interface">
     <h2>Création de rendez-vous</h2>
     <section>
-        <section>
+        <section class="createrdv">
             <div class="client">
                 <section>
                     <h3>Client</h3>

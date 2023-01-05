@@ -76,3 +76,20 @@
 }
 
 
+.createrdv{
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	align-items: center;
+}
+.createrdv>div, .createrdv>form{
+	background-color: black;
+	padding: 30px;
+	width: 500px;
+	border-radius: 10px;
+	margin: 20px;
+}
+.createrdv>form>div{
+	padding: 2px;
+margin: 0;
+}

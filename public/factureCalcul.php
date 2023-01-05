@@ -1,16 +1,12 @@
 <?php
 
-session_start();
 require "autoload.php";
 require "pdfcrowd.php";
-require "checkAccess.php";
-
-checkAccess("Chef d'atelier");
 
 
-// create a function createFacture with one parameter an of $id
-function createFacture($id, $type)
-{
+function calculCost($id, $type, $bool){
+    $rescalcul = [];
+
     $PrevoirOp = new Prévoir_OpDAO(MaBD::getInstance());
     $RealiserOp = new Réaliser_OpDAO(MaBD::getInstance());
     $Operation = new OperationDAO(MaBD::getInstance());
@@ -20,8 +16,8 @@ function createFacture($id, $type)
 
 
 
-    $_SESSION["total"] = 0;
-    $_SESSION["operations"] = [];
+    $rescalcul["total"] = 0;
+    $rescalcul["operations"] = [];
 
     if ($type == "facture") {
         $operationList = $RealiserOp->getOperationForOneFacture($id);
@@ -49,17 +45,29 @@ function createFacture($id, $type)
         $operationInfo["nom"] = $operationDetails->getLibelleOp();
         $operationInfo["prix"] = $tempOpPrice;
 
-        array_push($_SESSION["operations"], $operationInfo);
+        array_push($rescalcul["operations"], $operationInfo);
 
-        $_SESSION["total"] += $tempOpPrice;
+        $rescalcul["total"] += $tempOpPrice;
     }
 
-    var_dump($_SESSION);
+    var_dump($rescalcul);
+
+    if ($bool) {
+        return $rescalcul;
+    } else {
+        createFacture($rescalcul);
+    }
+
+}
 
 
+function createFacture($data)
+{
     if (file_exists('facture.html')) {
 
-        
+        $htmlcode = "<!DOCTYPE html><head><meta charset='UTF-8'></head><body><h1 style='text-align: center;'>Facture</h1><br>";
+
+
         
         // $handle = fopen('facture.html', 'w+');
         // fwrite($handle, "<div>test</div><br><p>test</p>");
@@ -102,7 +110,7 @@ function createFacture($id, $type)
 
 <body>
     <?php
-    createFacture(2, "facture");
+    calculCost(2, "devis", true);
     ?>
 </body>
 
