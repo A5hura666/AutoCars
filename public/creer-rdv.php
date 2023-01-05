@@ -35,6 +35,10 @@ if (isset($_POST['dateestime']) && !empty($_POST['dateestime'])){
     $_SESSION['dateestime'] = $_POST['dateestime'];
 }
 
+if(isset($_POST['km_actu'])){
+    $_SESSION['km_actu'] = $_POST['km_actu'];
+}
+
 if (isset($_POST['operator']) && !empty($_POST['operator'])){
     $_SESSION['operator'] = $_POST['operator'];
 }
@@ -51,9 +55,8 @@ if (isset($_POST["sub"])) {
     $date = explode(' ',$date);
     $horaire = $date[1];
     $date = $date[0];
-    $interv = new Dde_Intervention(DAO::UNKNOWN_ID,$TheVehicule->getByIdClient($_COOKIE['clientid'])->getNoImmatriculation(),$TheUser->getOne($_SESSION['operator']),$_COOKIE['clientid'],$date,$horaire,"",$TheVehicule->getByIdClient($_COOKIE['clientid']));
-    $TheInterv->insert();
-
+    $interv = new Dde_Intervention(DAO::UNKNOWN_ID,$TheVehicule->getByIdClient($_COOKIE['clientid'])->getNoImmatriculation(),$TheUser->getOne($_SESSION['operator'])->getIdUser(),$_COOKIE['clientid'],$date,$horaire,"",$_SESSION['km_actu'],"En attente");
+    $TheInterv->insert($interv);
 }
 
 
@@ -265,6 +268,10 @@ if (isset($_POST["sub"])) {
                 <div>
                     <label>Esitmation fin</label>
                     <input type="datetime-local" name="dateestime" id="dateestime" <?php if(isset($_SESSION['dateestime'])){echo 'value="'.$_SESSION['dateestime'].'"';} ?>>
+                </div>
+                <div>
+                    <label>kilometrage actuel</label>
+                    <input type="number" step="0.01" name="km_actu" id="Km_actu" <?php if(isset($_SESSION['km_actu'])){echo 'value="'.$_SESSION['km_actu'].'"';} ?>>
                 </div>
                 <div class="btn">
                     <input type="reset" value="Réinitialiser">
