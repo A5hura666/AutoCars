@@ -32,7 +32,6 @@ function alsoChoise(id) {
     let idnotnull
     let cook = document.cookie.split(';')
     cook.forEach(element => { if (element.includes('client')) { idnotnull = element.split('=') } })
-    console.log(idnotnull)
     if (idnotnull[1] !== "") {
         fetch(`classes/getOneByIdJson.php?id=${id}`).then((response) => response.json())
             .then((data) => replacefieldcli(data))

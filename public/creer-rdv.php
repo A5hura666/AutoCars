@@ -11,13 +11,15 @@ $TheVehicule = new VehiculesDAO(MaBD::getInstance());
 $TheOperation = new OperationDAO(MaBD::getInstance());
 $Theentredeux = new entredeuxDAO(MaBD::getInstance());
 $TheArticle = new ArticleDAO(MaBD::getInstance());
+$TheInterv = new Dde_InterventionDAO(MaBD::getInstance());
 
 //Session pour les opérations et calcul du prix total
 $prix = 0;
-var_dump($_SESSION['operation']);
 $temps = new DateTime('0:0:0');
-if (isset($_POST["operation"])) {
+if (isset($_POST["operation"]) && !empty($_POST['operation'])) {
     array_push($_SESSION["operation"], $_POST["operation"]);
+}
+if (isset($_SESSION['operation'])) {
     foreach ($_SESSION['operation'] as $op) {
         $theop = $TheOperation->getOneByLibOP($op);
         $time = explode(':', $theop->getDureeOp());
@@ -29,16 +31,32 @@ if (isset($_POST["operation"])) {
         }
     }
 }
+if (isset($_POST['dateestime']) && !empty($_POST['dateestime'])){
+    $_SESSION['dateestime'] = $_POST['dateestime'];
+}
+
+if (isset($_POST['operator']) && !empty($_POST['operator'])){
+    $_SESSION['operator'] = $_POST['operator'];
+}
 
 $temps = $temps->format('H:i');
 $temps = explode(':', $temps);
 $hour = $temps[0];
 $min = $temps[1];
 
-if (isset($_POST["submit"])) {
 
+if (isset($_POST["sub"])) {
+    date_default_timezone_set('Europe/Paris');
+    $date = date('d-m-y h:i:s');
+    $date = explode(' ',$date);
+    $horaire = $date[1];
+    $date = $date[0];
+    $interv = new Dde_Intervention(DAO::UNKNOWN_ID,$TheVehicule->getByIdClient($_COOKIE['clientid'])->getNoImmatriculation(),$TheUser->getOne($_SESSION['operator']),$_COOKIE['clientid'],$date,$horaire,"",$TheVehicule->getByIdClient($_COOKIE['clientid']));
+    $TheInterv->insert();
 
 }
+
+
 
 ?>
 <!DOCTYPE html>
@@ -234,24 +252,23 @@ if (isset($_POST["submit"])) {
                 </div>
 
                 <div>
-                    <label>Opérateur</label>
-
-                    <select name="operator" id="operator">
-                        <option value="-1" selected disabled>Choisir opérateur</option>
+                    <label for="operatorlist">Opérator</label>
+                    <input type="text" name="operator" class="operatorsearchbar" placeholder="Ajoutez un operator" list="operatorlist" <?php if(isset($_SESSION['operator'])){echo 'value="'.$_SESSION['operator'].'"';} ?>>
+                    <datalist id="operatorlist">
                         <?php
-                        foreach ($TheUser->getAllOperator() as $UserOp) {
-                            echo '<option value="' . $UserOp->getIdUser() . '"> ' . $UserOp->getFirstName() . " " . $UserOp->getLastName() . '</option>';
+                        foreach ($TheUser->getAllOperator() as $operator) {
+                            echo '<option value="' . $operator->getLastName().' '.$operator->getFirstName() . '">';
                         }
                         ?>
-                    </select>
+                    </datalist>
                 </div>
                 <div>
                     <label>Esitmation fin</label>
-                    <input type="date" name="dateestime" id="dateestime">
+                    <input type="datetime-local" name="dateestime" id="dateestime" <?php if(isset($_SESSION['dateestime'])){echo 'value="'.$_SESSION['dateestime'].'"';} ?>>
                 </div>
                 <div class="btn">
                     <input type="reset" value="Réinitialiser">
-                    <input type="submit" value="Créer le devis" name="submit">
+                    <input type="submit" value="Créer le devis" name="sub">
                 </div>
             </form>
         </section>
@@ -264,3 +281,5 @@ if (isset($_POST["submit"])) {
 </body>
 
 </html>
+
+
