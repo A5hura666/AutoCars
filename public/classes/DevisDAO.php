@@ -2,8 +2,6 @@
 
 class DevisDAO extends DAO
 {
-
-    public int $lastIdDevis;
     public function getOne(int|string $id): array|object
     {
         $stmt = $this->pdo->prepare("SELECT * FROM Devis WHERE NoDevis = ?");
@@ -25,11 +23,10 @@ class DevisDAO extends DAO
 
     public function insert(object $obj): int
     {
-        $stmt = $this->pdo->prepare("INSERT INTO Devis (NoImmatriculation,IdOpérateur,CodeClient, DateRdv,HeureRdv,Descriptif_demande,km_actuel,EtatDemande)"
-            . " VALUES (?,?,?,?,?,?,?,?)");
-        $res = $stmt->execute([$obj->getNumDde(), $obj->getNoImmatriculation(), $obj->getIdOpérateur(), $obj->getCodeClient(), $obj->getDateRdv(),$obj->getHeureRdv(),$obj->getDescriptifDemande(),$obj->getKmActuel(),$obj->getEtatDemande()]);
-        $obj->id = $this->pdo->lastInsertId();
-        $this->lastIdDevis=$this->pdo->lastInsertId();
+        $stmt = $this->pdo->prepare("INSERT INTO Devis (NoFacture,NumDde, DateDevis,PrixEstimer,TauxTva,estimation_fin)"
+            . " VALUES (?,?,?,?,?,?)");
+        $res = $stmt->execute([$obj->getNoFacture(), $obj->getNumDde(), $obj->getDateDevis(), $obj->getPrixEstimer(),$obj->getTauxTva(),$obj->getEstimationFin()]);
+        $obj->setNoDevis($this->pdo->lastInsertId());
         return $res;
     }
 

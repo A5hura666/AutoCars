@@ -22,7 +22,10 @@ class Réaliser_OpDAO extends DAO
 
     public function insert(object $obj): int
     {
-        // TODO: Implement insert() method.
+        $stmt = $this->pdo->prepare("INSERT INTO Réaliser_Op (NoFacture,CodeOp)"
+            . " VALUES (?,?)");
+        $res = $stmt->execute([$obj->getNoFacture(), $obj->getCodeOp()]);
+        return $res;
     }
 
     public function update(object $obj): int

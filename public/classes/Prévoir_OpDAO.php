@@ -23,7 +23,10 @@ class Prévoir_OpDAO extends DAO
 
     public function insert(object $obj): int
     {
-        // TODO: Implement insert() method.
+        $stmt = $this->pdo->prepare("INSERT INTO Prévoir_Op (CodeOp,NoDevis)"
+            . " VALUES (?,?)");
+        $res = $stmt->execute([$obj->getCodeOp(), $obj->getNoDevis()]);
+        return $res;
     }
 
     public function update(object $obj): int
