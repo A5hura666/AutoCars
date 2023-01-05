@@ -3,9 +3,19 @@
 class Dde_InterventionDAO extends DAO
 {
 
+    //Pour le chef d'atelier accès aux rdv
     public function getOne(int|string $id): array|object
     {
         $stmt = $this->pdo->prepare("SELECT * FROM DDE_Intervention WHERE NumDde = ?");
+        $stmt->execute([$id]);
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+        return new Dde_Intervention($row['NumDde'], $row['NoImmatriculation'], $row['IdOpérateur'], $row['CodeClient'], $row['DateRdv'], $row['HeureRdv'],$row['Descriptif_demande'],$row['km_actuel'],$row['EtatDemande']);
+    }
+
+    //Pour l'opérateur voit les rdv assignés
+    public function getOneByOp(int|string $id): array|object
+    {
+        $stmt = $this->pdo->prepare("SELECT * FROM DDE_Intervention WHERE IdOpérateur = ?");
         $stmt->execute([$id]);
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
         return new Dde_Intervention($row['NumDde'], $row['NoImmatriculation'], $row['IdOpérateur'], $row['CodeClient'], $row['DateRdv'], $row['HeureRdv'],$row['Descriptif_demande'],$row['km_actuel'],$row['EtatDemande']);
