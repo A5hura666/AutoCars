@@ -66,15 +66,34 @@ function createFacture($data, $id, $type)
 
     $PrevoirOp = new Prévoir_OpDAO(MaBD::getInstance());
     $RealiserOp = new Réaliser_OpDAO(MaBD::getInstance());
-
+    $Facture = new FactureDAO(MaBD::getInstance());
+    $Devis = new DevisDAO(MaBD::getInstance());
+    $Client = new ClientsDAO(MaBD::getInstance());
+    $DDE = new Dde_InterventionDAO(MaBD::getInstance());
 
     if (file_exists('facture.html')) {
+        $date = "Undifined";
+        $clientName = "Undifined";
 
-        $clientName = "test";
-        $date = "22/02/2021";
 
 
-        $htmlcode = "<!DOCTYPE html><head><meta charset='UTF-8'></head><body><h1 style='text-align: center;'>Facture</h1><br>";
+
+        if ($type == "facture") {
+            $date = $Facture->getOne($RealiserOp->getOne($id)->getNoFacture())->getDateFacture();
+
+            $nofacture = $RealiserOp->getOne($id)->getNoFacture();
+            $noDDE = $Facture->getOne($nofacture)->get();
+            $noClient = $DDE->getOne($noDDE)->getNoClient();
+            $clientName = $Client->getOne($noClient)->getNomClient();
+
+        } 
+        else if ($type == "devis") {
+            // $date = $Facture->getOne($Devis->getOne($PrevoirOp->getOne($id)->getNoDevis())->getNoFacture())->getDateFacture();
+        }
+
+
+
+        $htmlcode = "<!DOCTYPE html><head><meta charset='UTF-8'></head><body><h1 style='text-align: center;'>~ Facture  ~</h1><br>";
 
         $htmlcode .= "<p><strong>" . $clientName . ",</strong><br>Voici votre facture du " . $date . ".</p><br>";
 
@@ -91,24 +110,24 @@ function createFacture($data, $id, $type)
         fwrite($handle, $htmlcode);
         fclose($handle);
 
+        //header('Location: facture.html');
 
+        // try {
+        //     // create the API client instance
+        //     $client = new \Pdfcrowd\HtmlToPdfClient("autocars", "3117be013b8ead56672293cfc9cc62ea");
 
-        try {
-            // create the API client instance
-            $client = new \Pdfcrowd\HtmlToPdfClient("autocars", "3117be013b8ead56672293cfc9cc62ea");
+        //     // run the conversion and write the result to a file
+        //     $client->convertFileToFile("facture.html", "facture.pdf");
 
-            // run the conversion and write the result to a file
-            $client->convertFileToFile("facture.html", "facture.pdf");
+        //     // redirect to facture.pdf
+        //     header('Location: facture.pdf');
+        // } catch (\Pdfcrowd\Error $why) {
+        //     // report the error
+        //     error_log("Pdfcrowd Error: {$why}\n");
 
-            // redirect to facture.pdf
-            header('Location: facture.pdf');
-        } catch (\Pdfcrowd\Error $why) {
-            // report the error
-            error_log("Pdfcrowd Error: {$why}\n");
-
-            // rethrow or handle the exception
-            throw $why;
-        }
+        //     // rethrow or handle the exception
+        //     throw $why;
+        // }
     } else {
         echo 'Le fichier n\'existe pas';
     }
