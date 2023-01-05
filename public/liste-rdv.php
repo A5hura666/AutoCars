@@ -112,16 +112,12 @@ function etatAllRdv(string $etat, string $emoji):void
     </nav>
 
     <main class="interface">
-        <h2>Gestion rendez-vous</h2>
+        <h2 style="padding-top: 500px">Gestion rendez-vous</h2>
         <section>
             <aside>
                 <div class="recherche">
                     <h3>Rechercher un rendez-vous</h3>
                     <form method="post" onchange="submit()">
-                        <div>
-                            <label for="article">Nom du client</label>
-                            <input type="text" name="article" id="article" placeholder="Pneus Hiver">
-                        </div>
                         <div>
                             <label for="etat">Etat</label>
                             <select name="etat" id="etat">
@@ -138,7 +134,30 @@ function etatAllRdv(string $etat, string $emoji):void
                         <input type="submit" name="validation_search" value="Recherche">
                 </div>
                 <div class="interface-big">
-                    <h3>Liste des rendez-vous</h3>
+                    <h3>Liste des rendez-vous (Devis)</h3>
+                    <ul class="list">
+                        <?php
+                        if (isset($_SESSION["etat"]) && $_SESSION["etat"] == "En attente") {
+                            etatRdv("En attente",'🚧');}
+                        if (isset($_SESSION["etat"]) && $_SESSION["etat"] == "En cours") {
+                            etatRdv("En cours",'⏳');}
+                        if (isset($_SESSION["etat"]) && $_SESSION["etat"] == "Terminé") {
+                            etatRdv("Terminé",'✅');}
+                        if (isset($_SESSION["etat"]) && $_SESSION["etat"] == "Annulé") {
+                            etatRdv("Annulé",'❌');}
+
+                        if (isset($_SESSION["etat"]) && $_SESSION["etat"] == "Tous") {
+                            etatAllRdv("En attente",'🚧');
+                            etatAllRdv("En cours",'⏳');
+                            etatAllRdv("Terminé",'✅');
+                            etatAllRdv("Annulé",'❌');
+                        }
+                        ?>
+                    </ul>
+                </div>
+
+                <div class="interface-big">
+                    <h3>Liste des rendez-vous (Facture)</h3>
                     <ul class="list">
                         <?php
                         if (isset($_SESSION["etat"]) && $_SESSION["etat"] == "En attente") {
