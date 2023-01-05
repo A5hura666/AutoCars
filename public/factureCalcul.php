@@ -41,7 +41,6 @@ function createFacture($id, $type)
 
         foreach ($articleNeccessary as $article) {
             $articleDetails = $Article->getOne($article->getCodeArticle());
-            var_dump($articleDetails->getPrixUnitActuelHT());
             $tempOpPrice += $articleDetails->getPrixUnitActuelHT() * $article->getQtt();
         }
 
@@ -60,7 +59,8 @@ function createFacture($id, $type)
 
     if (file_exists('facture.html')) {
 
-
+        
+        
         // $handle = fopen('facture.html', 'w+');
         // fwrite($handle, "<div>test</div><br><p>test</p>");
         // fclose($handle);
@@ -102,7 +102,7 @@ function createFacture($id, $type)
 
 <body>
     <?php
-    createFacture(4, "devis");
+    createFacture(2, "facture");
     ?>
 </body>
 
