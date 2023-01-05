@@ -10,17 +10,22 @@ $erreur = "";
 
 $theOperations = new OperationDAO(MaBD::getInstance());
 $theArticles = new ArticleDAO(MaBD::getInstance());
+$theEntredeux = new entredeuxDAO(MaBD::getInstance());
 
 if (isset($_POST['createOperation'])) {
     print_r($_POST["createOperation"]);
-    $newOperation = new Operation(DAO::UNKNOWN_ID, $_POST['LibelleOp'], $_POST['CodeTarif'], $_POST['DureeOp'],'');
+    $newOperation = new Operation(DAO::UNKNOWN_ID, (int) $_POST['CodeTarif'] ,$_POST['LibelleOp'],(int) $_POST['DureeOp'],1);
     $message = $_POST['LibelleOp'] . " " . " a bien été ajouté.";
     $theOperations->insert($newOperation);
-
     if($theOperations->lastIdOp !=-1){
-        $codeArticle = $theArticles->getOneByName($_POST['listeArticles'])->getCodeArticle();
-
-        //$newEntrevue = new entredeux();
+        $lenQuantiteArt = count($_SESSION["QuantiteArt"]);
+        $lenListeArticles = count($_SESSION["listeArticles"]);
+        $lenLessTab = min($lenListeArticles, $lenQuantiteArt);
+        for ($i=0;$i<$lenLessTab;$i++){
+            $newEntredeux =new entredeux($theOperations->lastIdOp,(int) $_SESSION["codeArticle"][$i],(int) $_SESSION["QuantiteArt"][$i]);
+            $theEntredeux->insert($newEntredeux);
+            //var_dump($newEntredeux);
+        }
     }
 } else {
     $erreur = "une erreur c'est produite lors de la création de l'opération";
@@ -35,7 +40,7 @@ if (isset($_POST["reset"])){
 
 //formulaire création opération
 if (isset($_POST["LibelleOp"]) || isset($_POST["CodeTarif"]) ||isset($_POST["DureeOp"])) {
-    $_SESSION["CreationOp"] = [$_POST["LibelleOp"],$_POST["CodeTarif"],$_POST["DureeOp"]];
+    $_SESSION["CreationOp"] = [$_POST["LibelleOp"],(int) $_POST["CodeTarif"],(int) $_POST["DureeOp"]];
 }
 //formulaire articles nécessaires
 //if (isset($_POST["listeArticles"]) || isset($_POST["QuantiteArt"])) {
@@ -61,6 +66,14 @@ function formFilling(string $sessionName,int $number,string $type ,string $name,
     }
     echo '<input type="'.$type.'" name="' . $name . '" placeholder="' . $placeholder . '" value="' . $value . '" min="1" required>';
 }
+
+if (!isset($_SESSION["codeArticle"])){
+    $_SESSION["codeArticle"]= [];
+}
+if (isset($_POST["listeArticles"]) && !empty($_POST["listeArticles"])){
+    array_push($_SESSION["codeArticle"],$theArticles->getOneByName($_POST['listeArticles'])->getCodeArticle());
+}
+
 ?>
 
 <html>
@@ -148,7 +161,7 @@ function formFilling(string $sessionName,int $number,string $type ,string $name,
                                 if (empty($_SESSION["listeArticles"])) {
                                     $_SESSION["listeArticles"] = [];
                                 }
-                                echo '<input type="text" name="listeArticles" list="listeArticles" placeholder="Batterie" required>';
+                                echo '<input type="text" name="listeArticles" list="listeArticles" placeholder="Batterie">';
                                 ?>
                                 <datalist id="listeArticles">
                                     <?php
@@ -164,7 +177,7 @@ function formFilling(string $sessionName,int $number,string $type ,string $name,
                             if (empty($_SESSION["QuantiteArt"])) {
                                 $_SESSION["QuantiteArt"] = [];
                             }
-                            echo '<input class="QuantiteArt" id="QuantiteArt" min="1" name="QuantiteArt" type="number" placeholder="1" required="required" />';
+                            echo '<input class="QuantiteArt" id="QuantiteArt" min="1" name="QuantiteArt" type="number" placeholder="1">';
                             ?>
 
 <!--                            --><?php
