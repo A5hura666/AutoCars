@@ -421,6 +421,10 @@ aside>div,
 	padding: 5px 7px !important;
 }
 
+.interface-big{
+	min-width: 900px;
+}
+
 .sect_article{
 	display: flex;
 	justify-content: space-around;
