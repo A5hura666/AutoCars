@@ -21,7 +21,7 @@ if (isset($_POST["operation"])) {
         $theop = $TheOperation->getOneByLibOP($op);
         $time = explode(':', $theop->getDureeOp());
         $temps->add(new DateInterval('PT' . $time[1] . 'H' . $time[2] . 'M0S'));
-        $prix += $theop->getTarifHoraire();
+        $prix += (int)$theop->getTarifHoraire();
         foreach ($Theentredeux->getArticleForOneOperation($theop->getCodeOp()) as $thop) {
             $var = $TheArticle->getOnebyId($thop->getCodeArticle());
             $prix += $var->getPrixUnitActuelHT() * $thop->getQtt();
@@ -34,6 +34,10 @@ $temps = explode(':', $temps);
 $hour = $temps[0];
 $min = $temps[1];
 
+if(isset($_POST["submit"])){
+
+
+}
 
 ?>
 <!DOCTYPE html>
@@ -240,9 +244,13 @@ $min = $temps[1];
                     ?>
                 </select>
             </div>
+            <div>
+                <label>Esitmation fin</label>
+                <input type="date" name="dateestime" id="dateestime">
+            </div>
             <div class="btn">
                 <input type="reset" value="Réinitialiser">
-                <input type="submit" value="Créer le devis">
+                <input type="submit" value="Créer le devis" name="submit">
             </div>
 
         </section>
