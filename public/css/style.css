@@ -420,3 +420,7 @@ aside>div,
 	width: 70px !important;
 	padding: 5px 7px !important;
 }
+
+.interface-big{
+	min-width: 900px;
+}

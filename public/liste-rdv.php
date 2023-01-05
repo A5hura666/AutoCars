@@ -80,120 +80,50 @@ checkAccess("Chef d'atelier");
             <aside>
                 <div class="recherche">
                     <h3>Rechercher un rendez-vous</h3>
-                    <form action="">
+                    <form method="post" onchange="submit()">
                         <div>
-                            <label for="date">Date</label>
-                            <input type="date" name="date" id="date">
-                        </div>
-                        <div>
-                            <label for="client">Client</label>
-                            <input type="text" name="client" id="client">
-                        </div>
-                        <div>
-                            <label for="vehicule">Véhicule</label>
-                            <input type="text" name="vehicule" id="vehicule">
+                            <label for="article">Nom du client</label>
+                            <input type="text" name="article" id="article" placeholder="Pneus Hiver">
                         </div>
                         <div>
                             <label for="etat">Etat</label>
                             <select name="etat" id="etat">
-                                <option value="en attente">En attente</option>
-                                <option value="en cours">En cours</option>
-                                <option value="terminé">Terminé</option>
+                                <option value="0">Tous</option>
+                                <option value="1">En attente</option>
+                                <option value="2">En cours</option>
+                                <option value="3">Terminé</option>
+                                <option value="4">Annulé</option>
                             </select>
                         </div>
-                        <input type="submit" value="Rechercher">
-                    </form>
+                        <input type="submit" name="validation_search" value="Recherche">
                 </div>
-                <div>
+                <div class="interface-big">
                     <h3>Liste des rendez-vous</h3>
                     <ul class="list">
-                        <li><span>11/12/2022 - Duchemin</span><a href="#" class="consulter">Consulter</a></li>
-                        <li><span>11/12/2022 - Metge</span><a href="#" class="consulter">Consulter</a></li>
-                        <li><span>11/12/2022 - Jean</span><a href="#" class="consulter">Consulter</a></li>
-                        <li><span>12/12/2022 - Dupont</span><a href="#" class="consulter">Consulter</a></li>
-                        <li><span>12/12/2022 - Durand</span><a href="#" class="consulter">Consulter</a></li>
-                        <li><span>12/12/2022 - Martin</span><a href="#" class="consulter">Consulter</a></li>
-                        <li><span>13/12/2022 - Dazo</span><a href="#" class="consulter">Consulter</a></li>
-                        <li><span>13/12/2022 - Charensol</span><a href="#" class="consulter">Consulter</a></li>
-                        <li><span>13/12/2022 - De Sauza</span><a href="#" class="consulter">Consulter</a></li>
-                        <li><span>13/12/2022 - Argentiéri</span><a href="#" class="consulter">Consulter</a></li>
+                        <label>En cours</label>
+                        <li> 🚧 <p>Duchemin Martin</p> <span>200€</span><span>12/01/2023</span><img src="https://cdn.freebiesupply.com/logos/large/2x/adobe-pdf-icon-logo-png-transparent.png" width="20px"></li>
+                        <li> 🚧 <p>Martin Jean</p> <span>139€</span><span>01/02/2023</span><img src="https://cdn.freebiesupply.com/logos/large/2x/adobe-pdf-icon-logo-png-transparent.png" width="20px"></li>
+                        <li> 🚧 <p>Durant Clara</p> <span>984€</span><span>05/02/2023</span><img src="https://cdn.freebiesupply.com/logos/large/2x/adobe-pdf-icon-logo-png-transparent.png" width="20px"></li>
+
+                        <label>En attente</label>
+                        <li> ⏳ <p>Duchemin Martin</p> <span>200€</span><span>12/02/2023</span><img src="https://cdn.freebiesupply.com/logos/large/2x/adobe-pdf-icon-logo-png-transparent.png" width="20px"></li>
+                        <li> ⏳ <p>Martin Jean</p> <span>139€</span><span>16/02/2023</span><img src="https://cdn.freebiesupply.com/logos/large/2x/adobe-pdf-icon-logo-png-transparent.png" width="20px"></li>
+                        <li> ⏳ <p>Durant Clara</p> <span>984€</span><span>22/02/2023</span><img src="https://cdn.freebiesupply.com/logos/large/2x/adobe-pdf-icon-logo-png-transparent.png" width="20px"></li>
+
+                        <label>Terminé</label>
+                        <li> ✅ <p>Duchemin Martin</p> <span>200€</span><span>20/12/2022</span><img src="https://cdn.freebiesupply.com/logos/large/2x/adobe-pdf-icon-logo-png-transparent.png" width="20px"></li>
+                        <li> ✅ <p>Martin Jean</p> <span>139€</span><span>18/12/2022</span><img src="https://cdn.freebiesupply.com/logos/large/2x/adobe-pdf-icon-logo-png-transparent.png" width="20px"></li>
+                        <li> ✅ <p>Durant Clara</p> <span>984€</span><span>12/12/2022</span><img src="https://cdn.freebiesupply.com/logos/large/2x/adobe-pdf-icon-logo-png-transparent.png" width="20px"></li>
+
+                        <label>Annulé</label>
+                        <li> ❌ <p>Duchemin Martin</p> <span>200€</span><span>12/02/2023</span><img src="https://cdn.freebiesupply.com/logos/large/2x/adobe-pdf-icon-logo-png-transparent.png" width="20px"></li>
+                        <li> ❌ <p>Martin Jean</p> <span>139€</span><span>11/09/2021</span><img src="https://cdn.freebiesupply.com/logos/large/2x/adobe-pdf-icon-logo-png-transparent.png" width="20px"></li>
+                        <li> ❌ <p>Durant Clara</p> <span>984€</span><span>31/10/2022</span><img src="https://cdn.freebiesupply.com/logos/large/2x/adobe-pdf-icon-logo-png-transparent.png" width="20px"></li>
+
                     </ul>
                 </div>
+                </form>
             </aside>
-            <div class="details">
-                <h3>Détails du rendez-vous</h3>
-                <div>
-                    <form>
-
-                        <div>
-                            <label>Date</label>
-                            <input type="date" name="date" id="date" value="11/12/2020">
-                        </div>
-                        <div>
-                            <label>Heure</label>
-                            <input type="time" name="heure" id="heure" value="11:00">
-                        </div>
-                        <div>
-                            <label>Client</label>
-                            <input type="text" name="client" id="client" value="Duchemin" list="clientlist">
-                            <datalist id="clientlist">
-                                <option value="Duchemin">
-                                <option value="Metge" selected>
-                                <option value="Jean">
-                                <option value="Dupont">
-                                <option value="Durand">
-                                <option value="Martin">
-                                <option value="Dazo">
-                                <option value="Charensol">
-                                <option value="De Sauza">
-                                <option value="Argentiéri">
-                            </datalist>
-                        </div>
-                        <div>
-                            <label>Véhicule</label>
-                            <input type="text" class="vehicule" value="Renault Clio" list="vehiclelist">
-                            <datalist id="vehiclelist">
-                                <option value="Renault Clio">
-                                <option value="Renault Clio">
-                                <option value="Renault Clio">
-                                <option value="Renault Clio">
-                                <option value="Renault Clio">
-                            </datalist>
-                        </div>
-                        <div>
-                            <label>Etat</label>
-                            <select name="etat" id="etat">
-                                <option value="en attente" selected>En attente</option>
-                                <option value="en cours">En cours</option>
-                                <option value="terminé">Terminé</option>
-                            </select>
-                        </div>
-
-
-                        <div>
-                            <h4>Liste des opérations</h4>
-                            <ul class="list operationlist">
-                                <li><span>Devis</span><a href="#">X</a></li>
-                                <li><span>Changement pneux</span><a href="#">X</a></li>
-                                <li><span>Ménage voiture</span><a href="#">X</a></li>
-                                <li><span>Contrôle technique</span><a href="#">X</a></li>
-                                <li><span>Peinture</span><a href="#">X</a></li>
-                                <li><span>Réparation pare brise</span><a href="#">X</a></li>
-                                <li><span>Mise à jour système de bord</span><a href="#">X</a></li>
-                                <li><span>Changement des freins</span><a href="#">X</a></li>
-                                <li><span>Remplacement rétroviseurs</span><a href="#">X</a></li>
-                            </ul>
-                        </div>
-
-
-
-                        <div>
-                            <input type="submit" value="Modifier">
-                            <input type="submit" value="Supprimer">
-                        </div>
-                    </form>
-                </div>
-            </div>
         </section>
     </main>
 
