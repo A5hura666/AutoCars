@@ -14,6 +14,7 @@ $TheArticle = new ArticleDAO(MaBD::getInstance());
 $TheInterv = new Dde_InterventionDAO(MaBD::getInstance());
 $TheFacture = new FactureDAO(MaBD::getInstance());
 $TheDevis = new DevisDAO(MaBD::getInstance());
+$TheRealOp = new Pr
 
 //Session pour les opérations et calcul du prix total
 $prix = 0;
@@ -57,8 +58,22 @@ if (isset($_POST["sub"])) {
     $date = explode(' ',$date);
     $horaire = $date[1];
     $date = $date[0];
+
+
+    $facture = new Facture(DAO::UNKNOWN_ID,"",20,0,"En attente");
     $interv = new Dde_Intervention(DAO::UNKNOWN_ID,$TheVehicule->getByIdClient($_COOKIE['clientid'])->getNoImmatriculation(),$TheUser->getOne($_SESSION['operator'])->getIdUser(),$_COOKIE['clientid'],$date,$horaire,"",$_SESSION['km_actu'],"En attente");
     $TheInterv->insert($interv);
+    $TheFacture->insert($facture);
+    if($TheFacture->lastIdFact!=-1 && $TheInterv->lastIdInterv!=-1){
+        $devis = new Devis(DAO::UNKNOWN_ID,$TheFacture->lastIdFact,$TheInterv->lastIdInterv,$date,$prix,$facture->getTauxTVA(),$_SESSION['dateestime']);
+        $TheDevis->insert($devis);
+    }
+    if ($TheDevis->lastIdDevis!=-1){
+
+    }
+
+
+
 }
 
 
@@ -269,7 +284,7 @@ if (isset($_POST["sub"])) {
                 </div>
                 <div>
                     <label>Esitmation fin</label>
-                    <input type="datetime-local" name="dateestime" id="dateestime" <?php if(isset($_SESSION['dateestime'])){echo 'value="'.$_SESSION['dateestime'].'"';} ?>>
+                    <input type="date" name="dateestime" id="dateestime" <?php if(isset($_SESSION['dateestime'])){echo 'value="'.$_SESSION['dateestime'].'"';} ?>>
                 </div>
                 <div>
                     <label>kilometrage actuel</label>

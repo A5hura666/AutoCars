@@ -2,7 +2,7 @@
 
 class Dde_InterventionDAO extends DAO
 {
-
+    public int $lastIdInterv;
     //Pour le chef d'atelier accès aux rdv
     public function getOne(int|string $id): array|object
     {
@@ -37,6 +37,7 @@ class Dde_InterventionDAO extends DAO
             . " VALUES (?,?,?,?,?,?,?,?)");
         $res = $stmt->execute([$obj->getNumDde(), $obj->getNoImmatriculation(), $obj->getIdOpérateur(), $obj->getCodeClient(), $obj->getDateRdv(),$obj->getHeureRdv(),$obj->getDescriptifDemande(),$obj->getKmActuel(),$obj->getEtatDemande()]);
         $obj->id = $this->pdo->lastInsertId();
+        $this->lastIdInterv=$this->pdo->lastInsertId();
         return $res;
     }
 

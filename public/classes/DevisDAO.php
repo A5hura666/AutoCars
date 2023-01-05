@@ -3,6 +3,7 @@
 class DevisDAO extends DAO
 {
 
+    public int $lastIdDevis;
     public function getOne(int|string $id): array|object
     {
         $stmt = $this->pdo->prepare("SELECT * FROM Devis WHERE NoDevis = ?");
@@ -28,6 +29,7 @@ class DevisDAO extends DAO
             . " VALUES (?,?,?,?,?,?,?,?)");
         $res = $stmt->execute([$obj->getNumDde(), $obj->getNoImmatriculation(), $obj->getIdOpérateur(), $obj->getCodeClient(), $obj->getDateRdv(),$obj->getHeureRdv(),$obj->getDescriptifDemande(),$obj->getKmActuel(),$obj->getEtatDemande()]);
         $obj->id = $this->pdo->lastInsertId();
+        $this->lastIdDevis=$this->pdo->lastInsertId();
         return $res;
     }
 

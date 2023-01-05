@@ -2,6 +2,7 @@
 
 class FactureDAO extends DAO
 {
+    public int $lastIdFact=-1;
 
     public function getOne(int|string $id): array|object
     {
@@ -15,7 +16,7 @@ class FactureDAO extends DAO
     {
         /** @var Facture[] $res */
         $res = [];
-        $stmt = $this->pdo->query("SELECT * FROM Devis");
+        $stmt = $this->pdo->query("SELECT * FROM Facture");
         foreach ($stmt->fetchAll(PDO::FETCH_ASSOC) as $row)
             $res[] = new Facture($row['NoFacture'], $row['DateFacture'], $row['TauxTVA'], $row['NetAPayer'], $row['EtatFacture']);
         return $res;
@@ -24,7 +25,12 @@ class FactureDAO extends DAO
 
     public function insert(object $obj): int
     {
-        // TODO: Implement insert() method.
+        $stmt = $this->pdo->prepare("INSERT INTO Facture (NoFacture,DateFacture,TauxTVA, NetAPayer,EtatFacture)"
+            . " VALUES (?,?,?,?,?)");
+        $res = $stmt->execute([$obj->getNoFacture(), $obj->getDateFacture(), $obj->getTauxTVA(), $obj->getNetAPayer(), $obj->getEtatFacture()]);
+        $obj->id = $this->pdo->lastInsertId();
+        $this->lastIdFact=$this->pdo->lastInsertId();
+        return $res;
     }
 
     public function update(object $obj): int
