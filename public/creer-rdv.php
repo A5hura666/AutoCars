@@ -14,7 +14,8 @@ $TheArticle = new ArticleDAO(MaBD::getInstance());
 $TheInterv = new Dde_InterventionDAO(MaBD::getInstance());
 $TheFacture = new FactureDAO(MaBD::getInstance());
 $TheDevis = new DevisDAO(MaBD::getInstance());
-$TheRealOp = new Pr
+$ThePreOp = new Prévoir_OpDAO(MaBD::getInstance());
+$TheReaOp = new Réaliser_OpDAO(MaBD::getInstance());
 
 //Session pour les opérations et calcul du prix total
 $prix = 0;
@@ -69,7 +70,11 @@ if (isset($_POST["sub"])) {
         $TheDevis->insert($devis);
     }
     if ($TheDevis->lastIdDevis!=-1){
-
+        $reaOp = new Réaliser_Op($TheFacture->lastIdFact,$TheOperation->lastIdOp);
+        $preOP = new Prévoir_Op($TheOperation->lastIdOp,$TheDevis->lastIdDevis);
+        $ThePreOp->insert($preOP);
+        $TheReaOp->insert($reaOp);
+        $factureup = new Facture($TheFacture->lastIdFact,"",20,$prix,"En attente");
     }
 
 

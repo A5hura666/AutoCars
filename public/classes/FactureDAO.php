@@ -35,7 +35,9 @@ class FactureDAO extends DAO
 
     public function update(object $obj): int
     {
-        // TODO: Implement update() method.
+        $stmt = $this->pdo->prepare("UPDATE Facture set NoFacture=:NoFacture, DateFacture=:DateFacture, TauxTVA=:TauxTVA, NetAPayer=:NetAPayer, EtatFacture=:EtatFacture WHERE NoFacture=:NoFacture");
+        $res = $stmt->execute(['NoFacture' => $obj->getNoFacture(), 'DateFacture' => $obj->getDateFacture(), 'TauxTVA' => $obj->getTauxTVA(), 'NetAPayer' => $obj->getNetAPayer(), 'EtatFacture' => $obj->getEtatFacture()]);
+        return $res;
     }
 
     public function delete(object $obj): int
