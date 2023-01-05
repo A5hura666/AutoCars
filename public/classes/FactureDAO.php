@@ -2,7 +2,7 @@
 
 class FactureDAO extends DAO
 {
-    public function getOne(int|string $id): array|object
+    public function getOne(int|string $id): Facture
     {
         $stmt = $this->pdo->prepare("SELECT * FROM Facture WHERE NoFacture = ?");
         $stmt->execute([$id]);

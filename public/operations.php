@@ -74,26 +74,6 @@ checkAccess("Opérateur")
                 <h3>Détails de l'opération</h3>
                 <div>
                     <form class="sectiondetails">
-                        <div>
-                            <label>Client</label>
-                            <div>
-                                <label for="clientname">Nom</label>
-                                <input type="text" name="clientname" id="clientname" disabled>
-                            </div>
-                            <div>
-                                <label for="clientlastname">Prénom</label>
-                                <input type="text" name="clientlastname" id="clientlastname" disabled>
-                            </div>
-                            <div>
-                                <label for="clientphone">Téléphone</label>
-                                <input type="tel" name="clientphone" id="clientphone" disabled>
-                            </div>
-                            <div>
-                                <label for="clientmail">Email</label>
-                                <input type="email" name="clientmail" id="clientmail" disabled>
-                            </div>
-                        </div>
-
 
                         <div>
                             <label>Vehicule</label>
@@ -117,15 +97,15 @@ checkAccess("Opérateur")
                                 <label for="detailsoperation">Opération</label>
                                 <input type="text" name="detailsoperation" id="detailsoperation" disabled>
                             </div>
-                            <div>
-                                <label for="detailsdate">Etat</label>
-                                <select name="detailsdate" id="detailsdate">
-                                    <option value="en attente">En attente</option>
-                                    <option value="en cours">En cours</option>
-                                    <option value="terminé">Terminé</option>
-                                </select>
-                            </div>
+                        </div>
 
+                        <div>
+                            <label for="detailsdate">Etat</label>
+                            <select name="detailsdate" id="detailsdate">
+                                <option value="en attente">En attente</option>
+                                <option value="en cours">En cours</option>
+                                <option value="terminé">Terminé</option>
+                            </select>
                         </div>
 
 

@@ -2,6 +2,8 @@
 session_start();
 require "autoload.php";
 require "checkAccess.php";
+require "factureCalcul.php";
+
 checkAccess("Chef d'atelier");
 
 $Dde_Intervention = new Dde_InterventionDAO(MaBD::getInstance());
@@ -9,16 +11,20 @@ $TheUsers = new UsersDAO(MaBD::getInstance());
 $TheClients = new ClientsDAO(MaBD::getInstance());
 $RealiserOp = new Réaliser_OpDAO(MaBD::getInstance());
 $PrevoirOp = new Prévoir_OpDAO(MaBD::getInstance());
+$TheFacture = new FactureDAO(MaBD::getInstance());
+$TheDevis = new DevisDAO(MaBD::getInstance());
 
 //Pour gérer les états
-$TabEtat=["Tous","En attente","En cours","Terminé","Annulé"];
-if(isset($_POST["etat"])){
+$TabEtat = ["Tous", "En attente", "En cours", "Terminé", "Annulé"];
+if (isset($_POST["etat"])) {
     $_SESSION["etat"] = $_POST["etat"];
+}
+if (!isset($_SESSION["etat"])) {
+    $_SESSION["etat"] = "Tous";
 }
 
 //fonction de trie rdv
-
-function etatRdv(string $etat,string $emoji):void
+function etatRdvForDevis(string $etat, string $emoji): void
 {
     $Dde_Intervention = new Dde_InterventionDAO(MaBD::getInstance());
     $TheClients = new ClientsDAO(MaBD::getInstance());
@@ -26,11 +32,13 @@ function etatRdv(string $etat,string $emoji):void
     echo '<label>' . $etat . '</label>';
     foreach ($Dde_Intervention->getAllByEtat($_SESSION["etat"]) as $dde_Intervention) {
         $infoOperateur = $TheClients->getOne($dde_Intervention->getCodeClient());
-        echo '<li>'.$emoji.'<p>'.$infoOperateur->getFirstName()." ".$infoOperateur->getLastName().'</p><span>200€</span><span>12/01/2023</span><img src="https://cdn.freebiesupply.com/logos/large/2x/adobe-pdf-icon-logo-png-transparent.png" width="20px"></li>';
+        $rescalcul=calculCost($dde_Intervention->getNumDde(),"devis",true);
+        echo '<li>' . $emoji . '<p>'.$dde_Intervention->getNumDde() ." " . $infoOperateur->getFirstName() . " " . $infoOperateur->getLastName() . '</p><span>'.$rescalcul["total"]."€".'</span><span>' . $dde_Intervention->getDateRdv() . '</span>
+        <a href="#"><img src="https://cdn.freebiesupply.com/logos/large/2x/adobe-pdf-icon-logo-png-transparent.png" width="20px"></a></li>';
     }
 }
 
-function etatAllRdv(string $etat, string $emoji):void
+function etatAllRdvForDevis(string $etat, string $emoji): void
 {
     $Dde_Intervention = new Dde_InterventionDAO(MaBD::getInstance());
     $TheClients = new ClientsDAO(MaBD::getInstance());
@@ -38,9 +46,52 @@ function etatAllRdv(string $etat, string $emoji):void
     echo '<label>' . $etat . '</label>';
     foreach ($Dde_Intervention->getAllByEtat($etat) as $dde_Intervention) {
         $infoOperateur = $TheClients->getOne($dde_Intervention->getCodeClient());
-        echo '<li> ' . $emoji . ' <p>' . $infoOperateur->getFirstName() . " " . $infoOperateur->getLastName() . '</p> <span>200€</span><span>12/01/2023</span><img src="https://cdn.freebiesupply.com/logos/large/2x/adobe-pdf-icon-logo-png-transparent.png" width="20px"></li>';
+        $rescalcul=calculCost($dde_Intervention->getNumDde(), "devis",true);
+        echo '<li>' . $emoji . '<p>'.$dde_Intervention->getNumDde() ." " . $infoOperateur->getFirstName() . " " . $infoOperateur->getLastName() . '</p><span>'.$rescalcul["total"]."€".'</span><span>' . $dde_Intervention->getDateRdv() . '</span>
+        <a href="#"><img src="https://cdn.freebiesupply.com/logos/large/2x/adobe-pdf-icon-logo-png-transparent.png" width="20px"></a></li>';
     }
 }
+
+function etatRdvForFacture(string $etat, string $emoji): void
+{
+    $Dde_Intervention = new Dde_InterventionDAO(MaBD::getInstance());
+    $TheClients = new ClientsDAO(MaBD::getInstance());
+    $TheDevis = new DevisDAO(MaBD::getInstance());
+    $TheFacture = new FactureDAO(MaBD::getInstance());
+
+    echo '<label>' . $etat . '</label>';
+    foreach ($Dde_Intervention->getAllByEtat($_SESSION["etat"]) as $dde_Intervention) {
+        $numDde = $dde_Intervention->getNumDde();
+        $devis = $TheDevis->getOne($numDde);
+        $noFacture = $devis->getNoFacture();
+        $Facture = $TheFacture->getOne($noFacture);
+        $rescalcul=calculCost($noFacture, "facture",true);
+        $infoOperateur = $TheClients->getOne($dde_Intervention->getCodeClient());
+        echo '<li>' . $emoji . '<p>'.$dde_Intervention->getNumDde() ." ". $infoOperateur->getFirstName() . " " . $infoOperateur->getLastName() . '</p><span>'.$rescalcul["total"]."€".'</span><span>' . $Facture->getDateFacture() . '</span>
+        <a href="#"><img src="https://cdn.freebiesupply.com/logos/large/2x/adobe-pdf-icon-logo-png-transparent.png" width="20px"></a></li>';
+    }
+}
+
+function etatAllRdvForFacture(string $etat, string $emoji): void
+{
+    $Dde_Intervention = new Dde_InterventionDAO(MaBD::getInstance());
+    $TheClients = new ClientsDAO(MaBD::getInstance());
+    $TheDevis = new DevisDAO(MaBD::getInstance());
+    $TheFacture = new FactureDAO(MaBD::getInstance());
+
+    echo '<label>' . $etat . '</label>';
+    foreach ($Dde_Intervention->getAllByEtat($etat) as $dde_Intervention) {
+        $numDde = $dde_Intervention->getNumDde();
+        $devis = $TheDevis->getOne($numDde);
+        $noFacture = $devis->getNoFacture();
+        $Facture = $TheFacture->getOne($noFacture);
+        $rescalcul=calculCost($noFacture, "facture",true);
+        $infoOperateur = $TheClients->getOne($dde_Intervention->getCodeClient());
+        echo '<li>' . $emoji . '<p>'.$dde_Intervention->getNumDde() ." ". $infoOperateur->getFirstName() . " " . $infoOperateur->getLastName() . '</p><span>'.$rescalcul["total"]."€".'</span><span>' . $Facture->getDateFacture() . '</span>
+        <a href="#"><img src="https://cdn.freebiesupply.com/logos/large/2x/adobe-pdf-icon-logo-png-transparent.png" width="20px"></a></li>';
+    }
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -96,11 +147,10 @@ function etatAllRdv(string $etat, string $emoji):void
             <div>
                 <a href="consulter-pieces.php">Pièces</a>
                 <!-- <a href="#">Pièces</a>
-                <div class="dropdown-content">
-                    <a href="commander-pieces.php">Commander des pièces</a>
-                </div> -->
+            <div class="dropdown-content">
+                <a href="commander-pieces.php">Commander des pièces</a>
+            </div> -->
             </div>
-
 
 
         </section>
@@ -121,11 +171,11 @@ function etatAllRdv(string $etat, string $emoji):void
                         <div>
                             <label for="etat">Etat</label>
                             <select name="etat" id="etat">
-                                <option  value="Choisir etat" selected disabled>Choisir etat</option>
+                                <option value="Choisir etat" selected disabled>Choisir etat</option>
                                 <?php
-                                if(isset($_SESSION['etat'])){
-                                    foreach ($TabEtat as $etat){
-                                        echo '<option value="'.$etat.'"> '.$etat.' </option>';
+                                if (isset($_SESSION['etat'])) {
+                                    foreach ($TabEtat as $etat) {
+                                        echo '<option value="' . $etat . '"> ' . $etat . ' </option>';
                                     }
                                 }
                                 ?>
@@ -138,19 +188,23 @@ function etatAllRdv(string $etat, string $emoji):void
                     <ul class="list">
                         <?php
                         if (isset($_SESSION["etat"]) && $_SESSION["etat"] == "En attente") {
-                            etatRdv("En attente",'🚧');}
+                            etatRdvForDevis("En attente", '🚧');
+                        }
                         if (isset($_SESSION["etat"]) && $_SESSION["etat"] == "En cours") {
-                            etatRdv("En cours",'⏳');}
+                            etatRdvForDevis("En cours", '⏳');
+                        }
                         if (isset($_SESSION["etat"]) && $_SESSION["etat"] == "Terminé") {
-                            etatRdv("Terminé",'✅');}
+                            etatRdvForDevis("Terminé", '✅');
+                        }
                         if (isset($_SESSION["etat"]) && $_SESSION["etat"] == "Annulé") {
-                            etatRdv("Annulé",'❌');}
+                            etatRdvForDevis("Annulé", '❌');
+                        }
 
                         if (isset($_SESSION["etat"]) && $_SESSION["etat"] == "Tous") {
-                            etatAllRdv("En attente",'🚧');
-                            etatAllRdv("En cours",'⏳');
-                            etatAllRdv("Terminé",'✅');
-                            etatAllRdv("Annulé",'❌');
+                            etatAllRdvForDevis("En attente", '🚧');
+                            etatAllRdvForDevis("En cours", '⏳');
+                            etatAllRdvForDevis("Terminé", '✅');
+                            etatAllRdvForDevis("Annulé", '❌');
                         }
                         ?>
                     </ul>
@@ -161,19 +215,23 @@ function etatAllRdv(string $etat, string $emoji):void
                     <ul class="list">
                         <?php
                         if (isset($_SESSION["etat"]) && $_SESSION["etat"] == "En attente") {
-                            etatRdv("En attente",'🚧');}
+                            etatRdvForFacture("En attente", '🚧');
+                        }
                         if (isset($_SESSION["etat"]) && $_SESSION["etat"] == "En cours") {
-                            etatRdv("En cours",'⏳');}
+                            etatRdvForFacture("En cours", '⏳');
+                        }
                         if (isset($_SESSION["etat"]) && $_SESSION["etat"] == "Terminé") {
-                            etatRdv("Terminé",'✅');}
+                            etatRdvForFacture("Terminé", '✅');
+                        }
                         if (isset($_SESSION["etat"]) && $_SESSION["etat"] == "Annulé") {
-                            etatRdv("Annulé",'❌');}
+                            etatRdvForFacture("Annulé", '❌');
+                        }
 
                         if (isset($_SESSION["etat"]) && $_SESSION["etat"] == "Tous") {
-                            etatAllRdv("En attente",'🚧');
-                            etatAllRdv("En cours",'⏳');
-                            etatAllRdv("Terminé",'✅');
-                            etatAllRdv("Annulé",'❌');
+                            etatAllRdvForFacture("En attente", '🚧');
+                            etatAllRdvForFacture("En cours", '⏳');
+                            etatAllRdvForFacture("Terminé", '✅');
+                            etatAllRdvForFacture("Annulé", '❌');
                         }
                         ?>
                     </ul>
