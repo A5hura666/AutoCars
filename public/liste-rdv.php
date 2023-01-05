@@ -28,13 +28,15 @@ function etatRdvForDevis(string $etat, string $emoji): void
 {
     $Dde_Intervention = new Dde_InterventionDAO(MaBD::getInstance());
     $TheClients = new ClientsDAO(MaBD::getInstance());
-
+    $id = 1;
+    $type = "devis";
+    $bool = false;
     echo '<label>' . $etat . '</label>';
     foreach ($Dde_Intervention->getAllByEtat($_SESSION["etat"]) as $dde_Intervention) {
         $infoOperateur = $TheClients->getOne($dde_Intervention->getCodeClient());
         $rescalcul=calculCost($dde_Intervention->getNumDde(),"devis",true);
         echo '<li>' . $emoji . '<p>'.$dde_Intervention->getNumDde() ." " . $infoOperateur->getFirstName() . " " . $infoOperateur->getLastName() . '</p><span>'.$rescalcul["total"]."€".'</span><span>' . $dde_Intervention->getDateRdv() . '</span>
-        <a href="#"><img src="https://cdn.freebiesupply.com/logos/large/2x/adobe-pdf-icon-logo-png-transparent.png" width="20px"></a></li>';
+        <btn onclick="f('.$id.','.$type.','.$bool.')"><img src="https://cdn.freebiesupply.com/logos/large/2x/adobe-pdf-icon-logo-png-transparent.png" width="20px"></btn>></li>';
     }
 }
 
@@ -242,6 +244,7 @@ function etatAllRdvForFacture(string $etat, string $emoji): void
     </main>
 
     <script src="js/script.js"></script>
+    <script src="js/list-rdv.js"></script>
 </body>
 
 </html>

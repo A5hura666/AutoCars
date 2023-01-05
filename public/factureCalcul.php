@@ -3,6 +3,9 @@
 require "autoload.php";
 require "pdfcrowd.php";
 
+if ($_GET['function']=='calculCost'){
+    calculCost($_GET['id'],$_GET['type'],$_GET['bool']);
+}
 
 function calculCost($id, $type, $bool)
 {
