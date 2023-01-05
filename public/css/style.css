@@ -424,3 +424,8 @@ aside>div,
 .interface-big{
 	min-width: 900px;
 }
+
+.sect_article{
+	display: flex;
+	justify-content: space-around;
+}
