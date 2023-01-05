@@ -5,7 +5,7 @@ require "pdfcrowd.php";
 
 var_dump($_GET);
 
-if(sizeof($_GET) == 2){
+if (sizeof($_GET) == 2) {
     calculCost($_GET['id'], $_GET['type'], false);
 }
 
@@ -63,7 +63,6 @@ function calculCost($id, $type, $bool)
         $rescalcul["total"] += $tempOpPrice;
     }
 
-    //var_dump($rescalcul);
 
     if ($bool) {
         return $rescalcul;
@@ -75,8 +74,7 @@ function calculCost($id, $type, $bool)
 
 function createFacture($data, $id, $type)
 {
-
-    echo "test";
+    
 
     $PrevoirOp = new Prévoir_OpDAO(MaBD::getInstance());
     $RealiserOp = new Réaliser_OpDAO(MaBD::getInstance());
@@ -87,7 +85,6 @@ function createFacture($data, $id, $type)
 
     if (file_exists('facture.html')) {
         $date = "Undifined";
-        $clientName = "Undifined";
 
 
 
@@ -116,7 +113,7 @@ function createFacture($data, $id, $type)
 
 
 
-        $htmlcode = "<!DOCTYPE html><head><meta charset='UTF-8'></head><body><h1 style='text-align: center;'>~ Facture  ~</h1><br>";
+        $htmlcode = "<!DOCTYPE html><head><meta charset='UTF-8'></head><body><h1 style='text-align: center;'>Facture</h1><br>";
 
         $htmlcode .= "<p><strong>" . $fname . " " . $lname . ",</strong><br>Voici votre facture du " . $date . ".</p><br>";
 
@@ -139,7 +136,8 @@ function createFacture($data, $id, $type)
         fwrite($handle, $htmlcode);
         fclose($handle);
 
-        header('Location: facture.html');
+        // header('Location: facture.html');
+
 
         try {
             // create the API client instance
