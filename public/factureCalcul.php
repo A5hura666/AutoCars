@@ -3,11 +3,18 @@
 require "autoload.php";
 require "pdfcrowd.php";
 
-if (isset($_GET['function'])) {
-    if ($_GET['function'] == 'calculCost') {
-        calculCost($_GET['id'], $_GET['type'], $_GET['bool']);
-    }
+var_dump($_GET);
+
+if(sizeof($_GET) == 2){
+    calculCost($_GET['id'], $_GET['type'], false);
 }
+
+
+// if (isset($_GET['function'])) {
+//     if ($_GET['function'] == 'calculCost') {
+//         calculCost($_GET['id'], $_GET['type'], $_GET['bool']);
+//     }
+// }
 
 function calculCost($id, $type, $bool)
 {
@@ -156,7 +163,7 @@ function createFacture($data, $id, $type)
 }
 ?>
 
-
+<!-- 
 <!DOCTYPE html>
 <html lang="en">
 
@@ -171,4 +178,4 @@ function createFacture($data, $id, $type)
     <button onclick="calculCost(1, 'facture', true)">Cliquez ici</button>
 </body>
 
-</html>
+</html> -->
