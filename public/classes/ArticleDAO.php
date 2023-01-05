@@ -48,6 +48,17 @@ class ArticleDAO extends DAO
             $res[] = new Article($row['CodeArticle'], $row['LibelleArticle'], $row['TypeArticle'], $row['PrixUnitActuelHT'], $row['quantite']);
         return $res;
     }
+    public function getAllFromOneRealiserOp(Réaliser_Op $obj): array
+    {
+        /** @var Article[] $res */
+        $res = [];
+        $stmt = $this->pdo->prepare("SELECT a.* FROM Article a JOIN entredeux e USING (CodeArticle) JOIN Operation O USING (CodeOp) JOIN Réaliser_Op R USING (CodeOp) WHERE R.NoFacture=? and R.CodeOp = ?;");
+        $stmt->execute([$obj->getNoFacture(),$obj->getCodeOp()]);
+        foreach ($stmt->fetchAll(PDO::FETCH_ASSOC) as $row)
+            $res[] = new Article($row['CodeArticle'], $row['LibelleArticle'], $row['TypeArticle'], $row['PrixUnitActuelHT'], $row['quantite']);
+        return $res;
+    }
+
 
     public function insert(object $obj): int
     {
@@ -56,7 +67,9 @@ class ArticleDAO extends DAO
 
     public function update(object $obj): int
     {
-        // TODO: Implement update() method.
+        $stmt = $this->pdo->prepare("UPDATE Article set CodeArticle=:CodeArticle, LibelleArticle=:LibelleArticle, TypeArticle=:TypeArticle, PrixUnitActuelHT=:PrixUnitActuelHT, quantite=:quantite WHERE CodeArticle=:CodeArticle");
+        $res = $stmt->execute(['CodeArticle' => $obj->getCodeArticle(), 'LibelleArticle' => $obj->getLibelleArticle(), 'TypeArticle' => $obj->getTypeArticle(), 'PrixUnitActuelHT' => $obj->getPrixUnitActuelHT(), 'quantite' => $obj->getQuantite()]);
+        return $res;
     }
 
     public function delete(object $obj): int
