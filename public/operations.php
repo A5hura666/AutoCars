@@ -11,6 +11,9 @@ $RealiserOp = new Réaliser_OpDAO(MaBD::getInstance());
 $PrevoirOp = new Prévoir_OpDAO(MaBD::getInstance());
 $TheFacture = new FactureDAO(MaBD::getInstance());
 $TheDevis = new DevisDAO(MaBD::getInstance());
+$TheVehicule = new VehiculesDAO(MaBD::getInstance());
+$Modele = new ModeleDAO(MaBD::getInstance());
+
 
 function etatRdv(string $etat, string $emoji): void
 {
@@ -22,7 +25,7 @@ function etatRdv(string $etat, string $emoji): void
             $infoOperateur = $TheClients->getOne($dde_Intervention->getCodeClient());
             echo '<span>' . $dde_Intervention->getDateRdv() . '</span>';
             echo '<li>' . $emoji . '<p>'.$dde_Intervention->getNumDde() ." " . $infoOperateur->getFirstName() . " " . $infoOperateur->getLastName()." - ". $dde_Intervention->getDescriptifDemande() . '</p><span></span>
-        <a href="#" class="consulter">Consulter</a></li>';
+            <a href="#" class="consulter">Consulter</a></li>';
         }
     }
 }
@@ -72,30 +75,25 @@ function etatRdv(string $etat, string $emoji): void
             <aside>
                 <div>
                     <h3>Liste des opérations</h3>
-                    <ul class="list list-big">
 
+                    <ul class="list list-big">
                         <?php
                         etatRdv("En attente","📃");
                         etatRdv("En cours","⏳");
+
+//                        if (isset($_POST['Consulter'])) {
+//                            $_SESSION['info_clients'] = $_POST['Consulter'];
+//                        }
+//
+//                        if (isset($_SESSION['info_clients'])) {
+//                            $newClient = $TheClients->getOne($_SESSION['info_clients']);
+//                        } else {
+//                            $newClient = $TheClients->getOne($_POST['Consulter']);
+//                        }
                         ?>
-<!--                        <span>01/04/2022</span>-->
-<!--                        <li><span>🚧 Duchemin - Changement pneus</span><a href="#" class="consulter">Consulter</a></li>-->
-<!--                        <li><span>🚧 Martin - Réparation phare</span><a href="#" class="consulter">Consulter</a></li>-->
-<!--                        <li><span>📃 Leclerc - Changement filtre à air</span><a href="#" class="consulter">Consulter</a></li>-->
-<!---->
-<!--                        <span>01/04/2022</span>-->
-<!--                        <li><span>📃 Lucci - Réparation pare-brise</span><a href="#" class="consulter">Consulter</a></li>-->
-<!--                        <li><span>📃 Metge - Mise à jour du système de navigation</span><a href="#" class="consulter">Consulter</a></li>-->
-<!--                        <li><span>📃 Seg - Changement liquide de boite de vitesse</span><a href="#" class="consulter">Consulter</a></li>-->
-<!---->
-<!--                        <span>01/04/2022</span>-->
-<!--                        <li><span>📃 Dupont - Nettoyage vehicule</span><a href="#" class="consulter">Consulter</a></li>-->
-<!--                        <li><span>📃 Objois - Réparation courroie distribution</span><a href="#" class="consulter">Consulter</a></li>-->
-<!--                        <li><span>📃 Durand - Réparation climatisation</span><a href="#" class="consulter">Consulter</a></li>-->
-
-
                     </ul>
                 </div>
+                </form>
             </aside>
             <div class="details">
                 <h3>Détails de l'opération</h3>
@@ -104,6 +102,11 @@ function etatRdv(string $etat, string $emoji): void
 
                         <div>
                             <label>Vehicule</label>
+<!--                            --><?php
+//                            $info_vehicule = $TheVehicule->getByIdClient($newClient->getCodeClient());
+//                            $info_modele = $Modele->getOne($info_vehicule->getNumModele())->getModèle();
+//                            $marque = $info_vehicule->getMarque();
+//                            ?>
                             <div>
                                 <label for="detailsmarque">Marque</label>
                                 <input type="text" name="detailsmarque" id="detailsmarque" disabled>
