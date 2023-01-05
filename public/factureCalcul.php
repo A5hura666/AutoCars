@@ -64,6 +64,8 @@ function calculCost($id, $type, $bool)
 function createFacture($data, $id, $type)
 {
 
+    echo "test";
+
     $PrevoirOp = new Prévoir_OpDAO(MaBD::getInstance());
     $RealiserOp = new Réaliser_OpDAO(MaBD::getInstance());
     $Facture = new FactureDAO(MaBD::getInstance());
@@ -91,18 +93,13 @@ function createFacture($data, $id, $type)
             $detailsClient = $Client->getOne($noDDE->getCodeClient());
             $fname = $detailsClient->getFirstName();
             $lname = $detailsClient->getLastName();
-
-
-        } 
-        else if ($type == "devis") {
+        } else if ($type == "devis") {
             $date = $Devis->getOne($PrevoirOp->getOne($id)->getNoDevis())->getDateDevis();
 
             $noDDE = $DDE->getOne($PrevoirOp->getOne($id)->getNoDevis());
             $detailsClient = $Client->getOne($noDDE->getCodeClient());
             $fname = $detailsClient->getFirstName();
             $lname = $detailsClient->getLastName();
-
-            
         }
 
 
@@ -113,8 +110,14 @@ function createFacture($data, $id, $type)
 
         $htmlcode .= "<h2>Montant total</h2><p>" . $data["total"] . "€</p><br>";
         $htmlcode .= "<h2>Liste des opérations effectuées</h2><ul>";
-        foreach ($data["operations"] as $operation) {
-            $htmlcode .= "<li>" . $operation["nom"] . " : <strong>" . $operation["prix"] . "€</strong></li>";
+        if ($type == "facture") {
+            foreach ($data["operations"] as $operation) {
+                $htmlcode .= "<li>" . $operation["nom"] . " : <strong>" . $operation["prix"] . "€</strong></li>";
+            }
+        } else if ($type == "devis") {
+            foreach ($data["operations"] as $operation) {
+                $htmlcode .= "<li>" . $operation["nom"] . " </li>";
+            }
         }
         $htmlcode .= "</ul></body></html>";
 
@@ -124,24 +127,24 @@ function createFacture($data, $id, $type)
         fwrite($handle, $htmlcode);
         fclose($handle);
 
-        //header('Location: facture.html');
+        header('Location: facture.html');
 
-        // try {
-        //     // create the API client instance
-        //     $client = new \Pdfcrowd\HtmlToPdfClient("autocars", "3117be013b8ead56672293cfc9cc62ea");
+        try {
+            // create the API client instance
+            $client = new \Pdfcrowd\HtmlToPdfClient("autocars", "3117be013b8ead56672293cfc9cc62ea");
 
-        //     // run the conversion and write the result to a file
-        //     $client->convertFileToFile("facture.html", "facture.pdf");
+            // run the conversion and write the result to a file
+            $client->convertFileToFile("facture.html", "facture.pdf");
 
-        //     // redirect to facture.pdf
-        //     header('Location: facture.pdf');
-        // } catch (\Pdfcrowd\Error $why) {
-        //     // report the error
-        //     error_log("Pdfcrowd Error: {$why}\n");
+            // redirect to facture.pdf
+            header('Location: facture.pdf');
+        } catch (\Pdfcrowd\Error $why) {
+            // report the error
+            error_log("Pdfcrowd Error: {$why}\n");
 
-        //     // rethrow or handle the exception
-        //     throw $why;
-        // }
+            // rethrow or handle the exception
+            throw $why;
+        }
     } else {
         echo 'Le fichier n\'existe pas';
     }
@@ -160,9 +163,7 @@ function createFacture($data, $id, $type)
 </head>
 
 <body>
-    <?php
-    calculCost(2, "devis", false);
-    ?>
+    <button onclick="calculCost(1, 'facture', true)">Cliquez ici</button>
 </body>
 
 </html>
