@@ -68,7 +68,7 @@ function createFacture($data, $id, $type)
     $RealiserOp = new Réaliser_OpDAO(MaBD::getInstance());
     $Facture = new FactureDAO(MaBD::getInstance());
     $Devis = new DevisDAO(MaBD::getInstance());
-    $Client = new ClientDAO(MaBD::getInstance());
+    $Client = new ClientsDAO(MaBD::getInstance());
     $DDE = new Dde_InterventionDAO(MaBD::getInstance());
 
     if (file_exists('facture.html')) {
@@ -110,7 +110,7 @@ function createFacture($data, $id, $type)
         fwrite($handle, $htmlcode);
         fclose($handle);
 
-        header('Location: facture.html');
+        //header('Location: facture.html');
 
         // try {
         //     // create the API client instance
