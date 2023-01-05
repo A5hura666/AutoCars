@@ -2,8 +2,9 @@
 session_start();
 require "autoload.php";
 require "checkAccess.php";
-checkAccess("Chef d'atelier");
+require "factureCalcul.php";
 
+checkAccess("Chef d'atelier");
 
 $Dde_Intervention = new Dde_InterventionDAO(MaBD::getInstance());
 $TheUsers = new UsersDAO(MaBD::getInstance());
@@ -22,9 +23,7 @@ if (!isset($_SESSION["etat"])) {
     $_SESSION["etat"] = "Tous";
 }
 
-
 //fonction de trie rdv
-
 function etatRdvForDevis(string $etat, string $emoji): void
 {
     $Dde_Intervention = new Dde_InterventionDAO(MaBD::getInstance());
@@ -33,7 +32,8 @@ function etatRdvForDevis(string $etat, string $emoji): void
     echo '<label>' . $etat . '</label>';
     foreach ($Dde_Intervention->getAllByEtat($_SESSION["etat"]) as $dde_Intervention) {
         $infoOperateur = $TheClients->getOne($dde_Intervention->getCodeClient());
-        echo '<li>' . $emoji . '<p>' . $infoOperateur->getFirstName() . " " . $infoOperateur->getLastName() . '</p><span>200€</span><span>' . $dde_Intervention->getDateRdv() . '</span>
+        $rescalcul=calculCost($dde_Intervention->getNumDde(),"devis",true);
+        echo '<li>' . $emoji . '<p>'.$dde_Intervention->getNumDde() ." " . $infoOperateur->getFirstName() . " " . $infoOperateur->getLastName() . '</p><span>'.$rescalcul["total"]."€".'</span><span>' . $dde_Intervention->getDateRdv() . '</span>
         <a href="#"><img src="https://cdn.freebiesupply.com/logos/large/2x/adobe-pdf-icon-logo-png-transparent.png" width="20px"></a></li>';
     }
 }
@@ -46,7 +46,8 @@ function etatAllRdvForDevis(string $etat, string $emoji): void
     echo '<label>' . $etat . '</label>';
     foreach ($Dde_Intervention->getAllByEtat($etat) as $dde_Intervention) {
         $infoOperateur = $TheClients->getOne($dde_Intervention->getCodeClient());
-        echo '<li>' . $emoji . '<p>' . $infoOperateur->getFirstName() . " " . $infoOperateur->getLastName() . '</p><span>200€</span><span>' . $dde_Intervention->getDateRdv() . '</span>
+        $rescalcul=calculCost($dde_Intervention->getNumDde(), "devis",true);
+        echo '<li>' . $emoji . '<p>'.$dde_Intervention->getNumDde() ." " . $infoOperateur->getFirstName() . " " . $infoOperateur->getLastName() . '</p><span>'.$rescalcul["total"]."€".'</span><span>' . $dde_Intervention->getDateRdv() . '</span>
         <a href="#"><img src="https://cdn.freebiesupply.com/logos/large/2x/adobe-pdf-icon-logo-png-transparent.png" width="20px"></a></li>';
     }
 }
@@ -64,8 +65,9 @@ function etatRdvForFacture(string $etat, string $emoji): void
         $devis = $TheDevis->getOne($numDde);
         $noFacture = $devis->getNoFacture();
         $Facture = $TheFacture->getOne($noFacture);
+        $rescalcul=calculCost($noFacture, "facture",true);
         $infoOperateur = $TheClients->getOne($dde_Intervention->getCodeClient());
-        echo '<li>' . $emoji . '<p>' . $infoOperateur->getFirstName() . " " . $infoOperateur->getLastName() . '</p><span>200€</span><span>' . $Facture->getDateFacture() . '</span>
+        echo '<li>' . $emoji . '<p>'.$dde_Intervention->getNumDde() ." ". $infoOperateur->getFirstName() . " " . $infoOperateur->getLastName() . '</p><span>'.$rescalcul["total"]."€".'</span><span>' . $Facture->getDateFacture() . '</span>
         <a href="#"><img src="https://cdn.freebiesupply.com/logos/large/2x/adobe-pdf-icon-logo-png-transparent.png" width="20px"></a></li>';
     }
 }
@@ -83,8 +85,9 @@ function etatAllRdvForFacture(string $etat, string $emoji): void
         $devis = $TheDevis->getOne($numDde);
         $noFacture = $devis->getNoFacture();
         $Facture = $TheFacture->getOne($noFacture);
+        $rescalcul=calculCost($noFacture, "facture",true);
         $infoOperateur = $TheClients->getOne($dde_Intervention->getCodeClient());
-        echo '<li>' . $emoji . '<p>' . $infoOperateur->getFirstName() . " " . $infoOperateur->getLastName() . '</p><span>200€</span><span>' . $Facture->getDateFacture() . '</span>
+        echo '<li>' . $emoji . '<p>'.$dde_Intervention->getNumDde() ." ". $infoOperateur->getFirstName() . " " . $infoOperateur->getLastName() . '</p><span>'.$rescalcul["total"]."€".'</span><span>' . $Facture->getDateFacture() . '</span>
         <a href="#"><img src="https://cdn.freebiesupply.com/logos/large/2x/adobe-pdf-icon-logo-png-transparent.png" width="20px"></a></li>';
     }
 }
