@@ -3,18 +3,11 @@
 require "autoload.php";
 require "pdfcrowd.php";
 
-var_dump($_GET);
 
 if (sizeof($_GET) == 2) {
     calculCost($_GET['id'], $_GET['type'], false);
 }
 
-
-// if (isset($_GET['function'])) {
-//     if ($_GET['function'] == 'calculCost') {
-//         calculCost($_GET['id'], $_GET['type'], $_GET['bool']);
-//     }
-// }
 
 function calculCost($id, $type, $bool)
 {
@@ -74,7 +67,7 @@ function calculCost($id, $type, $bool)
 
 function createFacture($data, $id, $type)
 {
-    
+
 
     $PrevoirOp = new Prévoir_OpDAO(MaBD::getInstance());
     $RealiserOp = new Réaliser_OpDAO(MaBD::getInstance());
@@ -161,19 +154,3 @@ function createFacture($data, $id, $type)
 }
 ?>
 
-<!-- 
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-
-<body>
-    <button onclick="calculCost(1, 'facture', true)">Cliquez ici</button>
-</body>
-
-</html> -->
