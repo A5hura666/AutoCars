@@ -12,6 +12,8 @@ $TheOperation = new OperationDAO(MaBD::getInstance());
 $Theentredeux = new entredeuxDAO(MaBD::getInstance());
 $TheArticle = new ArticleDAO(MaBD::getInstance());
 $TheInterv = new Dde_InterventionDAO(MaBD::getInstance());
+$TheFacture = new FactureDAO(MaBD::getInstance());
+$TheDevis = new DevisDAO(MaBD::getInstance());
 
 //Session pour les opérations et calcul du prix total
 $prix = 0;
