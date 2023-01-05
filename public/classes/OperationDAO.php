@@ -2,6 +2,7 @@
 
 class OperationDAO extends DAO
 {
+    public int $lastIdOp = -1;
 
     public function getOne(int|string $id): array|object
     {
@@ -35,6 +36,7 @@ class OperationDAO extends DAO
             . " VALUES (?,?,?)");
         $res = $stmt->execute([$obj->getCodeTarif(), $obj->getLibelleOp(), $obj->getDureeOp()]);
         $obj->id = $this->pdo->lastInsertId();
+        $this->lastIdOp = $this->pdo->lastInsertId();
         return $res;
     }
 
