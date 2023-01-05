@@ -5,7 +5,7 @@ class Prévoir_OpDAO extends DAO
 
     public function getOne(int|string $id): array|object
     {
-        $stmt = $this->pdo->prepare("SELECT * FROM Prévoir_Op WHERE CodeOp = ?");
+        $stmt = $this->pdo->prepare("SELECT * FROM Prévoir_Op WHERE NoDevis = ?");
         $stmt->execute([$id]);
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
         return new Prévoir_Op($row['CodeOp'], $row['NoDevis']);
