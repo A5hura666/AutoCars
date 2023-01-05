@@ -45,6 +45,9 @@ if(isset($_POST['km_actu'])){
 
 if (isset($_POST['operator']) && !empty($_POST['operator'])){
     $_SESSION['operator'] = $_POST['operator'];
+    $Nom = explode(' ',$_SESSION['operator']);
+    $lName=$Nom[0];
+    $fName=$Nom[1];
 }
 
 $temps = $temps->format('H:i');
@@ -52,30 +55,29 @@ $temps = explode(':', $temps);
 $hour = $temps[0];
 $min = $temps[1];
 
-
 if (isset($_POST["sub"])) {
     date_default_timezone_set('Europe/Paris');
-    $date = date('d-m-y h:i:s');
-    $date = explode(' ',$date);
-    $horaire = $date[1];
-    $date = $date[0];
+
+    $date = new DateTime();
+    $date = $date->format('Y-m-d');
+    $horaire = new DateTime();
+    $horaire = $horaire->format('H:i:s');
 
 
-    $facture = new Facture(DAO::UNKNOWN_ID,"",20,0,"En attente");
-    $interv = new Dde_Intervention(DAO::UNKNOWN_ID,$TheVehicule->getByIdClient($_COOKIE['clientid'])->getNoImmatriculation(),$TheUser->getOne($_SESSION['operator'])->getIdUser(),$_COOKIE['clientid'],$date,$horaire,"",$_SESSION['km_actu'],"En attente");
+    $facture = new Facture(DAO::UNKNOWN_ID,$date,20,0,"En attente");
+    $interv = new Dde_Intervention(DAO::UNKNOWN_ID,$TheVehicule->getByIdClient($_COOKIE['clientid'])->getNoImmatriculation(),$TheUser->getOneByName($lName,$fName)->getIdUser(),$_COOKIE['clientid'],$date,$horaire,"",$_SESSION['km_actu'],"En attente");
     $TheInterv->insert($interv);
     $TheFacture->insert($facture);
-    if($TheFacture->lastIdFact!=-1 && $TheInterv->lastIdInterv!=-1){
-        $devis = new Devis(DAO::UNKNOWN_ID,$TheFacture->lastIdFact,$TheInterv->lastIdInterv,$date,$prix,$facture->getTauxTVA(),$_SESSION['dateestime']);
-        $TheDevis->insert($devis);
-    }
-    if ($TheDevis->lastIdDevis!=-1){
-        $reaOp = new Réaliser_Op($TheFacture->lastIdFact,$TheOperation->lastIdOp);
-        $preOP = new Prévoir_Op($TheOperation->lastIdOp,$TheDevis->lastIdDevis);
-        $ThePreOp->insert($preOP);
-        $TheReaOp->insert($reaOp);
-        $factureup = new Facture($TheFacture->lastIdFact,"",20,$prix,"En attente");
-    }
+    $devis = new Devis(DAO::UNKNOWN_ID,$facture->getNoFacture(),$interv->getNumDde(),$date,$prix,$facture->getTauxTVA(),$_SESSION['dateestime']);
+    $TheDevis->insert($devis);
+
+        foreach ($_SESSION['operation'] as $op) {
+            $reaOp = new Réaliser_Op($facture->getNoFacture(), $TheOperation->getOneByLibOP($op)->getCodeOp());
+            $preOP = new Prévoir_Op($TheOperation->getOneByLibOP($op)->getCodeOp(), $devis->getNoDevis());
+            $ThePreOp->insert($preOP);
+            $TheReaOp->insert($reaOp);
+        }
+    $factureup = new Facture($facture->getNoFacture(),"",20,$prix*1.2,"En attente");
 
 
 

@@ -35,8 +35,7 @@ class OperationDAO extends DAO
         $stmt = $this->pdo->prepare("INSERT INTO Operation (CodeTarif, LibelleOp, DureeOp)"
             . " VALUES (?,?,?)");
         $res = $stmt->execute([$obj->getCodeTarif(), $obj->getLibelleOp(), $obj->getDureeOp()]);
-        $obj->id = $this->pdo->lastInsertId();
-        $this->lastIdOp = $this->pdo->lastInsertId();
+        $obj->setCodeOp($this->pdo->lastInsertId());
         return $res;
     }
 

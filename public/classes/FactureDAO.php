@@ -2,8 +2,6 @@
 
 class FactureDAO extends DAO
 {
-    public int $lastIdFact=-1;
-
     public function getOne(int|string $id): array|object
     {
         $stmt = $this->pdo->prepare("SELECT * FROM Facture WHERE NoFacture = ?");
@@ -25,11 +23,10 @@ class FactureDAO extends DAO
 
     public function insert(object $obj): int
     {
-        $stmt = $this->pdo->prepare("INSERT INTO Facture (NoFacture,DateFacture,TauxTVA, NetAPayer,EtatFacture)"
-            . " VALUES (?,?,?,?,?)");
-        $res = $stmt->execute([$obj->getNoFacture(), $obj->getDateFacture(), $obj->getTauxTVA(), $obj->getNetAPayer(), $obj->getEtatFacture()]);
-        $obj->id = $this->pdo->lastInsertId();
-        $this->lastIdFact=$this->pdo->lastInsertId();
+        $stmt = $this->pdo->prepare("INSERT INTO Facture (DateFacture,TauxTVA, NetAPayer,EtatFacture)"
+            . " VALUES (?,?,?,?)");
+        $res = $stmt->execute([$obj->getDateFacture(), $obj->getTauxTVA(), $obj->getNetAPayer(), $obj->getEtatFacture()]);
+        $obj->setNoFacture($this->pdo->lastInsertId());
         return $res;
     }
 

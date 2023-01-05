@@ -35,9 +35,8 @@ class Dde_InterventionDAO extends DAO
     {
         $stmt = $this->pdo->prepare("INSERT INTO DDE_Intervention (NoImmatriculation,IdOpérateur,CodeClient, DateRdv,HeureRdv,Descriptif_demande,km_actuel,EtatDemande)"
             . " VALUES (?,?,?,?,?,?,?,?)");
-        $res = $stmt->execute([$obj->getNumDde(), $obj->getNoImmatriculation(), $obj->getIdOpérateur(), $obj->getCodeClient(), $obj->getDateRdv(),$obj->getHeureRdv(),$obj->getDescriptifDemande(),$obj->getKmActuel(),$obj->getEtatDemande()]);
-        $obj->id = $this->pdo->lastInsertId();
-        $this->lastIdInterv=$this->pdo->lastInsertId();
+        $res = $stmt->execute([$obj->getNoImmatriculation(), $obj->getIdOpérateur(), $obj->getCodeClient(), $obj->getDateRdv(),$obj->getHeureRdv(),$obj->getDescriptifDemande(),$obj->getKmActuel(),$obj->getEtatDemande()]);
+        $obj->setNumDde($this->pdo->lastInsertId());
         return $res;
     }
 

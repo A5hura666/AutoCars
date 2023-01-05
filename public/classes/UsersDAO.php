@@ -23,6 +23,13 @@ class UsersDAO extends DAO
         return $res;
     }
 
+    public function getOneByName(string $LastName, string $FirstName): Users{
+        $stmt = $this->pdo->prepare("SELECT * FROM UserRole WHERE LastName = ? and FirstName = ?");
+        $stmt->execute([$LastName,$FirstName]);
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+        return  new Users($row['idUser'], $row['LastName'], $row['FirstName'], $row['Role'], $row['Login'], $row['Password']);
+    }
+
     public function getAllOperator(): array
     {
         /** @var Users[] $res */
