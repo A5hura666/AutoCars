@@ -82,20 +82,34 @@ function createFacture($data, $id, $type)
             $date = $Facture->getOne($RealiserOp->getOne($id)->getNoFacture())->getDateFacture();
 
             $nofacture = $RealiserOp->getOne($id)->getNoFacture();
-            $noDDE = $Facture->getOne($nofacture)->get();
-            $noClient = $DDE->getOne($noDDE)->getNoClient();
-            $clientName = $Client->getOne($noClient)->getNomClient();
+            $listDevis = $Devis->getAll();
+            foreach ($listDevis as $devis) {
+                if ($devis->getNoFacture() == $nofacture) {
+                    $noDDE = $DDE->getOne($devis->getNoDevis());
+                }
+            }
+            $detailsClient = $Client->getOne($noDDE->getCodeClient());
+            $fname = $detailsClient->getFirstName();
+            $lname = $detailsClient->getLastName();
+
 
         } 
         else if ($type == "devis") {
-            // $date = $Facture->getOne($Devis->getOne($PrevoirOp->getOne($id)->getNoDevis())->getNoFacture())->getDateFacture();
+            $date = $Devis->getOne($PrevoirOp->getOne($id)->getNoDevis())->getDateDevis();
+
+            $noDDE = $DDE->getOne($PrevoirOp->getOne($id)->getNoDevis());
+            $detailsClient = $Client->getOne($noDDE->getCodeClient());
+            $fname = $detailsClient->getFirstName();
+            $lname = $detailsClient->getLastName();
+
+            
         }
 
 
 
         $htmlcode = "<!DOCTYPE html><head><meta charset='UTF-8'></head><body><h1 style='text-align: center;'>~ Facture  ~</h1><br>";
 
-        $htmlcode .= "<p><strong>" . $clientName . ",</strong><br>Voici votre facture du " . $date . ".</p><br>";
+        $htmlcode .= "<p><strong>" . $fname . " " . $lname . ",</strong><br>Voici votre facture du " . $date . ".</p><br>";
 
         $htmlcode .= "<h2>Montant total</h2><p>" . $data["total"] . "€</p><br>";
         $htmlcode .= "<h2>Liste des opérations effectuées</h2><ul>";
