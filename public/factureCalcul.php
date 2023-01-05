@@ -4,7 +4,8 @@ require "autoload.php";
 require "pdfcrowd.php";
 
 
-function calculCost($id, $type, $bool){
+function calculCost($id, $type, $bool)
+{
     $rescalcul = [];
 
     $PrevoirOp = new Prévoir_OpDAO(MaBD::getInstance());
@@ -55,42 +56,59 @@ function calculCost($id, $type, $bool){
     if ($bool) {
         return $rescalcul;
     } else {
-        createFacture($rescalcul);
+        createFacture($rescalcul, $id, $type);
     }
-
 }
 
 
-function createFacture($data)
+function createFacture($data, $id, $type)
 {
+
+    $PrevoirOp = new Prévoir_OpDAO(MaBD::getInstance());
+    $RealiserOp = new Réaliser_OpDAO(MaBD::getInstance());
+
+
     if (file_exists('facture.html')) {
+
+        $clientName = "test";
+        $date = "22/02/2021";
+
 
         $htmlcode = "<!DOCTYPE html><head><meta charset='UTF-8'></head><body><h1 style='text-align: center;'>Facture</h1><br>";
 
+        $htmlcode .= "<p><strong>" . $clientName . ",</strong><br>Voici votre facture du " . $date . ".</p><br>";
 
-        
-        // $handle = fopen('facture.html', 'w+');
-        // fwrite($handle, "<div>test</div><br><p>test</p>");
-        // fclose($handle);
+        $htmlcode .= "<h2>Montant total</h2><p>" . $data["total"] . "€</p><br>";
+        $htmlcode .= "<h2>Liste des opérations effectuées</h2><ul>";
+        foreach ($data["operations"] as $operation) {
+            $htmlcode .= "<li>" . $operation["nom"] . " : <strong>" . $operation["prix"] . "€</strong></li>";
+        }
+        $htmlcode .= "</ul></body></html>";
 
 
 
-        // try {
-        //     // create the API client instance
-        //     $client = new \Pdfcrowd\HtmlToPdfClient("autocars", "3117be013b8ead56672293cfc9cc62ea");
+        $handle = fopen('facture.html', 'w+');
+        fwrite($handle, $htmlcode);
+        fclose($handle);
 
-        //     // run the conversion and write the result to a file
-        //     $client->convertFileToFile("facture.html", "facture.pdf");
 
-        //     // redirect to facture.pdf
-        //     header('Location: facture.pdf');
-        // } catch (\Pdfcrowd\Error $why) {
-        //     // report the error
-        //     error_log("Pdfcrowd Error: {$why}\n");
 
-        //     // rethrow or handle the exception
-        //     throw $why;
-        // }
+        try {
+            // create the API client instance
+            $client = new \Pdfcrowd\HtmlToPdfClient("autocars", "3117be013b8ead56672293cfc9cc62ea");
+
+            // run the conversion and write the result to a file
+            $client->convertFileToFile("facture.html", "facture.pdf");
+
+            // redirect to facture.pdf
+            header('Location: facture.pdf');
+        } catch (\Pdfcrowd\Error $why) {
+            // report the error
+            error_log("Pdfcrowd Error: {$why}\n");
+
+            // rethrow or handle the exception
+            throw $why;
+        }
     } else {
         echo 'Le fichier n\'existe pas';
     }
@@ -110,7 +128,7 @@ function createFacture($data)
 
 <body>
     <?php
-    calculCost(2, "devis", true);
+    calculCost(2, "devis", false);
     ?>
 </body>
 
