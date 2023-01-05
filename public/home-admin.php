@@ -3,9 +3,7 @@ session_start();
 require_once "autoload.php";
 require "checkAccess.php";
 
-checkAccess("Administrateur")
-
-
+checkAccess("Administrateur");
 
 ?>
 
@@ -24,7 +22,7 @@ checkAccess("Administrateur")
             <div> <a href="home-admin.php">Accueil</a>
                 <div class="dropdown-content"></div>
             </div>
-            <div><a href="creer-utilisateur">Créer un utilisateur</a>
+            <div><a href="creer-utilisateur.php">Créer un utilisateur</a>
                 <div class="dropdown-content"></div>
             </div>
             <div><a href="statistiques.php">Statistiques</a>
