@@ -57,7 +57,7 @@ if (isset($_POST["QuantiteArt"]) && !empty($_POST["QuantiteArt"])) {
     array_push($_SESSION["QuantiteArt"], $_POST["QuantiteArt"]);
 }
 
-function formFilling(string $sessionName,int $number,string $type ,string $name, string $placeholder): void
+function formFillingOperation(string $sessionName, int $number, string $type , string $name, string $placeholder): void
 {
     if (isset($_SESSION[$sessionName][$number]) && !empty($_SESSION[$sessionName][$number])) {
         $value = $_SESSION[$sessionName][$number];
@@ -124,15 +124,15 @@ if (isset($_POST["listeArticles"]) && !empty($_POST["listeArticles"])){
                     <div class="operationdetails">
                         <h3>Détails de l'opération</h3>
                         <label for="LibelleOp">Nom</label>
-                        <?php formFilling("CreationOp",0,"text", "LibelleOp", "Changement pneu"); ?>
+                        <?php formFillingOperation("CreationOp",0,"text", "LibelleOp", "Changement pneu"); ?>
 <!--                        <input class="LibelleOp" id="LibelleOp" name="LibelleOp" type="text" placeholder="Changement peneux" required="required" />-->
                         <label for="CodeTarif">Prix (en €)</label>
                         <?php
-                        formFilling("CreationOp",1,"number", "CodeTarif", "100");
+                        formFillingOperation("CreationOp",1,"number", "CodeTarif", "100");
                         ?>
 <!--                        <input class="CodeTarif" id="CodeTarif" name="CodeTarif" type="number" placeholder="100" required="required" />-->
                         <label for="DureeOp">Durée (en minutes)</label>
-                        <?php formFilling("CreationOp",2,"number", "DureeOp", "30"); ?>
+                        <?php formFillingOperation("CreationOp",2,"number", "DureeOp", "30"); ?>
 <!--                        <input class="DureeOp" id="DureeOp" name="DureeOp" type="number" placeholder="30" required="required" />-->
                     </div>
                     <div class="necessaryarticles">
