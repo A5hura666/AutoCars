@@ -28,18 +28,19 @@ function etatRdvForDevis(string $etat, string $emoji): void
 {
     $Dde_Intervention = new Dde_InterventionDAO(MaBD::getInstance());
     $TheClients = new ClientsDAO(MaBD::getInstance());
-    $id = 1;
-    $type = "devis";
-    $bool = false;
     $TheDevis = new DevisDAO(MaBD::getInstance());
+
+    $type = "devis";
+    $bool = "false";
 
     echo '<label>' . $etat . '</label>';
     foreach ($Dde_Intervention->getAllByEtat($_SESSION["etat"]) as $dde_Intervention) {
         $numDde = $dde_Intervention->getNumDde();
         $devis = $TheDevis->getOne($numDde);
+        $id = $devis->getNoDevis();
         $infoOperateur = $TheClients->getOne($dde_Intervention->getCodeClient());
         $rescalcul=calculCost($dde_Intervention->getNumDde(),"devis",true);
-        echo '<li>' . $emoji . '<p>'.$dde_Intervention->getNumDde() ." " . $infoOperateur->getFirstName() . " " . $infoOperateur->getLastName() . '</p><span>'.$rescalcul["total"]."€".'</span><span>' . $devis->getEstimationFin() . '</span>
+        echo '<li><p id="id_devis" hidden>'.$id.'</p>' . $emoji . '<p>'.$dde_Intervention->getNumDde() ." " . $infoOperateur->getFirstName() . " " . $infoOperateur->getLastName() . '</p><span>'.$rescalcul["total"]."€".'</span><span>' . $devis->getEstimationFin() . '</span>
         <btn onclick="f('.$id.','.$type.','.$bool.')"><img src="https://cdn.freebiesupply.com/logos/large/2x/adobe-pdf-icon-logo-png-transparent.png" width="20px"></btn>></li>';
     }
 }
@@ -50,14 +51,18 @@ function etatAllRdvForDevis(string $etat, string $emoji): void
     $TheClients = new ClientsDAO(MaBD::getInstance());
     $TheDevis = new DevisDAO(MaBD::getInstance());
 
+    $type = "devis";
+    $bool = false;
+
     echo '<label>' . $etat . '</label>';
     foreach ($Dde_Intervention->getAllByEtat($etat) as $dde_Intervention) {
         $numDde = $dde_Intervention->getNumDde();
         $devis = $TheDevis->getOne($numDde);
+        $id = $devis->getNoDevis();
         $infoOperateur = $TheClients->getOne($dde_Intervention->getCodeClient());
         $rescalcul=calculCost($dde_Intervention->getNumDde(), "devis",true);
-        echo '<li>' . $emoji . '<p>'.$dde_Intervention->getNumDde() ." " . $infoOperateur->getFirstName() . " " . $infoOperateur->getLastName() . '</p><span>'.$rescalcul["total"]."€".'</span><span>' . $devis->getEstimationFin() . '</span>
-        <a href="#"><img src="https://cdn.freebiesupply.com/logos/large/2x/adobe-pdf-icon-logo-png-transparent.png" width="20px"></a></li>';
+        echo '<li><p id="id_devis" hidden>'.$id.'</p>' . $emoji . '<p>'.$dde_Intervention->getNumDde() ." " . $infoOperateur->getFirstName() . " " . $infoOperateur->getLastName() . '</p><span>'.$rescalcul["total"]."€".'</span><span>' . $devis->getEstimationFin() . '</span>
+        <btn onclick="f('.$id.','.$type.','.$bool.')"><img src="https://cdn.freebiesupply.com/logos/large/2x/adobe-pdf-icon-logo-png-transparent.png" width="20px"></btn></li>';
     }
 }
 
@@ -194,6 +199,7 @@ function etatAllRdvForFacture(string $etat, string $emoji): void
                 </div>
                 <div class="interface-big">
                     <h3>Liste des rendez-vous (Devis)</h3>
+                    <button onclick="f(1,'devis',false)">click</button>
                     <ul class="list">
                         <?php
                         if (isset($_SESSION["etat"]) && $_SESSION["etat"] == "En attente") {
