@@ -18,16 +18,27 @@ if(isset($_POST["etat"])){
 
 //fonction de trie rdv
 
-function etatRdv(string $etat,string $emoji):void{
+function etatRdv(string $etat,string $emoji):void
+{
     $Dde_Intervention = new Dde_InterventionDAO(MaBD::getInstance());
     $TheClients = new ClientsDAO(MaBD::getInstance());
 
-    if(isset($_SESSION["etat"]) && $_SESSION["etat"]==$etat){
-        echo '<label>'.$etat.'</label>';
-        foreach ($Dde_Intervention->getAllByEtat($_SESSION["etat"]) as $dde_Intervention){
-            $infoOperateur = $TheClients->getOne($dde_Intervention->getCodeClient());
-            echo '<li> '.$emoji.' <p>'.$infoOperateur->getFirstName()." ".$infoOperateur->getLastName() .'</p> <span>200€</span><span>12/01/2023</span><img src="https://cdn.freebiesupply.com/logos/large/2x/adobe-pdf-icon-logo-png-transparent.png" width="20px"></li>';
-        }
+    echo '<label>' . $etat . '</label>';
+    foreach ($Dde_Intervention->getAllByEtat($_SESSION["etat"]) as $dde_Intervention) {
+        $infoOperateur = $TheClients->getOne($dde_Intervention->getCodeClient());
+        echo '<li>'.$emoji.'<p>'.$infoOperateur->getFirstName()." ".$infoOperateur->getLastName().'</p><span>200€</span><span>12/01/2023</span><img src="https://cdn.freebiesupply.com/logos/large/2x/adobe-pdf-icon-logo-png-transparent.png" width="20px"></li>';
+    }
+}
+
+function etatAllRdv(string $etat, string $emoji):void
+{
+    $Dde_Intervention = new Dde_InterventionDAO(MaBD::getInstance());
+    $TheClients = new ClientsDAO(MaBD::getInstance());
+
+    echo '<label>' . $etat . '</label>';
+    foreach ($Dde_Intervention->getAllByEtat($etat) as $dde_Intervention) {
+        $infoOperateur = $TheClients->getOne($dde_Intervention->getCodeClient());
+        echo '<li> ' . $emoji . ' <p>' . $infoOperateur->getFirstName() . " " . $infoOperateur->getLastName() . '</p> <span>200€</span><span>12/01/2023</span><img src="https://cdn.freebiesupply.com/logos/large/2x/adobe-pdf-icon-logo-png-transparent.png" width="20px"></li>';
     }
 }
 ?>
@@ -114,13 +125,12 @@ function etatRdv(string $etat,string $emoji):void{
                         <div>
                             <label for="etat">Etat</label>
                             <select name="etat" id="etat">
+                                <option  value="Choisir etat" selected disabled>Choisir etat</option>
                                 <?php
                                 if(isset($_SESSION['etat'])){
                                     foreach ($TabEtat as $etat){
                                         echo '<option value="'.$etat.'"> '.$etat.' </option>';
                                     }
-                                }else{
-                                    echo '<option value="'.$TabEtat[0].'" > '.$TabEtat[0].' </option>';
                                 }
                                 ?>
                             </select>
@@ -131,48 +141,28 @@ function etatRdv(string $etat,string $emoji):void{
                     <h3>Liste des rendez-vous</h3>
                     <ul class="list">
                         <?php
-                        etatRdv("En attente",'🚧');
-                        etatRdv("En cours",'⏳');
-                        etatRdv("Terminé",'✅');
-                        etatRdv("Annulé",'❌');
+                        if (isset($_SESSION["etat"]) && $_SESSION["etat"] == "En attente") {
+                            etatRdv("En attente",'🚧');}
+                        if (isset($_SESSION["etat"]) && $_SESSION["etat"] == "En cours") {
+                            etatRdv("En cours",'⏳');}
+                        if (isset($_SESSION["etat"]) && $_SESSION["etat"] == "Terminé") {
+                            etatRdv("Terminé",'✅');}
+                        if (isset($_SESSION["etat"]) && $_SESSION["etat"] == "Annulé") {
+                            etatRdv("Annulé",'❌');}
 
                         if (isset($_SESSION["etat"]) && $_SESSION["etat"] == "Tous") {
-                            echo '<label>Annulé</label>';
-                            foreach ($Dde_Intervention->getAllByEtat($_SESSION["etat"]) as $dde_Intervention) {
-                                $infoOperateur = $TheUsers->getOne($dde_Intervention->getIdOpérateur());
-                                echo '<li> ❌ <p>' . $infoOperateur->getFirstName() . " " . $infoOperateur->getLastName() . '</p> <span>200€</span><span>12/01/2023</span><img src="https://cdn.freebiesupply.com/logos/large/2x/adobe-pdf-icon-logo-png-transparent.png" width="20px"></li>';
-                            }
+                            etatAllRdv("En attente",'🚧');
+                            etatAllRdv("En cours",'⏳');
+                            etatAllRdv("Terminé",'✅');
+                            etatAllRdv("Annulé",'❌');
                         }
                         ?>
-<!--                        <label>En cours</label>-->
-<!--                        <li> 🚧 <p>Duchemin Martin</p> <span>200€</span><span>12/01/2023</span><img src="https://cdn.freebiesupply.com/logos/large/2x/adobe-pdf-icon-logo-png-transparent.png" width="20px"></li>-->
-<!--                        <li> 🚧 <p>Martin Jean</p> <span>139€</span><span>01/02/2023</span><img src="https://cdn.freebiesupply.com/logos/large/2x/adobe-pdf-icon-logo-png-transparent.png" width="20px"></li>-->
-<!--                        <li> 🚧 <p>Durant Clara</p> <span>984€</span><span>05/02/2023</span><img src="https://cdn.freebiesupply.com/logos/large/2x/adobe-pdf-icon-logo-png-transparent.png" width="20px"></li>-->
-<!---->
-<!--                        <label>En attente</label>-->
-<!--                        <li> ⏳ <p>Duchemin Martin</p> <span>200€</span><span>12/02/2023</span><img src="https://cdn.freebiesupply.com/logos/large/2x/adobe-pdf-icon-logo-png-transparent.png" width="20px"></li>-->
-<!--                        <li> ⏳ <p>Martin Jean</p> <span>139€</span><span>16/02/2023</span><img src="https://cdn.freebiesupply.com/logos/large/2x/adobe-pdf-icon-logo-png-transparent.png" width="20px"></li>-->
-<!--                        <li> ⏳ <p>Durant Clara</p> <span>984€</span><span>22/02/2023</span><img src="https://cdn.freebiesupply.com/logos/large/2x/adobe-pdf-icon-logo-png-transparent.png" width="20px"></li>-->
-<!---->
-<!--                        <label>Terminé</label>-->
-<!--                        <li> ✅ <p>Duchemin Martin</p> <span>200€</span><span>20/12/2022</span><img src="https://cdn.freebiesupply.com/logos/large/2x/adobe-pdf-icon-logo-png-transparent.png" width="20px"></li>-->
-<!--                        <li> ✅ <p>Martin Jean</p> <span>139€</span><span>18/12/2022</span><img src="https://cdn.freebiesupply.com/logos/large/2x/adobe-pdf-icon-logo-png-transparent.png" width="20px"></li>-->
-<!--                        <li> ✅ <p>Durant Clara</p> <span>984€</span><span>12/12/2022</span><img src="https://cdn.freebiesupply.com/logos/large/2x/adobe-pdf-icon-logo-png-transparent.png" width="20px"></li>-->
-<!---->
-<!--                        <label>Annulé</label>-->
-<!--                        <li> ❌ <p>Duchemin Martin</p> <span>200€</span><span>12/02/2023</span><img src="https://cdn.freebiesupply.com/logos/large/2x/adobe-pdf-icon-logo-png-transparent.png" width="20px"></li>-->
-<!--                        <li> ❌ <p>Martin Jean</p> <span>139€</span><span>11/09/2021</span><img src="https://cdn.freebiesupply.com/logos/large/2x/adobe-pdf-icon-logo-png-transparent.png" width="20px"></li>-->
-<!--                        <li> ❌ <p>Durant Clara</p> <span>984€</span><span>31/10/2022</span><img src="https://cdn.freebiesupply.com/logos/large/2x/adobe-pdf-icon-logo-png-transparent.png" width="20px"></li>-->
-
                     </ul>
                 </div>
                 </form>
             </aside>
         </section>
     </main>
-
-
-
 
     <script src="js/script.js"></script>
 </body>
