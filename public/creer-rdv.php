@@ -35,14 +35,15 @@ if (isset($_SESSION['operation'])) {
         }
     }
 }
+//Date d'estimation de fin de manoeuvre.
 if (isset($_POST['dateestime']) && !empty($_POST['dateestime'])) {
     $_SESSION['dateestime'] = $_POST['dateestime'];
 }
-
+//Kilométrage du véhicule lors de la prise de RDV.
 if (isset($_POST['km_actu'])) {
     $_SESSION['km_actu'] = $_POST['km_actu'];
 }
-
+//Nom et prénom de l'opérateur en charge de l'opération à effectuer.
 if (isset($_POST['operator']) && !empty($_POST['operator'])) {
     $_SESSION['operator'] = $_POST['operator'];
     $Nom = explode(' ', $_SESSION['operator']);

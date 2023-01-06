@@ -27,12 +27,12 @@ function openclient(){
     document.querySelector('.client-full').classList.remove('hidden')
 }
 
-const facture = document.querySelector('.facture');
-facture.addEventListener('click', openfacture);
+// const facture = document.querySelector('.facture');
+// facture.addEventListener('click', openfacture);
 
-function openfacture(){
-    document.querySelector('.facture-full').classList.remove('hidden')
-}
+// function openfacture(){
+//     document.querySelector('.facture-full').classList.remove('hidden')
+// }
 
 // const piece = document.querySelector('.piece');
 // piece.addEventListener('click', openpiece);

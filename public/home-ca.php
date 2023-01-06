@@ -48,11 +48,7 @@ unset($_SESSION['operation']);
 
 
             <div>
-                <a href="#">Factures</a>
-                <div class="dropdown-content">
-                    <a href="creer-rdv.php">Créer une facture</a>
-                    <a href="liste-rdv.php">Gestion des factures</a>
-                </div>
+                <a href="liste-rdv.php">Factures</a>
             </div>
 
 
@@ -74,6 +70,7 @@ unset($_SESSION['operation']);
         </section>
     </nav>
 
+    
     <main class="menu">
 
         <article class="btn-menu rdv">
@@ -86,11 +83,17 @@ unset($_SESSION['operation']);
             <h3>Clients et Véhicules</h3>
         </article>
 
-        <article class="btn-menu facture">
+        <!-- <article class="btn-menu facture">
             <img src="img/factures.png" alt="Factures">
             <h3>Factures</h3>
-        </article>
+        </article> -->
 
+        </a><a href="liste-rdv.php">
+            <article class="btn-menu facture">
+                <img src="img/factures.png" alt="Factures">
+                <h3>Factures</h3>
+            </article>
+        </a>
 
 
         </a><a href="consulter-pieces.php">
@@ -147,7 +150,7 @@ unset($_SESSION['operation']);
         <button class="back">✖</button>
     </section>
 
-    <section class="popupmenu facture-full hidden">
+    <!-- <section class="popupmenu facture-full hidden">
         <main class="menu">
             <a href="creer-rdv.php">
                 <article class="btn-menu client">
@@ -164,7 +167,7 @@ unset($_SESSION['operation']);
             </a>
         </main>
         <button class="back">✖</button>
-    </section>
+    </section> -->
 
     <!-- <section class="popupmenu pieces-full hidden">
         <main class="menu">

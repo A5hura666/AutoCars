@@ -26,7 +26,6 @@ if (isset($_POST['createOperation'])) {
         for ($i=0;$i<$lenLessTab;$i++){
             $newEntredeux =new entredeux($theOperations->lastIdOp,(int) $_SESSION["codeArticle"][$i],(int) $_SESSION["QuantiteArt"][$i]);
             $theEntredeux->insert($newEntredeux);
-            //var_dump($newEntredeux);
         }
     }
 } else {
@@ -54,6 +53,7 @@ if (isset($_POST["QuantiteArt"]) && !empty($_POST["QuantiteArt"])) {
     array_push($_SESSION["QuantiteArt"], $_POST["QuantiteArt"]);
 }
 
+//On remplit le formulaire sur l'opération actuelle.
 function formFillingOperation(string $sessionName, int $number, string $type , string $name, string $placeholder): void
 {
     if (isset($_SESSION[$sessionName][$number]) && !empty($_SESSION[$sessionName][$number])) {

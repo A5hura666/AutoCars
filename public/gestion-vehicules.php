@@ -58,11 +58,7 @@ if (isset($_POST["marque"])) {
 
 
             <div>
-                <a href="#">Factures</a>
-                <div class="dropdown-content">
-                    <a href="creer-rdv.php">Créer une facture</a>
-                    <a href="liste-rdv.php">Gestion des factures</a>
-                </div>
+                <a href="liste-rdv.php">Factures</a>
             </div>
 
 

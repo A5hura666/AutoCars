@@ -152,11 +152,7 @@ function etatAllRdvForFacture(string $etat, string $emoji): void
 
 
             <div>
-                <a href="#">Factures</a>
-                <div class="dropdown-content">
-                    <a href="creer-rdv.php">Créer une facture</a>
-                    <a href="liste-rdv.php">Gestion des factures</a>
-                </div>
+                <a href="liste-rdv.php">Factures</a>
             </div>
 
 
@@ -176,7 +172,7 @@ function etatAllRdvForFacture(string $etat, string $emoji): void
                 <img class="logout" src="img/logout.png" alt="Déconnexion" />
             </a>
         </section>
-    </nav>
+    </nav>  
 
     <main class="interface">
         <h2 style="padding-top: 500px">Gestion rendez-vous</h2>

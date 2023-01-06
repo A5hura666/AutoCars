@@ -27,8 +27,8 @@ function cherche(array $tabArticle): array
     } else {
         $search_article = "";
     }
-// Pour chaque article du tableau on va comparer son libellé avec la recherche
-// pour trouver une correspondance.
+    // Pour chaque article du tableau on va comparer son libellé avec la recherche
+    // pour trouver une correspondance.
     foreach ($tabArticle as $key => $article) {
         if (strstr($article['LibelleArticle'], $search_article)) {
             array_push($res, $key);
@@ -88,11 +88,7 @@ foreach ($TheArticle->getAllSort() as $article) {
 
 
             <div>
-                <a href="#">Factures</a>
-                <div class="dropdown-content">
-                    <a href="creer-rdv.php">Créer une facture</a>
-                    <a href="gestion-factures.php">Gestion des factures</a>
-                </div>
+                <a href="liste-rdv.php">Factures</a>
             </div>
 
 
