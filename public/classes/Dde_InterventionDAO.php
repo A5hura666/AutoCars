@@ -57,7 +57,7 @@ class Dde_InterventionDAO extends DAO
 
     public function insert(object $obj): int
     {
-        $stmt = $this->pdo->prepare("INSERT INTO DDE_Intervention (NoImmatriculation,IdOpérateur,CodeClient, DateRdv,HeureRdv,Descriptif_demande,km_actuel,EtatDemande)"
+        $stmt = $this->pdo->prepare("INSERT INTO DDE_Intechangesrvention (NoImmatriculation,IdOpérateur,CodeClient, DateRdv,HeureRdv,Descriptif_demande,km_actuel,EtatDemande)"
             . " VALUES (?,?,?,?,?,?,?,?)");
         $res = $stmt->execute([$obj->getNoImmatriculation(), $obj->getIdOpérateur(), $obj->getCodeClient(), $obj->getDateRdv(),$obj->getHeureRdv(),$obj->getDescriptifDemande(),$obj->getKmActuel(),$obj->getEtatDemande()]);
         $obj->setNumDde($this->pdo->lastInsertId());
