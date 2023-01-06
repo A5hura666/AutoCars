@@ -3,8 +3,9 @@
 class Dde_InterventionDAO extends DAO
 {
     public int $lastIdInterv;
+
     //Pour le chef d'atelier accès aux rdv
-    public function getOne(int|string $id): array|object
+    public function getOne(int|string $id): Dde_Intervention
     {
         $stmt = $this->pdo->prepare("SELECT * FROM DDE_Intervention WHERE NumDde = ?");
         $stmt->execute([$id]);
@@ -13,7 +14,7 @@ class Dde_InterventionDAO extends DAO
     }
 
     //Pour l'opérateur voit les rdv assignés
-    public function getOneByOp(int|string $id): array|object
+    public function getOneByOp(int|string $id): Dde_Intervention
     {
         $stmt = $this->pdo->prepare("SELECT * FROM DDE_Intervention WHERE IdOpérateur = ?");
         $stmt->execute([$id]);

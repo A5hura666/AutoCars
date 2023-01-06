@@ -24,9 +24,8 @@ function etatRdv(string $etat, string $emoji): void
         if ($etat==$dde_Intervention->getEtatDemande()){
             $infoOperateur = $TheClients->getOne($dde_Intervention->getCodeClient());
             echo '<span>' . $dde_Intervention->getDateRdv() . '</span>';
-            echo '<li>' . $emoji . '<p>'.$dde_Intervention->getNumDde() ." " . $infoOperateur->getFirstName() . " " . $infoOperateur->getLastName()." - ". $dde_Intervention->getDescriptifDemande() . '</p><span></span>
-            
-            <a href="#" class="consulter">Consulter</a></li>';
+            echo '<li>' . $emoji . '<p>'.$dde_Intervention->getNumDde() ." " . $infoOperateur->getFirstName() . " " . $infoOperateur->getLastName()." - ". $dde_Intervention->getDescriptifDemande() . '</p><span></span>';
+            echo '<input type="submit" name="consulter" value="'.$dde_Intervention->getNumDde().'"></li> ';
         }
     }
 }
@@ -71,26 +70,29 @@ function etatRdv(string $etat, string $emoji): void
     </nav>
 
     <main class="interface">
+        <form method="post">
         <h2>Liste des opérations</h2>
         <section>
             <aside>
                 <div>
                     <h3>Liste des opérations</h3>
-
                     <ul class="list list-big">
                         <?php
                         etatRdv("En attente","📃");
                         etatRdv("En cours","⏳");
 
-//                        if (isset($_POST['Consulter'])) {
-//                            $_SESSION['info_clients'] = $_POST['Consulter'];
-//                        }
-//
-//                        if (isset($_SESSION['info_clients'])) {
-//                            $newClient = $TheClients->getOne($_SESSION['info_clients']);
-//                        } else {
-//                            $newClient = $TheClients->getOne($_POST['Consulter']);
-//                        }
+                        if (isset($_POST['consulter'])) {
+                            $_SESSION['info_dde'] = $_POST['consulter'];
+                        }
+
+                        if (isset($_SESSION['info_dde'])) {
+                            $DemandeInter=$Dde_Intervention->getOne($_SESSION['info_dde']);
+                            $CodeClient = $DemandeInter->getCodeClient();
+                            $newClient = $TheClients->getOne($CodeClient);
+                        } else {
+                            $DdeForOneOp=$Dde_Intervention->getOneByOp($_SESSION["idUser"]);
+                            $newClient = $TheClients->getOne($DdeForOneOp->getCodeClient());
+                        }
                         ?>
                     </ul>
                 </div>
@@ -99,26 +101,26 @@ function etatRdv(string $etat, string $emoji): void
             <div class="details">
                 <h3>Détails de l'opération</h3>
                 <div>
-                    <form class="sectiondetails">
+                    <form method="post" onchange="submit()" class="sectiondetails">
 
                         <div>
                             <label>Vehicule</label>
-<!--                            --><?php
-//                            $info_vehicule = $TheVehicule->getByIdClient($newClient->getCodeClient());
-//                            $info_modele = $Modele->getOne($info_vehicule->getNumModele())->getModèle();
-//                            $marque = $info_vehicule->getMarque();
-//                            ?>
+                            <?php
+                            $info_vehicule = $TheVehicule->getByIdClient($newClient->getCodeClient());
+                            $info_modele = $Modele->getOne($info_vehicule->getNumModele())->getModèle();
+                            $marque = $info_vehicule->getMarque();
+                            ?>
                             <div>
                                 <label for="detailsmarque">Marque</label>
-                                <input type="text" name="detailsmarque" id="detailsmarque" disabled>
+                                <input type="text" name="detailsmarque" id="detailsmarque" value="<?php echo $marque ?>" disabled>
                             </div>
                             <div>
                                 <label for="detailsmodele">Modèle</label>
-                                <input type="text" name="detailsmodele" id="detailsmodele" disabled>
+                                <input type="text" name="detailsmodele" id="detailsmodele" value="<?php echo $info_modele ?>" disabled>
                             </div>
                             <div>
                                 <label for="detailsimmatriculation">Immatriculation</label>
-                                <input type="text" name="detailsimmatriculation" id="detailsimmatriculation" disabled>
+                                <input type="text" name="detailsimmatriculation" id="detailsimmatriculation" value="<?php echo $info_vehicule->getNoImmatriculation() ?>" disabled>
                             </div>
                         </div>
 
