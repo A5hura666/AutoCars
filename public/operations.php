@@ -62,6 +62,17 @@ $etatDde = $DemandeInter->getEtatDemande();
         ,$DemandeInter->getCodeClient(),$DemandeInter->getDateRdv(),$DemandeInter->getHeureRdv(),$DemandeInter->getDescriptifDemande()
         ,$DemandeInter->getKmActuel(),$newEtatDde);
         $Dde_Intervention->update($newDdeInter);
+        var_dump($_SESSION['operation']);
+        if ($_POST['detailstate']=='Annulé'){
+            foreach ($TheReaOp->getAllByFacture($TheFacture->getOne($TheDevis->getOneByDde($newDdeInter)->getNoFacture())->getNoFacture()) as $reaOp){
+                foreach ($TheArticle->getAllFromOneRealiserOp($reaOp) as $art) {
+                    var_dump($art);
+                    $art->setQuantite($art->getQuantite() + $EntreDeux->TrueGetOne($reaOp->getCodeOp(), $art->getCodeArticle())->getQtt());
+                    $TheArticle->update($art);
+                }
+            }
+
+        }
     }
 }
 
