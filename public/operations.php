@@ -25,6 +25,7 @@ function etatRdv(string $etat, string $emoji): void
             $infoOperateur = $TheClients->getOne($dde_Intervention->getCodeClient());
             echo '<span>' . $dde_Intervention->getDateRdv() . '</span>';
             echo '<li>' . $emoji . '<p>'.$dde_Intervention->getNumDde() ." " . $infoOperateur->getFirstName() . " " . $infoOperateur->getLastName()." - ". $dde_Intervention->getDescriptifDemande() . '</p><span></span>
+            
             <a href="#" class="consulter">Consulter</a></li>';
         }
     }
