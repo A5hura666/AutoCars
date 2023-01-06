@@ -148,10 +148,26 @@ $etatDde = $DemandeInter->getEtatDemande();
                         <div>
                             <label>Opération</label>
                             <div>
+                                <div>
+                                    <label for="operationlist">Operation</label>
+                                <?php
+                                if (empty($_SESSION["operation"])) {
+                                    $_SESSION["operation"] = [];
+                                }
+                                echo '<input type="text" name="operation" class="operationsearchbar" placeholder="Ajoutez une opération" list="operationlist">';
+                                ?>
+                                <datalist id="operationlist">
+                                    <?php
+                                    foreach ($Operation->getAll() as $operation) {
+                                        echo '<option value="' . $operation->getLibelleOp() . '">';
+                                    }
+                                    ?>
+                                </datalist>
+                            </div>
+
                                 <label for="detailsoperation">Opération</label>
                                 <div>
                                 <?php
-
                                 if (isset($_SESSION['info_dde'])){
                                     $DemandeInter=$Dde_Intervention->getOne($_SESSION['info_dde']);
                                     $numDde=$DemandeInter->getNumDde();
@@ -166,15 +182,9 @@ $etatDde = $DemandeInter->getEtatDemande();
                                         $operationInfo = [];
                                         $operationInfo["nom"] = $operationDetails->getLibelleOp();
 
-
                                         for ($index = 0; $index<=count($operationInfo);$index++){
                                             echo '<input type="text" name="detailsoperation" id="detailsoperation" value="'. $operationInfo["nom"] .'" disabled>';
                                         }
-
-//                                        foreach ($operationInfo as $op){
-//                                            echo "<li>" . $op["nom"] . "</li>";
-//                                            //echo '<input type="text" name="detailsoperation" id="detailsoperation" value="'. $op["nom"] .'" disabled>';
-//                                        }
                                     }
                                 }
                                 ?>
