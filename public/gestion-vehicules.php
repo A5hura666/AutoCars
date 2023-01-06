@@ -150,10 +150,10 @@ if (isset($_POST["marque"])) {
                                 <input type="text" name="detailsmodele" id="detailsmodele" value="<?php if (isset($_POST['modele'])) echo $_POST['modele'];
                                                                                                     else echo "" ?>">
                             </div>
-                            <div>
+                            <!-- <div>
                                 <label for="detailsannee">Année</label>
                                 <input type="number" name="detailsannee" id="detailsannee" value="2021">
-                            </div>
+                            </div> -->
                         </div>
 
                         <div>

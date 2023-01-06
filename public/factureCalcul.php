@@ -106,8 +106,11 @@ function createFacture($data, $id, $type)
 
 
 
-        $htmlcode = "<!DOCTYPE html><head><meta charset='UTF-8'></head><body><h1 style='text-align: center;'>Facture</h1><br>";
-
+        if ($type == "facture") {
+            $htmlcode = "<!DOCTYPE html><head><meta charset='UTF-8'></head><body><h1 style='text-align: center;'>Facture</h1><br>";
+        } else if ($type == "devis") {
+            $htmlcode = "<!DOCTYPE html><head><meta charset='UTF-8'></head><body><h1 style='text-align: center;'>Devis</h1><br>";
+        }
         $htmlcode .= "<p><strong>" . $fname . " " . $lname . ",</strong><br>Voici votre facture du " . $date . ".</p><br>";
 
         $htmlcode .= "<h2>Montant total</h2><p>" . $data["total"] . "€</p><br>";
