@@ -15,6 +15,8 @@ $TheVehicule = new VehiculesDAO(MaBD::getInstance());
 $Modele = new ModeleDAO(MaBD::getInstance());
 $Operation = new OperationDAO(MaBD::getInstance());
 $EntreDeux = new entredeuxDAO(MaBD::getInstance());
+$TheReaOp = new Réaliser_OpDAO(MaBD::getInstance());
+$TheArticle = new ArticleDAO(MaBD::getInstance());
 
 //Pour gérer les états
 $TabEtat = ["En attente", "En cours", "Terminé", "Annulé"];
