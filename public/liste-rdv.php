@@ -31,7 +31,6 @@ function etatRdvForDevis(string $etat, string $emoji): void
     $TheDevis = new DevisDAO(MaBD::getInstance());
 
     $type = "devis";
-    $bool = "false";
 
     echo '<label>' . $etat . '</label>';
     foreach ($Dde_Intervention->getAllByEtat($_SESSION["etat"]) as $dde_Intervention) {
@@ -52,7 +51,6 @@ function etatAllRdvForDevis(string $etat, string $emoji): void
     $TheDevis = new DevisDAO(MaBD::getInstance());
 
     $type = "devis";
-    $bool = false;
 
     echo '<label>' . $etat . '</label>';
     foreach ($Dde_Intervention->getAllByEtat($etat) as $dde_Intervention) {
@@ -79,7 +77,7 @@ function etatRdvForFacture(string $etat, string $emoji): void
         $numDde = $dde_Intervention->getNumDde();
         $devis = $TheDevis->getOne($numDde);
         $noFacture = $devis->getNoFacture();
-        $Facture = $TheFacture->getOne($noFacture);
+        //$Facture = $TheFacture->getOne($noFacture);
         $rescalcul = calculCost($noFacture, "facture", true);
         $infoOperateur = $TheClients->getOne($dde_Intervention->getCodeClient());
         echo '<li>' . $emoji . '<p>' . $numDde . " " . $infoOperateur->getFirstName() . " " . $infoOperateur->getLastName() . '</p><span>' . $rescalcul["total"] . "€" . '</span><span>' . $devis->getEstimationFin() . '</span>
@@ -100,7 +98,7 @@ function etatAllRdvForFacture(string $etat, string $emoji): void
         $numDde = $dde_Intervention->getNumDde();
         $devis = $TheDevis->getOne($numDde);
         $noFacture = $devis->getNoFacture();
-        $Facture = $TheFacture->getOne($noFacture);
+        //$Facture = $TheFacture->getOne($noFacture);
         $rescalcul = calculCost($noFacture, "facture", true);
         $infoOperateur = $TheClients->getOne($dde_Intervention->getCodeClient());
         echo '<li>' . $emoji . '<p>' . $numDde . " " . $infoOperateur->getFirstName() . " " . $infoOperateur->getLastName() . '</p><span>' . $rescalcul["total"] . "€" . '</span><span>' . $devis->getEstimationFin() . '</span>
