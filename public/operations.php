@@ -24,13 +24,19 @@ if (isset($_POST['consulter'])) {
     $_SESSION['info_dde'] = $_POST['consulter'];
 }
 
-if (!isset($_SESSION["consulter"])) {
+//Remplissage par defaut d'un opération
+if (!isset($_POST["consulter"])) {
     $DdeForOneOp=$Dde_Intervention->getOneByOp($_SESSION["idUser"]);
     $etatDefault=$DdeForOneOp->getEtatDemande();
     $_SESSION["consulter"] = $etatDefault;
 }
+//Vide Session/Post d'operation pour éviter les problèmes d'insertion dans la table réaliser_Op
+if (isset($_POST["consulter"])){
+    unset($_SESSION["operation"]);
+    unset($_POST["operation"]);
+}
 
-
+//Affichage des opérations a effectué pour l'opérateur courrant
 function etatRdv(string $etat, string $emoji): void
 {
     $Dde_Intervention = new Dde_InterventionDAO(MaBD::getInstance());
@@ -59,12 +65,19 @@ $etatDde = $DemandeInter->getEtatDemande();
     }
 }
 
-if (isset($_SESSION["operation"]) && !empty($_SESSION["operation"])){
-    array_push($_SESSION["operation"],$_POST["operation"]);
-}
+//Insertion des nouvelles opérations dans Réaliser_Op
+if (isset($_POST["operation"]) && !empty($_POST["operation"])){
+    $DemandeInter=$Dde_Intervention->getOne($_SESSION['info_dde']);
+    $numDde=$DemandeInter->getNumDde();
+    $devis = $TheDevis->getOne($numDde);
+    $noFacture = $devis->getNoFacture();
 
-//$reaOp = new Réaliser_Op($facture->getNoFacture(), $TheOperation->getOneByLibOP($op)->getCodeOp());
-//$TheReaOp->insert($reaOp);
+    $reaOp = new Réaliser_Op($noFacture, $Operation->getOneByLibOP($_POST["operation"])->getCodeOp());
+    $RealiserOp->insert($reaOp);
+
+    unset($_SESSION["operation"]);
+    unset($_POST["operation"]);
+}
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -172,9 +185,10 @@ if (isset($_SESSION["operation"]) && !empty($_SESSION["operation"])){
                                 </datalist>
                             </div>
 
-                                <label for="detailsoperation">Opérations</label>
                                 <div class="fcolumn list-small">
                                 <?php
+                                //var_dump($_SESSION["operation"]);
+
                                 if (isset($_SESSION['info_dde'])){
                                     $DemandeInter=$Dde_Intervention->getOne($_SESSION['info_dde']);
                                     $numDde=$DemandeInter->getNumDde();
@@ -189,11 +203,9 @@ if (isset($_SESSION["operation"]) && !empty($_SESSION["operation"])){
                                         $operationInfo = [];
                                         $operationInfo["nom"] = $operationDetails->getLibelleOp();
 
-                                        for ($index = 0; $index<=count($operationInfo);$index++){
-                                            echo '<input type="text" name="detailsoperation" id="detailsoperation" value="'. $operationInfo["nom"] .'" disabled>';
-                                        }
+                                        echo '<input type="text" name="detailsoperation" id="detailsoperation" value="'. $operationInfo["nom"] .'" disabled>';
+
                                     }
-                                    var_dump($_SESSION["operation"]);
                                 }
                                 ?>
                                 </div>
