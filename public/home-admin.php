@@ -18,7 +18,7 @@ checkAccess("Administrateur");
 
 <body>
     <nav>
-        <section class="nav-left"> <a class="nav-logo invert" href="accueilAdmin"><img src="img/logo.png" alt="logo" /></a>
+        <section class="nav-left"> <a class="nav-logo invert" href="home-admin.php"><img src="img/logo.png" alt="logo" /></a>
             <div> <a href="home-admin.php">Accueil</a>
                 <div class="dropdown-content"></div>
             </div>

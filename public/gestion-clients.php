@@ -12,6 +12,12 @@ $Modele = new ModeleDAO(MaBD::getInstance());
 if (!isset($_POST['Consulter'])) {
     $_POST['Consulter'] = "1";
 }
+
+if (isset($_POST['Modifier'])) {
+    $clibeforup = $TheClient->getOneByName($_POST['name'], $_POST['fname']);
+    $cli = new Client($clibeforup->getCodeClient(), $_POST['name'], $_POST['fname'], $_POST['address'], $_POST['zip'], $_POST['city'], $_POST['phone'], $_POST['email'], $clibeforup->getDateCreation());
+    $TheClient->update($cli);
+}
 ?>
 
 <!DOCTYPE html>
@@ -138,7 +144,7 @@ if (!isset($_POST['Consulter'])) {
             <div class="details">
                 <h3>Détails du client</h3>
                 <div>
-                    <form class="sectiondetails">
+                    <form class="sectiondetails" method="post">
                         <div>
                             <label for="clientname">Informations</label>
                             <div>
@@ -201,16 +207,14 @@ if (!isset($_POST['Consulter'])) {
                                 <input type="text" class="immat" id="immat" value="<?php echo $info_vehicule->getNoImmatriculation() ?>">
                             </div>
                         </div>
-
+                        <div>
+                            <div class="frow">
+                                <input type="submit" name="Modifier" value="Modifier">
+                                <input type="submit" value="Supprimer">
+                            </div>
+                        </div>
+                    </form>
                 </div>
-
-
-                <div>
-                    <input type="submit" value="Modifier">
-                    <input type="submit" value="Supprimer">
-                </div>
-                </form>
-            </div>
             </div>
         </section>
     </main>

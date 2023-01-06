@@ -40,7 +40,9 @@ class ClientsDAO extends DAO
 
     public function delete(object $obj): int
     {
-        return 0;
+        $stmt = $this->pdo->prepare("DELETE FROM Client WHERE CodeClient=:CodeClient");
+        $res = $stmt->execute(['CodeClient'=>$obj->getCodeClient]);
+        return $res;
     }
 
     public function insert(object $obj): int
@@ -56,8 +58,8 @@ class ClientsDAO extends DAO
 
     public function update(object $obj): int
     {
-        $stmt = $this->pdo->prepare("UPDATE Client set LastName=:LastName, FirstName=:FirstName, Role=:Role, Login=:Login, Password=:Password WHERE idUser=:idUser");
-        $res = $stmt->execute(['idUser' => $obj->getIdUser(), 'LastName' => $obj->getLastName(), 'FirstName' => $obj->getFirstName(), 'Role' => $obj->getRole(), 'Login' => $obj->getLogin(), 'Password' => $obj->getPassword()]);
+        $stmt = $this->pdo->prepare("UPDATE Client set Nom=:Nom, Prénom=:Prénom, Adresse=:Adresse, CodePostal=:CodePostal,Ville=:Ville,Tel=:Tel,mail=:mail,DateCreation=:DateCreation WHERE CodeClient=:CodeClient");
+        $res = $stmt->execute([ 'Nom' => $obj->getLastName(), 'Prénom' => $obj->getFirstName(), 'Adresse' => $obj->getAddress(), 'CodePostal' => $obj->getCP(), 'Ville' => $obj->getCity(),'Tel' => $obj->getTelephone(),'mail'=>$obj->getMail(),'DateCreation' => $obj->getDateCreation(),'CodeClient' => $obj->getCodeClient()]);
         return $res;
     }
 }

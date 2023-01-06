@@ -20,7 +20,7 @@ checkAccess("Administrateur")
 
 <body>
     <nav>
-        <section class="nav-left"> <a class="nav-logo invert" href="accueilAdmin"><img src="img/logo.png" alt="logo" /></a>
+        <section class="nav-left"> <a class="nav-logo invert" href="home-admin.php"><img src="img/logo.png" alt="logo" /></a>
             <div> <a href="home-admin.php">Accueil</a>
                 <div class="dropdown-content"></div>
             </div>
@@ -30,12 +30,8 @@ checkAccess("Administrateur")
             <div><a href="statistiques.php">Statistiques</a>
                 <div class="dropdown-content"></div>
             </div>
-            <div>
-                <a href="creer-operation.php">Créer une opération</a>
-                <!-- <a href="#">Opérations</a> -->
-                <!-- <div class="dropdown-content"> -->
-                    <!-- <a href="gestion-operations.php">Gérer les opérations</a> -->
-                <!-- </div> -->
+            <div><a href="#">Opérations</a>
+                <div class="dropdown-content"><a href="creer-operation.php">Créer une opération</a><a href="gestion-operations.php">Gérer les opérations</a></div>
             </div>
         </section>
         <section class="nav-right">
@@ -44,10 +40,10 @@ checkAccess("Administrateur")
             </a>
         </section>
     </nav>
-    <main class="menu"> 
-           <h2 style="text-align: center;">Cettte fonctionnalité n'était pas critique au bon fonctionnement de l'application <br>ou une priorité pour le client, elle n'est pas encore implémentée.</h2>
+    <main class="menu">
+        <h2 style="text-align: center;">Cettte fonctionnalité n'était pas critique au bon fonctionnement de l'application <br>ou une priorité pour le client, elle n'est pas encore implémentée.</h2>
     </main>
-    
+
     <script src="js/accueilAdmin.js"></script>
 </body>
 
