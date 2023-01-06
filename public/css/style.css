@@ -435,3 +435,11 @@ aside>div,
 	display: flex;
 	flex-direction: row !important;
 }
+.fcolumn{
+	display: flex;
+	flex-direction: column !important;
+}
+.list-small {
+    max-height: 200px;
+    overflow: auto;
+}
