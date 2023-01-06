@@ -429,3 +429,9 @@ aside>div,
 	display: flex;
 	justify-content: space-around;
 }
+
+
+.frow{
+	display: flex;
+	flex-direction: row !important;
+}
