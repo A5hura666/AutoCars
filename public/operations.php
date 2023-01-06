@@ -152,10 +152,9 @@ if (isset($_SESSION["operation"]) && !empty($_SESSION["operation"])){
                         </div>
 
                         <div>
-                            <label>Opération</label>
-                            <div>
+                            <label>Ajouter une opération</label>
+                            <div class="fcolumn">
                                 <div>
-                                    <label for="operationlist">Operation</label>
                                 <?php
                                 if (empty($_SESSION["operation"])) {
                                     $_SESSION["operation"] = [];
@@ -171,8 +170,8 @@ if (isset($_SESSION["operation"]) && !empty($_SESSION["operation"])){
                                 </datalist>
                             </div>
 
-                                <label for="detailsoperation">Opération</label>
-                                <div>
+                                <label for="detailsoperation">Opérations</label>
+                                <div class="fcolumn list-small">
                                 <?php
                                 if (isset($_SESSION['info_dde'])){
                                     $DemandeInter=$Dde_Intervention->getOne($_SESSION['info_dde']);

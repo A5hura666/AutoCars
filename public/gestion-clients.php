@@ -13,9 +13,9 @@ if (!isset($_POST['Consulter'])) {
     $_POST['Consulter'] = "1";
 }
 
-if (isset($_POST['Modifier'])) {
-    $clibeforup = $TheClient->getOneByName($_POST['name'], $_POST['fname']);
-    $cli = new Client($clibeforup->getCodeClient(), $_POST['name'], $_POST['fname'], $_POST['address'], $_POST['zip'], $_POST['city'], $_POST['phone'], $_POST['email'], $clibeforup->getDateCreation());
+if (isset($_POST['Modifier'])){
+    $clibeforup = $TheClient->getOne($_POST['id']);
+    $cli = new Client($_POST['id'],$_POST['name'],$_POST['fname'],$_POST['address'],$_POST['zip'],$_POST['city'],$_POST['phone'],$_POST['email'],$clibeforup->getDateCreation());
     $TheClient->update($cli);
 }
 ?>
