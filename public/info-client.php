@@ -9,8 +9,6 @@ $TheClient = new ClientsDAO(MaBD::getInstance());
 $TheVehicule = new VehiculesDAO(MaBD::getInstance());
 $Marque = new MarqueDAO(MaBD::getInstance());
 $Modele = new ModeleDAO(MaBD::getInstance());
-
-//Si aucun client n'est sélectionné, on renvoie le n°1.
 if(!isset($_POST['Consulter'])){
     $_POST['Consulter'] = "1";
 }

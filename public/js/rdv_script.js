@@ -1,5 +1,5 @@
 let Client
-//Gestion de remplacement des champs du formulaire client.
+
 function replacefieldcli(data) {
     document.querySelector(".lname").value = data.LastName
     document.querySelector(".fname").value = data.FirstName
@@ -11,7 +11,7 @@ function replacefieldcli(data) {
     document.cookie = `clientid=${data.CodeClient}`
     let truc = fetch(`classes/getVehiculeJson.php?id=${data.CodeClient}`).then((response) => response.json()).then((data) => replacefieldvehi(data))
 }
-//Gestion de remplacement des champs de formulaire véhicule.
+
 function replacefieldvehi(data) {
     document.querySelector(".brand").value = data.marque
     document.querySelector(".model").value = data.NumModele
@@ -20,7 +20,8 @@ function replacefieldvehi(data) {
     document.querySelector(".drivingdate").value = data.DateMiseEnCirculation
 }
 
-//Sélection du client
+
+
 function select_client() {
     let Name = document.querySelector('.usersearchbar').value.split(' ');
     let res = fetch(`classes/getOneByNameJson.php?LastName=${Name[0]}&FirstName=${Name[1]}`).then((response) => response.json())

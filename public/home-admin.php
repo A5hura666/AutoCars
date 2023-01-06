@@ -2,8 +2,7 @@
 session_start();
 require_once "autoload.php";
 require "checkAccess.php";
-//On vérifie que l'utilisateur soit bien un administrateur, 
-//sinon on le renvoie sur la page correspondante.
+
 checkAccess("Administrateur");
 
 ?>
@@ -26,16 +25,11 @@ checkAccess("Administrateur");
             <div><a href="creer-utilisateur.php">Créer un utilisateur</a>
                 <div class="dropdown-content"></div>
             </div>
-            <div>
-                <a href="statistiques.php">Statistiques</a>
+            <div><a href="statistiques.php">Statistiques</a>
                 <div class="dropdown-content"></div>
             </div>
-            <div>
-                <a href="creer-operation.php">Opérations</a>
-                <!-- <div class="dropdown-content">
-                    <a href="creer-operation.php">Créer une opération</a>
-                    <a href="gestion-operations.php">Gérer les opérations</a>
-                </div> -->
+            <div><a href="#">Opérations</a>
+                <div class="dropdown-content"><a href="creer-operation.php">Créer une opération</a><a href="gestion-operations.php">Gérer les opérations</a></div>
             </div>
         </section>
         <section class="nav-right">
@@ -53,14 +47,11 @@ checkAccess("Administrateur");
                 <h3>Statistiques</h3>
             </article>
         </a>
-        <a href="creer-operation.php">
-            <article class="btn-menu operation">
-                <img src="img/operation.png" alt="Operations" />
-                <h3>Opérations</h3>
-            </article>
-        </a>
+        <article class="btn-menu operation"><img src="img/operation.png" alt="Operations" />
+            <h3>Opérations</h3>
+        </article>
     </main>
-    <!-- <section class="popupmenu operation-full hidden">
+    <section class="popupmenu operation-full hidden">
         <main class="menu"><a href="creer-operation.php">
                 <article class="btn-menu"><img src="img/operation.png" alt="Création opération" />
                     <h3>Créer une opération</h3>
@@ -70,7 +61,7 @@ checkAccess("Administrateur");
                     <h3>Gérer les opérations</h3>
                 </article>
             </a></main><button class="back">✖</button>
-    </section> -->
+    </section>
     <script src="js/accueilAdmin.js"></script>
 </body>
 

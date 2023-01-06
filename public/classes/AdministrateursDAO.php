@@ -20,6 +20,8 @@ class AdministrateursDAO extends DAO {
     }
 
     // Sauvegarde de l'objet $obj :
+    //     $obj->id == UNKNOWN_ID ==> INSERT
+    //     $obj->id != UNKNOWN_ID ==> UPDATE
     public function save(object $obj): int {
         if ($obj->id == DAO::UNKNOWN_ID) {
             $stmt =  $this->pdo->prepare("INSERT INTO Administrateurs (login, mdp)"
@@ -52,10 +54,12 @@ class AdministrateursDAO extends DAO {
     public function insert(object $obj): int
     {
         return 0;
+        // TODO: Implement insert() method.
     }
 
     public function update(object $obj): int
     {
         return 0;
+        // TODO: Implement update() method.
     }
 }

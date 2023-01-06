@@ -11,7 +11,6 @@ $TheVehicule = new VehiculesDAO(MaBD::getInstance());
 $Marque = new MarqueDAO(MaBD::getInstance());
 $Modele = new ModeleDAO(MaBD::getInstance());
 
-//Si aucune marque sélectionnée, on renvoie la marque n°1.
 if (isset($_POST["marque"])) {
     $_SESSION["marque"] = $_POST["marque"];
 }

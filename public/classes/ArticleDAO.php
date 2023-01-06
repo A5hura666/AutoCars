@@ -62,6 +62,7 @@ class ArticleDAO extends DAO
 
     public function insert(object $obj): int
     {
+        // TODO: Implement insert() method.
     }
 
     public function update(object $obj): int
@@ -73,5 +74,6 @@ class ArticleDAO extends DAO
 
     public function delete(object $obj): int
     {
+        // TODO: Implement delete() method.
     }
 }

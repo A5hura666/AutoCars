@@ -39,5 +39,6 @@ class FactureDAO extends DAO
 
     public function delete(object $obj): int
     {
+        // TODO: Implement delete() method.
     }
 }

@@ -14,7 +14,19 @@ $TheDevis = new DevisDAO(MaBD::getInstance());
 $TheVehicule = new VehiculesDAO(MaBD::getInstance());
 $Modele = new ModeleDAO(MaBD::getInstance());
 
-//Gestion de l'état d'un RDV.
+//Pour gérer les états
+$TabEtat = ["En attente", "En cours", "Terminé", "Annulé"];
+if (isset($_POST['consulter'])) {
+    $_SESSION['info_dde'] = $_POST['consulter'];
+}
+
+if (!isset($_SESSION["consulter"])) {
+    $DdeForOneOp=$Dde_Intervention->getOneByOp($_SESSION["idUser"]);
+    $etatDefault=$DdeForOneOp->getEtatDemande();
+    $_SESSION["consulter"] = $etatDefault;
+}
+
+
 function etatRdv(string $etat, string $emoji): void
 {
     $Dde_Intervention = new Dde_InterventionDAO(MaBD::getInstance());
@@ -30,6 +42,7 @@ function etatRdv(string $etat, string $emoji): void
     }
 }
 
+//var_dump($Dde_Intervention->getOneAllByOp($_SESSION["idUser"]));
 ?>
 
 <!DOCTYPE html>
@@ -79,10 +92,6 @@ function etatRdv(string $etat, string $emoji): void
                         <?php
                         etatRdv("En attente","📃");
                         etatRdv("En cours","⏳");
-
-                        if (isset($_POST['consulter'])) {
-                            $_SESSION['info_dde'] = $_POST['consulter'];
-                        }
 
                         if (isset($_SESSION['info_dde'])) {
                             $DemandeInter=$Dde_Intervention->getOne($_SESSION['info_dde']);
@@ -134,10 +143,19 @@ function etatRdv(string $etat, string $emoji): void
                         <div>
                             <label for="detailsdate">Etat</label>
                             <select name="detailsdate" id="detailsdate">
-                                <option value="en attente">En attente</option>
-                                <option value="en cours">En cours</option>
-                                <option value="terminé">Terminé</option>
-                                <option value="annulé">Annulé</option>
+                            <?php
+                            if (isset($_SESSION['info_dde'])) {
+                                $DemandeInter=$Dde_Intervention->getOne($_SESSION['info_dde']);
+                                $etatDde = $DemandeInter->getEtatDemande();
+                                var_dump($etatDde);
+                                echo '<option value="'.$etatDde.'" selected disabled>'.$etatDde.'</option>';
+                            }
+                            foreach ($TabEtat as $tabstate){
+                                if ($tabstate!=$etatDde){
+                                    echo '<option value="'.$tabstate.'">'.$tabstate.'</option>';
+                                }
+                            }
+                            ?>
                             </select>
                         </div>
 

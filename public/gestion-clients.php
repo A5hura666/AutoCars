@@ -9,8 +9,6 @@ $TheClient = new ClientsDAO(MaBD::getInstance());
 $TheVehicule = new VehiculesDAO(MaBD::getInstance());
 $Marque = new MarqueDAO(MaBD::getInstance());
 $Modele = new ModeleDAO(MaBD::getInstance());
-
-//Si pas de client sélectionné, on renvoie le client n°1.
 if (!isset($_POST['Consulter'])) {
     $_POST['Consulter'] = "1";
 }
@@ -85,7 +83,7 @@ if (!isset($_POST['Consulter'])) {
         <h2>Gestion des clients</h2>
         <section>
             <aside>
-                <!-- <div class="recherche">
+                <div class="recherche">
                     <h3>Rechercher un utilisateur</h3>
                     <form method="post" action="">
                         <div>
@@ -107,11 +105,11 @@ if (!isset($_POST['Consulter'])) {
 
                         <input type="submit" value="Rechercher">
                     </form>
-                </div> -->
+                </div>
                 <div>
                     <h3>Liste des clients</h3>
                     <form method="post">
-                        <ul class="list list-big">
+                        <ul class="list">
                             <?php
                             //Affichage des clients
                             foreach ($TheClient->getAll() as $clients) {

@@ -111,7 +111,7 @@ foreach ($TheArticle->getAllSort() as $article) {
     </nav>
 
     <main class="interface">
-        <h2>Stocks de pièces</h2>
+        <h2>Gestion des stocks de pièces</h2>
         <section>
             <aside>
                 <div class="recherche">
