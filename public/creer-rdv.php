@@ -76,7 +76,8 @@ if (isset($_POST["sub"])) {
         $reaOp = new Réaliser_Op($facture->getNoFacture(), $TheOperation->getOneByLibOP($op)->getCodeOp());
         $TheReaOp->insert($reaOp);
     }
-    $factureup = new Facture($facture->getNoFacture(), "", 20, $prix * 1.2, "En attente");
+    $factureup = new Facture($facture->getNoFacture(), $date, 20, $prix * 1.2, "En attente");
+    $TheFacture->update($factureup);
     foreach ($TheArticle->getAllFromOneRealiserOp($TheReaOp->TrueGetOne($reaOp->getCodeOp(), $reaOp->getNoFacture())) as $art) {
         $art->setQuantite($art->getQuantite() - $Theentredeux->TrueGetOne($reaOp->getCodeOp(), $art->getCodeArticle())->getQtt());
         $TheArticle->update($art);
