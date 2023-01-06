@@ -41,11 +41,9 @@ class Prévoir_OpDAO extends DAO
 
     public function update(object $obj): int
     {
-        // TODO: Implement update() method.
     }
 
     public function delete(object $obj): int
     {
-        // TODO: Implement delete() method.
     }
 }

@@ -41,13 +41,11 @@ class VehiculesDAO extends DAO
     public function update(object $obj): int
     {
         return 0;
-        // TODO: Implement update() method.
     }
 
     public function delete(object $obj): int
     {
         return 0;
-        // TODO: Implement delete() method.
     }
 
 

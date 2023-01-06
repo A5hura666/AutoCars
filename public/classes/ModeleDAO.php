@@ -43,19 +43,16 @@ class ModeleDAO extends DAO
     public function insert(object $obj): int
     {
         return 0;
-        // TODO: Implement insert() method.
     }
 
     public function update(object $obj): int
     {
         return 0;
-        // TODO: Implement update() method.
     }
 
     public function delete(object $obj): int
     {
         return 0;
-        // TODO: Implement delete() method.
     }
 
 }

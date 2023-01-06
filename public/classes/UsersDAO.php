@@ -41,24 +41,7 @@ class UsersDAO extends DAO
     }
 
     // Sauvegarde de l'objet $obj :
-    //     $obj->id == UNKNOWN_ID ==> INSERT
-    //     $obj->id != UNKNOWN_ID ==> UPDATE
 
-/*    public function save(object $obj): int
-    {
-        if ($obj->getIdUser() == DAO::UNKNOWN_ID) {
-            $stmt = $this->pdo->prepare("INSERT INTO UserRole (LastName, FirstName, Role, Login, Password)"
-                . " VALUES (?,?,?,?,?)");
-            $res = $stmt->execute([$obj->getLastName(), $obj->getFirstName(), $obj->getRole(), $obj->getLogin(), $obj->getPassword()]);
-            $obj->id = $this->pdo->lastInsertId();
-        } else {
-            $stmt = $this->pdo->prepare("UPDATE UserRole set LastName=:LastName, FirstName=:FirstName, Role=:Role, Login=:Login, Password=:Password"
-                . " WHERE idUser=:idUser");
-            $res = $stmt->execute(['idUser' => $obj->getIdUser(), 'LastName' => $obj->getLastName(), 'FirstName' => $obj->getFirstName(), 'Role' => $obj->getRole(), 'Login' => $obj->getLogin(), 'Password' => $obj->getPassword()]);
-        }
-        return $res;
-    }
-*/
 
     public function insert(object $obj): int{
             $stmt = $this->pdo->prepare("INSERT INTO UserRole (LastName, FirstName, Role, Login, Password)"
