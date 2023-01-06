@@ -89,7 +89,7 @@ if (isset($_POST['Modifier'])){
         <h2>Gestion des clients</h2>
         <section>
             <aside>
-                <div class="recherche">
+                <!-- <div class="recherche">
                     <h3>Rechercher un utilisateur</h3>
                     <form method="post" action="">
                         <div>
@@ -111,11 +111,11 @@ if (isset($_POST['Modifier'])){
 
                         <input type="submit" value="Rechercher">
                     </form>
-                </div>
+                </div> -->
                 <div>
                     <h3>Liste des clients</h3>
                     <form method="post">
-                        <ul class="list">
+                        <ul class="list list-big">
                             <?php
                             //Affichage des clients
                             foreach ($TheClient->getAll() as $clients) {
