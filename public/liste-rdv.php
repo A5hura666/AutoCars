@@ -23,7 +23,7 @@ if (!isset($_SESSION["etat"])) {
     $_SESSION["etat"] = "Tous";
 }
 
-//On trie les RDV pour devis.
+//État d'un RDV pour devis.
 function etatRdvForDevis(string $etat, string $emoji): void
 {
     $Dde_Intervention = new Dde_InterventionDAO(MaBD::getInstance());
@@ -44,7 +44,7 @@ function etatRdvForDevis(string $etat, string $emoji): void
         <a href="factureCalcul.php?id=' . $id . '&type=' . $type . '" target="_blank"><img src="https://cdn.freebiesupply.com/logos/large/2x/adobe-pdf-icon-logo-png-transparent.png" width="20px"></a></li>';
     }
 }
-
+//État de tous les RDV pour devis.
 function etatAllRdvForDevis(string $etat, string $emoji): void
 {
     $Dde_Intervention = new Dde_InterventionDAO(MaBD::getInstance());
@@ -65,7 +65,7 @@ function etatAllRdvForDevis(string $etat, string $emoji): void
         <a href="factureCalcul.php?id=' . $id . '&type=' . $type . '" target="_blank"><img src="https://cdn.freebiesupply.com/logos/large/2x/adobe-pdf-icon-logo-png-transparent.png" width="20px"></a></li>';
     }
 }
-
+//État d'un RDV pour facture.
 function etatRdvForFacture(string $etat, string $emoji): void
 {
     $Dde_Intervention = new Dde_InterventionDAO(MaBD::getInstance());
@@ -86,7 +86,7 @@ function etatRdvForFacture(string $etat, string $emoji): void
         <a href="factureCalcul.php?id=' . $numDde . '&type=' . $type . '" target="_blank"><img src="https://cdn.freebiesupply.com/logos/large/2x/adobe-pdf-icon-logo-png-transparent.png" width="20px"></a></li>';
     }
 }
-
+//État de tous les RDV pour facture.
 function etatAllRdvForFacture(string $etat, string $emoji): void
 {
     $Dde_Intervention = new Dde_InterventionDAO(MaBD::getInstance());

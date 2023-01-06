@@ -111,7 +111,7 @@ if (!isset($_POST['Consulter'])) {
                 <div>
                     <h3>Liste des clients</h3>
                     <form method="post">
-                        <ul class="list">
+                        <ul class="list list-big">
                             <?php
                             //Affichage des clients
                             foreach ($TheClient->getAll() as $clients) {

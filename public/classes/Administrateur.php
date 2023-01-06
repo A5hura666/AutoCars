@@ -1,5 +1,5 @@
 <?php
-// Représentation d'un administrateur
+// Représentation d'un administrateur : un ID, un login, un mot de passe.
 class Administrateur {
      public int $id;
      public string $login;

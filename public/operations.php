@@ -14,7 +14,7 @@ $TheDevis = new DevisDAO(MaBD::getInstance());
 $TheVehicule = new VehiculesDAO(MaBD::getInstance());
 $Modele = new ModeleDAO(MaBD::getInstance());
 
-
+//Gestion de l'état d'un RDV.
 function etatRdv(string $etat, string $emoji): void
 {
     $Dde_Intervention = new Dde_InterventionDAO(MaBD::getInstance());
@@ -30,7 +30,6 @@ function etatRdv(string $etat, string $emoji): void
     }
 }
 
-//var_dump($Dde_Intervention->getOneAllByOp($_SESSION["idUser"]));
 ?>
 
 <!DOCTYPE html>
