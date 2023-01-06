@@ -113,15 +113,49 @@ function createFacture($data, $id, $type)
         $htmlcode .= "<h2>Montant total</h2><p>" . $data["total"] . "€</p><br>";
         $htmlcode .= "<h2>Liste des opérations effectuées</h2><ul>";
         if ($type == "facture") {
+
+            $htmlcode .= "<table><tr style='background-color:black;color:white;'><th>Opération</th><th>ㅤㅤㅤㅤㅤ</th><th>Prix</th></tr>";
+            $previous = true;
             foreach ($data["operations"] as $operation) {
-                $htmlcode .= "<li>" . $operation["nom"] . " : <strong>" . $operation["prix"] . "€</strong></li>";
+                if ($previous) {
+                    $color = "white";
+                    $text = "black";
+                    $previous = false;
+                } else {
+                    $color = "grey";
+                    $text = "white";
+                    $previous = true;
+                }
+                $htmlcode .= "<tr style='background-color: " . $color . "; color:" . $text . "'><td>" . $operation["nom"] . "</td><td>ㅤㅤㅤㅤ</td><td>" . $operation["prix"] . "€</td></tr>";
             }
+            $htmlcode .= "</table>";
         } else if ($type == "devis") {
+            $htmlcode .= "<table><tr style='background-color:black;color:white;'><th>Opération</th></tr>";
+            $previous = true;
+
             foreach ($data["operations"] as $operation) {
-                $htmlcode .= "<li>" . $operation["nom"] . " </li>";
+                if ($previous) {
+                    $color = "white";
+                    $text = "black";
+                    $previous = false;
+                } else {
+                    $color = "grey";
+                    $text = "white";
+                    $previous = true;
+                }
+
+                $htmlcode .= "<tr style='background-color: " . $color . "; color:" . $text . "'><td>" . $operation["nom"] . "</td></tr>";
             }
+            $htmlcode .= "</table>";
         }
-        $htmlcode .= "</ul></body></html>";
+        $htmlcode .= "</ul><br><br><br>
+        <footer>
+            <h3 style='margin:5px'>Autocars</h3>
+            <p style='margin:2px'>Adresse: 1 rue de la Vallée</p>
+            <p style='margin:2px'>Ville: 26000 Valence</p>
+            <p style='margin:2px'>Téléphone: 01 23 45 67 89</p>
+        </footer>
+        </body></html>";
 
 
 
@@ -152,5 +186,3 @@ function createFacture($data, $id, $type)
         echo 'Le fichier n\'existe pas';
     }
 }
-?>
-
