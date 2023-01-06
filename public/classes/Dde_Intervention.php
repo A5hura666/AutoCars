@@ -9,25 +9,25 @@ class Dde_Intervention
     private string $DateRdv;
     private string $HeureRdv;
     private string $Descriptif_demande;
-    private int $km_actuel;
+    private float $km_actuel;
     private string $EtatDemande;
 
     /**
      * @param int $NumDde
      * @param string $NoImmatriculation
-     * @param int $IdOpérateur
+     * @param int $idOpérateur
      * @param int $CodeClient
      * @param string $DateRdv
      * @param string $HeureRdv
      * @param string $Descriptif_demande
-     * @param int $km_actuel
+     * @param float $km_actuel
      * @param string $EtatDemande
      */
-    public function __construct(int $NumDde, string $NoImmatriculation, int $IdOpérateur, int $CodeClient, string $DateRdv, string $HeureRdv, string $Descriptif_demande, int $km_actuel, string $EtatDemande)
+    public function __construct(int $NumDde, string $NoImmatriculation, int $idOpérateur, int $CodeClient, string $DateRdv, string $HeureRdv, string $Descriptif_demande, float $km_actuel, string $EtatDemande)
     {
         $this->NumDde = $NumDde;
         $this->NoImmatriculation = $NoImmatriculation;
-        $this->IdOpérateur = $IdOpérateur;
+        $this->IdOpérateur = $idOpérateur;
         $this->CodeClient = $CodeClient;
         $this->DateRdv = $DateRdv;
         $this->HeureRdv = $HeureRdv;
@@ -149,17 +149,17 @@ class Dde_Intervention
     }
 
     /**
-     * @return int
+     * @return float
      */
-    public function getKmActuel(): int
+    public function getKmActuel(): float
     {
         return $this->km_actuel;
     }
 
     /**
-     * @param int $km_actuel
+     * @param float $km_actuel
      */
-    public function setKmActuel(int $km_actuel): void
+    public function setKmActuel(float $km_actuel): void
     {
         $this->km_actuel = $km_actuel;
     }

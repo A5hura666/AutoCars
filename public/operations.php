@@ -42,9 +42,19 @@ function etatRdv(string $etat, string $emoji): void
     }
 }
 
-//var_dump($Dde_Intervention->getOneAllByOp($_SESSION["idUser"]));
-?>
+if (isset($_SESSION['info_dde']) && isset($_POST["detailstate"])) {
+$DemandeInter=$Dde_Intervention->getOne($_SESSION['info_dde']);
+$etatDde = $DemandeInter->getEtatDemande();
+    if ($etatDde!=$_POST["detailstate"]){
+        $newEtatDde=$_POST["detailstate"];
+        $newDdeInter = new Dde_Intervention($DemandeInter->getNumDde(),$DemandeInter->getNoImmatriculation(),$DemandeInter->getIdOpérateur()
+        ,$DemandeInter->getCodeClient(),$DemandeInter->getDateRdv(),$DemandeInter->getHeureRdv(),$DemandeInter->getDescriptifDemande()
+        ,$DemandeInter->getKmActuel(),$newEtatDde);
+        $Dde_Intervention->update($newDdeInter);
+    }
+}
 
+?>
 <!DOCTYPE html>
 <html lang="fr">
 
@@ -141,13 +151,12 @@ function etatRdv(string $etat, string $emoji): void
                         </div>
 
                         <div>
-                            <label for="detailsdate">Etat</label>
-                            <select name="detailsdate" id="detailsdate">
+                            <label for="detailstate">Etat</label>
+                            <select name="detailstate" id="detailstate">
                             <?php
                             if (isset($_SESSION['info_dde'])) {
                                 $DemandeInter=$Dde_Intervention->getOne($_SESSION['info_dde']);
                                 $etatDde = $DemandeInter->getEtatDemande();
-                                var_dump($etatDde);
                                 echo '<option value="'.$etatDde.'" selected disabled>'.$etatDde.'</option>';
                             }
                             foreach ($TabEtat as $tabstate){
