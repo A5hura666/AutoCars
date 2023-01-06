@@ -60,7 +60,7 @@ if (!isset($_POST['Consulter'])) {
                 <a href="#">Factures</a>
                 <div class="dropdown-content">
                     <a href="creer-rdv.php">Créer une facture</a>
-                    <a href="gestion-factures.php">Gestion des factures</a>
+                    <a href="liste-rdv.php">Gestion des factures</a>
                 </div>
             </div>
 

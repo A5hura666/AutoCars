@@ -12,10 +12,12 @@ $TheVehicule = new VehiculesDAO(MaBD::getInstance());
 $Marque = new MarqueDAO(MaBD::getInstance());
 $Modele = new ModeleDAO(MaBD::getInstance());
 
-// Création date courante pour le client
+// Création de la date courante pour le client
 $date = new DateTime();
 $dateCli = $date->format('Y-m-d');
 
+// On valide la création du nouveau client. Si l'utilisateur est créé, on renvoie un message de confirmation.
+// Si cela échoue, on renvoie un message d'erreur.
 if (isset($_POST['validation_create_client'])) {
     $newClient = new Client(DAO::UNKNOWN_ID, $_POST['nom'], $_POST['prenom'], $_POST['adresse'], $_POST['cp'], $_POST['ville'], $_POST['tel'], $_POST['email'], $dateCli);
     $TheClient->insert($newClient);
@@ -28,7 +30,8 @@ if (isset($_POST['validation_create_client'])) {
         $erreur = "une erreur c'est produite lors de l'insertion de l'utilisateur";
     }
 }
-
+// On réinitialise le formulaire de création lorsque l'on appuie
+// sur le bouton "Réinitialiser".
 if (isset($_POST['reset'])) {
     $_POST = array();
     $_SESSION["info_clients"] = array();
@@ -36,17 +39,18 @@ if (isset($_POST['reset'])) {
     $_SESSION["marque"] = array();
 }
 
-//formulaire client
+//On créé un formulaire client.
 if (isset($_POST["prenom"]) || isset($_POST["nom"]) || isset($_POST["adresse"]) || isset($_POST["ville"]) || isset($_POST["cp"]) || isset($_POST["email"]) || isset($_POST["tel"])) {
     $_SESSION["info_clients"] = [$_POST["prenom"], $_POST["nom"], $_POST["adresse"], $_POST["ville"], $_POST["cp"], $_POST["email"], $_POST["tel"]];
 }
 
-//formulaire vehicules
+//On créé un formulaire véhicule.
 if (isset($_POST["marque"]) || isset($_POST["annee"]) || isset($_POST["immat"]) || isset($_POST["serie"])) {
     $_SESSION["marque"] = $_POST["marque"];
     $_SESSION["info_vehicules"] = [$_POST["annee"], $_POST["immat"], $_POST["serie"]];
 }
 
+//On remplit un formulaire client.
 function formFilling(string $sessionName, int $number, string $type, string $name, string $placeholder): void
 {
     if (isset($_SESSION[$sessionName][$number]) && !empty($_SESSION[$sessionName][$number])) {
@@ -103,7 +107,7 @@ function formFilling(string $sessionName, int $number, string $type, string $nam
                 <a href="#">Factures</a>
                 <div class="dropdown-content">
                     <a href="creer-rdv.php">Créer une facture</a>
-                    <a href="gestion-factures.php">Gestion des factures</a>
+                    <a href="liste-rdv.php">Gestion des factures</a>
                 </div>
             </div>
 

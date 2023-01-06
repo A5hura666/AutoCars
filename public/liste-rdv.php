@@ -41,7 +41,7 @@ function etatRdvForDevis(string $etat, string $emoji): void
         $infoOperateur = $TheClients->getOne($dde_Intervention->getCodeClient());
         $rescalcul = calculCost($dde_Intervention->getNumDde(), "devis", true);
         echo '<li><p id="id_devis" hidden>' . $id . '</p>' . $emoji . '<p>' . $dde_Intervention->getNumDde() . " " . $infoOperateur->getFirstName() . " " . $infoOperateur->getLastName() . '</p><span>' . $rescalcul["total"] . "€" . '</span><span>' . $devis->getEstimationFin() . '</span>
-        <a href="factureCalcul.php?id=' . $id . '&type=' . $type . '"><img src="https://cdn.freebiesupply.com/logos/large/2x/adobe-pdf-icon-logo-png-transparent.png" width="20px"></a></li>';
+        <a href="factureCalcul.php?id=' . $id . '&type=' . $type . '" target="_blank"><img src="https://cdn.freebiesupply.com/logos/large/2x/adobe-pdf-icon-logo-png-transparent.png" width="20px"></a></li>';
     }
 }
 
@@ -62,7 +62,7 @@ function etatAllRdvForDevis(string $etat, string $emoji): void
         $infoOperateur = $TheClients->getOne($dde_Intervention->getCodeClient());
         $rescalcul = calculCost($dde_Intervention->getNumDde(), "devis", true);
         echo '<li><p id="id_devis" hidden>' . $id . '</p>' . $emoji . '<p>' . $dde_Intervention->getNumDde() . " " . $infoOperateur->getFirstName() . " " . $infoOperateur->getLastName() . '</p><span>' . $rescalcul["total"] . "€" . '</span><span>' . $devis->getEstimationFin() . '</span>
-        <a href="factureCalcul.php?id=' . $id . '&type=' . $type . '"><img src="https://cdn.freebiesupply.com/logos/large/2x/adobe-pdf-icon-logo-png-transparent.png" width="20px"></a></li>';
+        <a href="factureCalcul.php?id=' . $id . '&type=' . $type . '" target="_blank"><img src="https://cdn.freebiesupply.com/logos/large/2x/adobe-pdf-icon-logo-png-transparent.png" width="20px"></a></li>';
     }
 }
 
@@ -83,7 +83,7 @@ function etatRdvForFacture(string $etat, string $emoji): void
         $rescalcul = calculCost($noFacture, "facture", true);
         $infoOperateur = $TheClients->getOne($dde_Intervention->getCodeClient());
         echo '<li>' . $emoji . '<p>' . $numDde . " " . $infoOperateur->getFirstName() . " " . $infoOperateur->getLastName() . '</p><span>' . $rescalcul["total"] . "€" . '</span><span>' . $devis->getEstimationFin() . '</span>
-        <a href="factureCalcul.php?id=' . $numDde . '&type=' . $type . '"><img src="https://cdn.freebiesupply.com/logos/large/2x/adobe-pdf-icon-logo-png-transparent.png" width="20px"></a></li>';
+        <a href="factureCalcul.php?id=' . $numDde . '&type=' . $type . '" target="_blank"><img src="https://cdn.freebiesupply.com/logos/large/2x/adobe-pdf-icon-logo-png-transparent.png" width="20px"></a></li>';
     }
 }
 
@@ -104,7 +104,7 @@ function etatAllRdvForFacture(string $etat, string $emoji): void
         $rescalcul = calculCost($noFacture, "facture", true);
         $infoOperateur = $TheClients->getOne($dde_Intervention->getCodeClient());
         echo '<li>' . $emoji . '<p>' . $numDde . " " . $infoOperateur->getFirstName() . " " . $infoOperateur->getLastName() . '</p><span>' . $rescalcul["total"] . "€" . '</span><span>' . $devis->getEstimationFin() . '</span>
-        <a href="factureCalcul.php?id=' . $numDde . '&type=' . $type . '"><img src="https://cdn.freebiesupply.com/logos/large/2x/adobe-pdf-icon-logo-png-transparent.png" width="20px"></a></li>';
+        <a href="factureCalcul.php?id=' . $numDde . '&type=' . $type . '" target="_blank"><img src="https://cdn.freebiesupply.com/logos/large/2x/adobe-pdf-icon-logo-png-transparent.png" width="20px"></a></li>';
     }
 }
 
@@ -155,7 +155,7 @@ function etatAllRdvForFacture(string $etat, string $emoji): void
                 <a href="#">Factures</a>
                 <div class="dropdown-content">
                     <a href="creer-rdv.php">Créer une facture</a>
-                    <a href="gestion-factures.php">Gestion des factures</a>
+                    <a href="liste-rdv.php">Gestion des factures</a>
                 </div>
             </div>
 
@@ -163,10 +163,11 @@ function etatAllRdvForFacture(string $etat, string $emoji): void
             <div>
                 <a href="consulter-pieces.php">Pièces</a>
                 <!-- <a href="#">Pièces</a>
-            <div class="dropdown-content">
-                <a href="commander-pieces.php">Commander des pièces</a>
-            </div> -->
+                <div class="dropdown-content">
+                    <a href="commander-pieces.php">Commander des pièces</a>
+                </div> -->
             </div>
+
 
 
         </section>

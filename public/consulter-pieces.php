@@ -3,8 +3,10 @@ session_start();
 require "autoload.php";
 require "checkAccess.php";
 
+// On vérifie que l'utilisateur est chef d'atelier.
 checkAccess("Chef d'atelier");
 
+// On se connecte à la base de données pour d'éventuelles manipulations.
 $TheArticle = new ArticleDAO(MaBD::getInstance());
 if (isset($_POST['article'])) {
     $search_article = $_POST['article'];
@@ -15,6 +17,8 @@ $message = "";
 
 $tableau = array();
 
+// On cherche dans la base de données la pièce saisie par l'utilisateur,
+// et on retourne le résultat trouvé.
 function cherche(array $tabArticle): array
 {
     $res = [];
@@ -23,7 +27,8 @@ function cherche(array $tabArticle): array
     } else {
         $search_article = "";
     }
-
+// Pour chaque article du tableau on va comparer son libellé avec la recherche
+// pour trouver une correspondance.
     foreach ($tabArticle as $key => $article) {
         if (strstr($article['LibelleArticle'], $search_article)) {
             array_push($res, $key);
@@ -31,7 +36,8 @@ function cherche(array $tabArticle): array
     }
     return $res;
 }
-
+// On trie tous les articles dans le tableau, en affichant leur identifiant, leur libellé,
+// leur type, leur prix et leur quantité.
 foreach ($TheArticle->getAllSort() as $article) {
     array_push($tableau, [
         'CodeArticle' => $article->getCodeArticle(), 'LibelleArticle' => $article->getLibelleArticle(), 'TypeArticle' => $article->getTypeArticle(), 'PrixUnitActuelHT' => $article->getPrixUnitActuelHT(), 'quantite' => $article->getQuantite()

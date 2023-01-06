@@ -1,6 +1,6 @@
 <?php
 
-
+// On vérifie que l'utilisateur est connecté, s'il ne l'est pas, on le redirige vers la page de connexion.
 function checkLogin()
 {
     if (!isset($_SESSION['role'])) {
@@ -9,6 +9,8 @@ function checkLogin()
     }
 }
 
+// Si un utilisateur esssaye de se connecter à une page auquel il n'a pas accès,
+//en fonction de son rôle, on le redirige vers sa page d'accueil correspondante.
 function checkAccess($role)
 {
     checkLogin();

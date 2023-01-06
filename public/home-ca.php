@@ -51,7 +51,7 @@ unset($_SESSION['operation']);
                 <a href="#">Factures</a>
                 <div class="dropdown-content">
                     <a href="creer-rdv.php">Créer une facture</a>
-                    <a href="gestion-factures.php">Gestion des factures</a>
+                    <a href="liste-rdv.php">Gestion des factures</a>
                 </div>
             </div>
 
@@ -91,11 +91,14 @@ unset($_SESSION['operation']);
             <h3>Factures</h3>
         </article>
 
-        <article class="btn-menu piece">
-            <img src="img/pieces.png" alt="Pièces">
-            <h3>Pièces</h3>
-        </article>
 
+
+        </a><a href="consulter-pieces.php">
+            <article class="btn-menu piece">
+                <img src="img/pieces.png" alt="Pièces">
+                <h3>Pièces</h3>
+            </article>
+        </a>
 
     </main>
 
@@ -153,7 +156,7 @@ unset($_SESSION['operation']);
                 </article>
             </a>
 
-            <a href="gestion-factures.php">
+            <a href="liste-rdv.php">
                 <article class="btn-menu facture">
                     <img src="img/factures.png" alt="Liste factures">
                     <h3>Consulter les factures</h3>

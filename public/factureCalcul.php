@@ -130,24 +130,24 @@ function createFacture($data, $id, $type)
         fclose($handle);
 
         // header('Location: facture.html');
+        var_dump($data);
 
+        // try {
+        //     // create the API client instance
+        //     $client = new \Pdfcrowd\HtmlToPdfClient("autocars", "3117be013b8ead56672293cfc9cc62ea");
 
-        try {
-            // create the API client instance
-            $client = new \Pdfcrowd\HtmlToPdfClient("autocars", "3117be013b8ead56672293cfc9cc62ea");
+        //     // run the conversion and write the result to a file
+        //     $client->convertFileToFile("facture.html", "facture.pdf");
 
-            // run the conversion and write the result to a file
-            $client->convertFileToFile("facture.html", "facture.pdf");
+        //     // redirect to facture.pdf
+        //     header('Location: facture.pdf');
+        // } catch (\Pdfcrowd\Error $why) {
+        //     // report the error
+        //     error_log("Pdfcrowd Error: {$why}\n");
 
-            // redirect to facture.pdf
-            header('Location: facture.pdf');
-        } catch (\Pdfcrowd\Error $why) {
-            // report the error
-            error_log("Pdfcrowd Error: {$why}\n");
-
-            // rethrow or handle the exception
-            throw $why;
-        }
+        //     // rethrow or handle the exception
+        //     throw $why;
+        // }
     } else {
         echo 'Le fichier n\'existe pas';
     }

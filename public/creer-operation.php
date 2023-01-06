@@ -12,6 +12,8 @@ $theOperations = new OperationDAO(MaBD::getInstance());
 $theArticles = new ArticleDAO(MaBD::getInstance());
 $theEntredeux = new entredeuxDAO(MaBD::getInstance());
 
+//On créé l'opération dans la base de données. Si l'insertion réussit, on retourne un message de réussite.
+//Sinon, on retourne un message d'erreur.
 if (isset($_POST['createOperation'])) {
     print_r($_POST["createOperation"]);
     $newOperation = new Operation(DAO::UNKNOWN_ID, (int) $_POST['CodeTarif'] ,$_POST['LibelleOp'],(int) $_POST['DureeOp'],1);
@@ -31,6 +33,7 @@ if (isset($_POST['createOperation'])) {
     $erreur = "une erreur c'est produite lors de la création de l'opération";
 }
 
+//Lorsque l'on appuie sur le bouton de réinitialisation, on vide le formulaire.
 if (isset($_POST["reset"])){
     $_POST=array();
     $_SESSION["CreationOp"] = array();
@@ -38,18 +41,12 @@ if (isset($_POST["reset"])){
     $_SESSION["QuantiteArt"] = array();
 }
 
-//formulaire création opération
+//On créé un formulaire d'opération.
 if (isset($_POST["LibelleOp"]) || isset($_POST["CodeTarif"]) ||isset($_POST["DureeOp"])) {
     $_SESSION["CreationOp"] = [$_POST["LibelleOp"],(int) $_POST["CodeTarif"],(int) $_POST["DureeOp"]];
 }
-//formulaire articles nécessaires
-//if (isset($_POST["listeArticles"]) || isset($_POST["QuantiteArt"])) {
-//    $_SESSION["listeArticles"] = $_POST["listeArticles"];
-//    $_SESSION["QuantiteArt"] = $_POST["QuantiteArt"];
-//    //$_SESSION["infoArticles"] = [$_SESSION["listeArticles"],$_SESSION["QuantiteArt"]];
-//}
 
-//formulaire articles nécessaires
+//On créé un formulaire des articles nécessaires à l'opération.
 if (isset($_POST["listeArticles"]) && !empty($_POST["listeArticles"])) {
     array_push($_SESSION["listeArticles"], $_POST["listeArticles"]);
 }
