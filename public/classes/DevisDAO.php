@@ -21,6 +21,13 @@ class DevisDAO extends DAO
 
     }
 
+    public function getOneByDde(object $dde): Devis{
+        $stmt = $this->pdo->prepare("SELECT * FROM Devis WHERE NumDde = ?");
+        $stmt->execute([$dde->getNumDde()]);
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+        return new Devis($row['NoDevis'], $row['NoFacture'], $row['NumDde'], $row['DateDevis'], $row['PrixEstimer'], $row['TauxTVA'], $row['estimation_fin']);
+    }
+
     public function insert(object $obj): int
     {
         $stmt = $this->pdo->prepare("INSERT INTO Devis (NoFacture,NumDde, DateDevis,PrixEstimer,TauxTVA,estimation_fin)"
