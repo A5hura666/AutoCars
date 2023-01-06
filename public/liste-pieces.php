@@ -4,8 +4,8 @@ require "autoload.php";
 require "checkAccess.php";
 
 checkAccess("Opérateur");
-
 $TheArticle = new ArticleDAO(MaBD::getInstance());
+//On récupère l'article recherché. Si aucune recherche n'est effectuée, on récupère un champ vide.
 if (isset($_POST['article'])) {
     $search_article = $_POST['article'];
 } else {
@@ -16,6 +16,7 @@ $message = "";
 
 $tableau = array();
 
+//On cherche dans la base de données un article correspondant à la recherche, et on le retourne.
 function cherche(array $tabArticle): array
 {
     $res = [];
@@ -32,7 +33,7 @@ function cherche(array $tabArticle): array
     }
     return $res;
 }
-
+//On saisit dans la tableau tous les articles.
 foreach ($TheArticle->getAllSort() as $article) {
     array_push($tableau, [
         'CodeArticle' => $article->getCodeArticle(), 'LibelleArticle' => $article->getLibelleArticle(), 'TypeArticle' => $article->getTypeArticle(), 'PrixUnitActuelHT' => $article->getPrixUnitActuelHT(), 'quantite' => $article->getQuantite()

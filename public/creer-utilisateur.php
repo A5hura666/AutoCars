@@ -9,7 +9,8 @@ $message = "";
 $erreur = "";
 
 $theUsers = new UsersDAO(MaBD::getInstance());
-
+//On insère le nouvel utilisateur dans la base de données. En cas de réussite, on renvoie un message de succès.
+//En cas d'échec, on renvoie un message d'échec.
 if (isset($_POST['createUser'])) {
     $newUser = new Users(DAO::UNKNOWN_ID, $_POST['nom'], $_POST['prenom'], $_POST['role'], $_POST['login'], password_hash($_POST['password'], PASSWORD_ARGON2ID));
     $message = $_POST['nom'] . " " . $_POST['prenom'] . " " . $_POST['role'] . " a bien été ajouté.";
@@ -35,22 +36,23 @@ if (isset($_POST['createUser'])) {
 
 <body>
     <nav>
-        <section class="nav-left"> <a class="nav-logo invert" href="home-ca.php"><img src="img/logo.png" alt="logo" /></a>
-            <div> <a href="home-ca.php">Accueil</a>
+        <section class="nav-left"> <a class="nav-logo invert" href="accueilAdmin"><img src="img/logo.png" alt="logo" /></a>
+            <div> <a href="home-admin.php">Accueil</a>
                 <div class="dropdown-content"></div>
             </div>
             <div><a href="creer-utilisateur.php">Créer un utilisateur</a>
                 <div class="dropdown-content"></div>
             </div>
-            <div><a href="statistiques.php">Statistiques</a>
+            <div>
+                <a href="statistiques.php">Statistiques</a>
                 <div class="dropdown-content"></div>
             </div>
             <div>
-                <a href="creer-operation.php">Créer une opération</a>
-                <!-- <a href="#">Opérations</a> -->
-                <!-- <div class="dropdown-content"> -->
-                    <!-- <a href="gestion-operations.php">Gérer les opérations</a> -->
-                <!-- </div> -->
+                <a href="creer-operation.php">Opérations</a>
+                <!-- <div class="dropdown-content">
+                    <a href="creer-operation.php">Créer une opération</a>
+                    <a href="gestion-operations.php">Gérer les opérations</a>
+                </div> -->
             </div>
         </section>
         <section class="nav-right">

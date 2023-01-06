@@ -8,7 +8,7 @@ if (sizeof($_GET) == 2) {
     calculCost($_GET['id'], $_GET['type'], false);
 }
 
-
+//On calcule le coût total de la facture.
 function calculCost($id, $type, $bool)
 {
     $rescalcul = [];
@@ -25,6 +25,7 @@ function calculCost($id, $type, $bool)
     $rescalcul["total"] = 0;
     $rescalcul["operations"] = [];
 
+    //Si le document est une facture ou un devis, on utilise le comportement adéquat.
     if ($type == "facture") {
         $operationList = $RealiserOp->getOperationForOneFacture($id);
     } else if ($type == "devis") {
@@ -32,14 +33,12 @@ function calculCost($id, $type, $bool)
     }
 
 
-
+    //On récupère les détails de chaque opération pour les intégrer à la facture.
     foreach ($operationList as $operation) {
         $operationDetails = $Operation->getOne($operation->getCodeOp());
         $tempOpPrice = $operationDetails->getCodeTarif();
 
         $articleNeccessary = $EntreDeux->getArticleForOneOperation($operation->getCodeOp());
-
-        // var_dump($articleNeccessary);
 
         foreach ($articleNeccessary as $article) {
             $articleDetails = $Article->getOne($article->getCodeArticle());
@@ -56,7 +55,7 @@ function calculCost($id, $type, $bool)
         $rescalcul["total"] += $tempOpPrice;
     }
 
-
+    
     if ($bool) {
         return $rescalcul;
     } else {
@@ -64,7 +63,7 @@ function calculCost($id, $type, $bool)
     }
 }
 
-
+//On créé une nouvelle facture.
 function createFacture($data, $id, $type)
 {
 
@@ -75,13 +74,13 @@ function createFacture($data, $id, $type)
     $Devis = new DevisDAO(MaBD::getInstance());
     $Client = new ClientsDAO(MaBD::getInstance());
     $DDE = new Dde_InterventionDAO(MaBD::getInstance());
-
+    //On vérifie si une facture existe déjà.
     if (file_exists('facture.html')) {
         $date = "Undifined";
 
 
 
-
+        //On utilise différents comportements selon que le document soit un devis ou une facture.
         if ($type == "facture") {
             $date = $Facture->getOne($RealiserOp->getOne($id)->getNoFacture())->getDateFacture();
 
@@ -105,7 +104,7 @@ function createFacture($data, $id, $type)
         }
 
 
-
+        //Contenu de la facture
         $htmlcode = "<!DOCTYPE html><head><meta charset='UTF-8'></head><body><h1 style='text-align: center;'>Facture</h1><br>";
 
         $htmlcode .= "<p><strong>" . $fname . " " . $lname . ",</strong><br>Voici votre facture du " . $date . ".</p><br>";
@@ -124,28 +123,26 @@ function createFacture($data, $id, $type)
         $htmlcode .= "</ul></body></html>";
 
 
-
+        //On écrit les données dans la facture.
         $handle = fopen('facture.html', 'w+');
         fwrite($handle, $htmlcode);
         fclose($handle);
 
-        // header('Location: facture.html');
-        // var_dump($data);
 
         try {
-            // create the API client instance
+            //On créé la connexion client.
             $client = new \Pdfcrowd\HtmlToPdfClient("autocars", "3117be013b8ead56672293cfc9cc62ea");
 
-            // run the conversion and write the result to a file
+            //On exécute la conversion et l'enregistre dans un document.
             $client->convertFileToFile("facture.html", "facture.pdf");
 
-            // redirect to facture.pdf
+            //On redirige vers "facture.pdf".
             header('Location: facture.pdf');
         } catch (\Pdfcrowd\Error $why) {
-            // report the error
+            //En cas d'erreur, on la retourne.
             error_log("Pdfcrowd Error: {$why}\n");
 
-            // rethrow or handle the exception
+            //Relance ou prend en main l'exception.
             throw $why;
         }
     } else {

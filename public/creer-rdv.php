@@ -55,7 +55,7 @@ $temps = $temps->format('H:i');
 $temps = explode(':', $temps);
 $hour = $temps[0];
 $min = $temps[1];
-
+//Gestion de devis d'intervention
 if (isset($_POST["sub"])) {
     date_default_timezone_set('Europe/Paris');
 

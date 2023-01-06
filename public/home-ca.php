@@ -2,7 +2,8 @@
 session_start();
 require_once "autoload.php";
 require "checkAccess.php";
-
+//On vérifie que l'utilisateur soit bien un chef d'atelier.
+//Sinon, on le renvoie sur sa page correspondante.
 checkAccess("Chef d'atelier");
 
 unset($_SESSION['operation']);

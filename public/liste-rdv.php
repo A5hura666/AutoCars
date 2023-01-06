@@ -23,7 +23,7 @@ if (!isset($_SESSION["etat"])) {
     $_SESSION["etat"] = "Tous";
 }
 
-//fonction de trie rdv
+//On trie les RDV pour devis.
 function etatRdvForDevis(string $etat, string $emoji): void
 {
     $Dde_Intervention = new Dde_InterventionDAO(MaBD::getInstance());

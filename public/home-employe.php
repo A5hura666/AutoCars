@@ -2,7 +2,8 @@
 session_start();
 require_once "autoload.php";
 require "checkAccess.php";
-
+//On vérifie que l'utilisateur soit bien un opérateur.
+//Sinon, on le redirige vers sa page correspondante.
 checkAccess("Opérateur")
 
 
