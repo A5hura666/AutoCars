@@ -50,7 +50,7 @@ function etatRdv(string $etat, string $emoji): void
     }
 }
 
-//Regarde si l'état courrant est le même que celui du formulaire si non upadte l'etat de la Dde_intervention
+//Regarde si l'état courrant est le même que celui du formulaire si non update l'etat de la Dde_intervention
 if (isset($_SESSION['info_dde']) && isset($_POST["detailstate"])) {
 $DemandeInter=$Dde_Intervention->getOne($_SESSION['info_dde']);
 $etatDde = $DemandeInter->getEtatDemande();
@@ -82,7 +82,7 @@ if (isset($_POST["operation"]) && !empty($_POST["operation"])){
 
 <head>
     <meta charset="utf-8">
-    <title>AutoCars | Gestion des Véhicule</title>
+    <title>AutoCars | Liste des opérations</title>
     <link rel="stylesheet" href="css/gestion-utilisateur.css">
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/liste.css">
@@ -202,7 +202,6 @@ if (isset($_POST["operation"]) && !empty($_POST["operation"])){
                                         $operationInfo["nom"] = $operationDetails->getLibelleOp();
 
                                         echo '<input type="text" name="detailsoperation" id="detailsoperation" value="'. $operationInfo["nom"] .'" disabled>';
-
                                     }
                                 }
                                 ?>

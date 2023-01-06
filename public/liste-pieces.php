@@ -46,7 +46,7 @@ foreach ($TheArticle->getAllSort() as $article) {
 
 <head>
     <meta charset="utf-8">
-    <title>AutoCars | Gestion des client</title>
+    <title>AutoCars | Stocks de pièces</title>
     <link rel="stylesheet" href="css/gestion-utilisateur.css">
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/liste.css">
@@ -78,7 +78,7 @@ foreach ($TheArticle->getAllSort() as $article) {
     </nav>
 
     <main class="interface">
-        <h2>Gestion des stocks de pièces</h2>
+        <h2>Stocks de pièces</h2>
         <section>
             <aside>
                 <div class="recherche">
@@ -102,7 +102,7 @@ foreach ($TheArticle->getAllSort() as $article) {
                         } else {
                             $message = "Article inconnu";
                             foreach ($TheArticle->getAllSort() as $article) {
-                                echo "<li class='big'><span> " . $article->getLibelleArticle() . " </span><input type='number' value=" . $article->getQuantite() . " class='small' min='0'></li>";
+                                echo "<li class='big'><span> " . $article->getLibelleArticle() . " </span><input type='number' value=" . $article->getQuantite() . " class='small' min='0' disabled></li>";
                             }
                         }
                         ?>

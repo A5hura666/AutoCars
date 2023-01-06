@@ -43,6 +43,7 @@ foreach ($TheArticle->getAllSort() as $article) {
         'CodeArticle' => $article->getCodeArticle(), 'LibelleArticle' => $article->getLibelleArticle(), 'TypeArticle' => $article->getTypeArticle(), 'PrixUnitActuelHT' => $article->getPrixUnitActuelHT(), 'quantite' => $article->getQuantite()
     ]);
 }
+
 ?>
 
 <!DOCTYPE html>
@@ -94,10 +95,7 @@ foreach ($TheArticle->getAllSort() as $article) {
 
             <div>
                 <a href="consulter-pieces.php">Pièces</a>
-                <!-- <a href="#">Pièces</a>
-                <div class="dropdown-content">
-                    <a href="commander-pieces.php">Commander des pièces</a>
-                </div> -->
+
             </div>
 
 
