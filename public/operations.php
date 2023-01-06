@@ -13,6 +13,8 @@ $TheFacture = new FactureDAO(MaBD::getInstance());
 $TheDevis = new DevisDAO(MaBD::getInstance());
 $TheVehicule = new VehiculesDAO(MaBD::getInstance());
 $Modele = new ModeleDAO(MaBD::getInstance());
+$Operation = new OperationDAO(MaBD::getInstance());
+$EntreDeux = new entredeuxDAO(MaBD::getInstance());
 
 //Pour gérer les états
 $TabEtat = ["En attente", "En cours", "Terminé", "Annulé"];
@@ -42,6 +44,7 @@ function etatRdv(string $etat, string $emoji): void
     }
 }
 
+//Regarde si l'état courrant est le même que celui du formulaire si non upadte l'etat de la Dde_intervention
 if (isset($_SESSION['info_dde']) && isset($_POST["detailstate"])) {
 $DemandeInter=$Dde_Intervention->getOne($_SESSION['info_dde']);
 $etatDde = $DemandeInter->getEtatDemande();
@@ -143,10 +146,48 @@ $etatDde = $DemandeInter->getEtatDemande();
                         </div>
 
                         <div>
-                            <label>Opération</label>
-                            <div>
-                                <label for="detailsoperation">Opération</label>
-                                <input type="text" name="detailsoperation" id="detailsoperation" disabled>
+                            <label>Ajouter une opération</label>
+                            <div class="fcolumn">
+                                <div>
+                                <?php
+                                if (empty($_SESSION["operation"])) {
+                                    $_SESSION["operation"] = [];
+                                }
+                                echo '<input type="text" name="operation" class="operationsearchbar" placeholder="Ajoutez une opération" list="operationlist">';
+                                ?>
+                                <datalist id="operationlist">
+                                    <?php
+                                    foreach ($Operation->getAll() as $operation) {
+                                        echo '<option value="' . $operation->getLibelleOp() . '">';
+                                    }
+                                    ?>
+                                </datalist>
+                            </div>
+
+                                <label for="detailsoperation">Opérations</label>
+                                <div class="fcolumn list-small">
+                                <?php
+                                if (isset($_SESSION['info_dde'])){
+                                    $DemandeInter=$Dde_Intervention->getOne($_SESSION['info_dde']);
+                                    $numDde=$DemandeInter->getNumDde();
+                                    $devis = $TheDevis->getOne($numDde);
+                                    $noFacture = $devis->getNoFacture();
+
+                                    $operationList = $RealiserOp->getOperationForOneFacture($noFacture);
+
+                                    foreach ($operationList as $operation) {
+                                        $operationDetails = $Operation->getOne($operation->getCodeOp());
+
+                                        $operationInfo = [];
+                                        $operationInfo["nom"] = $operationDetails->getLibelleOp();
+
+                                        for ($index = 0; $index<=count($operationInfo);$index++){
+                                            echo '<input type="text" name="detailsoperation" id="detailsoperation" value="'. $operationInfo["nom"] .'" disabled>';
+                                        }
+                                    }
+                                }
+                                ?>
+                                </div>
                             </div>
                         </div>
 

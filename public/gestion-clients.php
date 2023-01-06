@@ -148,7 +148,6 @@ if (isset($_POST['Modifier'])){
                         <div>
                             <label for="clientname">Informations</label>
                             <div>
-                                <input type="text" name="id" id="id" value="<?php echo $newClient->getCodeClient() ?>" hidden>
                                 <label for="name">Nom</label>
                                 <input type="text" name="name" id="name" value="<?php echo $newClient->getLastName() ?>">
                             </div>
@@ -209,8 +208,10 @@ if (isset($_POST['Modifier'])){
                             </div>
                         </div>
                         <div>
-                            <input type="submit" name="Modifier" value="Modifier">
-                            <input type="submit" value="Supprimer">
+                            <div class="frow">
+                                <input type="submit" name="Modifier" value="Modifier">
+                                <input type="submit" value="Supprimer">
+                            </div>
                         </div>
                     </form>
                 </div>
