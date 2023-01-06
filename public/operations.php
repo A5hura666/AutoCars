@@ -57,6 +57,12 @@ $etatDde = $DemandeInter->getEtatDemande();
     }
 }
 
+if (isset($_SESSION["operation"]) && !empty($_SESSION["operation"])){
+    array_push($_SESSION["operation"],$_POST["operation"]);
+}
+
+//$reaOp = new Réaliser_Op($facture->getNoFacture(), $TheOperation->getOneByLibOP($op)->getCodeOp());
+//$TheReaOp->insert($reaOp);
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -186,6 +192,7 @@ $etatDde = $DemandeInter->getEtatDemande();
                                             echo '<input type="text" name="detailsoperation" id="detailsoperation" value="'. $operationInfo["nom"] .'" disabled>';
                                         }
                                     }
+                                    var_dump($_SESSION["operation"]);
                                 }
                                 ?>
                                 </div>
