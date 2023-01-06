@@ -66,8 +66,8 @@ class Dde_InterventionDAO extends DAO
 
     public function update(object $obj): int
     {
-        $stmt = $this->pdo->prepare("UPDATE DDE_Intervention set NoImmatriculation=:NoImmatriculation, IdOpérateur=:IdOpérateur, CodeClient=:CodeClient, DateRdv=:DateRdv, HeureRdv=:HeureRdv,Descriptif_demande=:Descriptif_demande,km_actuel=:km_actuel,EtatDemande=:EtatDemande WHERE NumDde=:NumDde");
-        return $stmt->execute(['NumDde' => $obj->getNumDde(),'NoImmatriculation' => $obj->getNoImmatriculation(), 'IdOpérateur' => $obj->getIdOpérateur(), 'CodeClient' => $obj->getCodeClient(), 'DateRdv' => $obj->getDateRdv(), 'HeureRdv' => $obj->getHeureRdv(),'Descriptif_demande' => $obj->getDescriptifDemande(),'km_actuel' => $obj->getKmActuel(),'EtatDemande' => $obj->getEtatDemande()]);
+        $stmt = $this->pdo->prepare("UPDATE DDE_Intervention set EtatDemande=:EtatDemande WHERE NumDde=:NumDde");
+        return $stmt->execute(['EtatDemande' => $obj->getEtatDemande(),'NumDde' => $obj->getNumDde()]);
     }
 
     public function delete(object $obj): int
