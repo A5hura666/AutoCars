@@ -4,6 +4,11 @@ require "autoload.php";
 require "pdfcrowd.php";
 
 
+if (sizeof($_GET) == 2) {
+    calculCost($_GET['id'], $_GET['type'], false);
+}
+
+
 function calculCost($id, $type, $bool)
 {
     $rescalcul = [];
@@ -51,7 +56,6 @@ function calculCost($id, $type, $bool)
         $rescalcul["total"] += $tempOpPrice;
     }
 
-    //var_dump($rescalcul);
 
     if ($bool) {
         return $rescalcul;
@@ -64,6 +68,7 @@ function calculCost($id, $type, $bool)
 function createFacture($data, $id, $type)
 {
 
+
     $PrevoirOp = new Prévoir_OpDAO(MaBD::getInstance());
     $RealiserOp = new Réaliser_OpDAO(MaBD::getInstance());
     $Facture = new FactureDAO(MaBD::getInstance());
@@ -73,7 +78,6 @@ function createFacture($data, $id, $type)
 
     if (file_exists('facture.html')) {
         $date = "Undifined";
-        $clientName = "Undifined";
 
 
 
@@ -91,30 +95,31 @@ function createFacture($data, $id, $type)
             $detailsClient = $Client->getOne($noDDE->getCodeClient());
             $fname = $detailsClient->getFirstName();
             $lname = $detailsClient->getLastName();
-
-
-        } 
-        else if ($type == "devis") {
+        } else if ($type == "devis") {
             $date = $Devis->getOne($PrevoirOp->getOne($id)->getNoDevis())->getDateDevis();
 
             $noDDE = $DDE->getOne($PrevoirOp->getOne($id)->getNoDevis());
             $detailsClient = $Client->getOne($noDDE->getCodeClient());
             $fname = $detailsClient->getFirstName();
             $lname = $detailsClient->getLastName();
-
-            
         }
 
 
 
-        $htmlcode = "<!DOCTYPE html><head><meta charset='UTF-8'></head><body><h1 style='text-align: center;'>~ Facture  ~</h1><br>";
+        $htmlcode = "<!DOCTYPE html><head><meta charset='UTF-8'></head><body><h1 style='text-align: center;'>Facture</h1><br>";
 
         $htmlcode .= "<p><strong>" . $fname . " " . $lname . ",</strong><br>Voici votre facture du " . $date . ".</p><br>";
 
         $htmlcode .= "<h2>Montant total</h2><p>" . $data["total"] . "€</p><br>";
         $htmlcode .= "<h2>Liste des opérations effectuées</h2><ul>";
-        foreach ($data["operations"] as $operation) {
-            $htmlcode .= "<li>" . $operation["nom"] . " : <strong>" . $operation["prix"] . "€</strong></li>";
+        if ($type == "facture") {
+            foreach ($data["operations"] as $operation) {
+                $htmlcode .= "<li>" . $operation["nom"] . " : <strong>" . $operation["prix"] . "€</strong></li>";
+            }
+        } else if ($type == "devis") {
+            foreach ($data["operations"] as $operation) {
+                $htmlcode .= "<li>" . $operation["nom"] . " </li>";
+            }
         }
         $htmlcode .= "</ul></body></html>";
 
@@ -124,45 +129,28 @@ function createFacture($data, $id, $type)
         fwrite($handle, $htmlcode);
         fclose($handle);
 
-        //header('Location: facture.html');
+        // header('Location: facture.html');
 
-        // try {
-        //     // create the API client instance
-        //     $client = new \Pdfcrowd\HtmlToPdfClient("autocars", "3117be013b8ead56672293cfc9cc62ea");
 
-        //     // run the conversion and write the result to a file
-        //     $client->convertFileToFile("facture.html", "facture.pdf");
+        try {
+            // create the API client instance
+            $client = new \Pdfcrowd\HtmlToPdfClient("autocars", "3117be013b8ead56672293cfc9cc62ea");
 
-        //     // redirect to facture.pdf
-        //     header('Location: facture.pdf');
-        // } catch (\Pdfcrowd\Error $why) {
-        //     // report the error
-        //     error_log("Pdfcrowd Error: {$why}\n");
+            // run the conversion and write the result to a file
+            $client->convertFileToFile("facture.html", "facture.pdf");
 
-        //     // rethrow or handle the exception
-        //     throw $why;
-        // }
+            // redirect to facture.pdf
+            header('Location: facture.pdf');
+        } catch (\Pdfcrowd\Error $why) {
+            // report the error
+            error_log("Pdfcrowd Error: {$why}\n");
+
+            // rethrow or handle the exception
+            throw $why;
+        }
     } else {
         echo 'Le fichier n\'existe pas';
     }
 }
 ?>
 
-
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-
-<body>
-    <?php
-    calculCost(2, "devis", false);
-    ?>
-</body>
-
-</html>

@@ -39,3 +39,12 @@ piece.addEventListener('click', openpiece);
 function openpiece(){
     document.querySelector('.pieces-full').classList.remove('hidden')
 }
+document.querySelector('bouton').addEventListener('click',f(1,'devis',false));
+
+function f(id,type,bool) {
+    console.log(id)
+    console.log(type)
+    console.log(bool)
+    let res = fetch(`../factureCalcul.php?function=calculCost?id=${id}?type=${type}?bool=${bool}`).then((response) => response.json()).then((data))
+
+}

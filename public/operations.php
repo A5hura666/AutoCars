@@ -136,6 +136,7 @@ function etatRdv(string $etat, string $emoji): void
                                 <option value="en attente">En attente</option>
                                 <option value="en cours">En cours</option>
                                 <option value="terminé">Terminé</option>
+                                <option value="annulé">Annulé</option>
                             </select>
                         </div>
 
